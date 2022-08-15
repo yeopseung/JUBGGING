@@ -27,7 +27,7 @@
         />
 
     <item
-        android:id="@+id/point"
+        android:id="@+id/point_shop"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="포인트샵"
         android:enabled="true"
