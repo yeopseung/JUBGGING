@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ranking"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="랭킹"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/together"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="함께줍깅"
+        android:enabled="true"
+        />
+    <item
+        android:id="@+id/main"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="나의 줍깅"
+        android:enabled="true"
+        />
+    <item
+        android:id="@+id/trash_map"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="쓰레기통"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/point"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="포인트 샵"
+        android:enabled="true"
+        />
+
+</menu>

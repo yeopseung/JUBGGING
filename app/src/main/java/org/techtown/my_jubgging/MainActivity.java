@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -11,5 +13,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
     }
 }
