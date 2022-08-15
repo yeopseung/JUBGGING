@@ -14,7 +14,7 @@
         android:enabled="true"
         />
     <item
-        android:id="@+id/main"
+        android:id="@+id/home"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="나의 줍깅"
         android:enabled="true"
