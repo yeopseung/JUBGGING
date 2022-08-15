@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="230dp"
     android:padding="20dp">
 
     <!-- Head Line -->
@@ -20,8 +20,8 @@
             android:layout_weight="1"
 
             android:text="모집 완료"
+            android:textColor="@color/deep_gray"
             android:textSize="12dp"
-            android:textColor="@color/text_color_light"
 
             android:layout_gravity=""
             android:gravity="center"
@@ -39,45 +39,144 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="30">
+        android:layout_weight="25">
 
         <TextView
+            android:id="@+id/head_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_weight="8"
 
-            android:text="헤드 라인"
-            android:textStyle="bold"
-            android:textSize="24dp"
+            android:text="[헤드 라인] 테스트 문구입니다. 많이 지원해 주실거죠?"
             android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:textSize="18dp"
 
+            android:maxLines="1"
+            android:ellipsize="end"
             android:gravity="center_vertical"/>
 
         <TextView
+            android:id="@+id/body_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="12"
 
             android:text="몸통에 해당하는 부분입니다. 자세한 내용을 담아내고 있는 내용입니다. 내용이 길어지면 잘라지게 하고 싶습니다. 어떻게 하면 잘리게 할 수 있을까요? SAMPLE"
-            android:textSize="14dp"
             android:textColor="@color/text_color_light"
+            android:textSize="14dp"
 
             android:maxLines="2"
             android:ellipsize="end"/>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_baseline_access_time_24"/>
 
+            <TextView
+                android:id="@+id/start_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
 
+                android:text="3월 26일 오후 16:00"
+                android:textColor="@color/text_color"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_baseline_people_outline_24" />
+
+            <TextView
+                android:id="@+id/participants"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+
+                android:text="3/4 명"
+                android:textColor="@color/text_color"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Bottom Line -->
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5">
+        
+        <TextView
+            android:id="@+id/region1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:layout_margin="3dp"
+
+            android:text="상도동"
+            android:textColor="@color/text_color_light"
+            android:textStyle="bold"
+
+            android:gravity="center"
+            android:background="@color/main_color_4"/>
+
+        <TextView
+            android:id="@+id/region2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:layout_margin="3dp"
+
+            android:text="왕십리도선동"
+            android:textColor="@color/text_color_light"
+            android:textStyle="bold"
+
+            android:gravity="center"
+            android:background="@color/main_color_4"/>
+
+        <TextView
+            android:id="@+id/region3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:layout_margin="3dp"
+
+            android:text="돈암2동"
+            android:textColor="@color/text_color_light"
+            android:textStyle="bold"
+
+            android:gravity="center"
+            android:background="@color/main_color_4"/>
+
+        <TextView
+            android:id="@+id/upload_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+
+            android:text="3시간 전"
+            android:textColor="@color/text_color_light"
+
+            android:gravity="center_vertical"
+            android:textDirection="rtl"
+            android:textStyle="bold"/>
     </LinearLayout>
-
-
 
 </LinearLayout>

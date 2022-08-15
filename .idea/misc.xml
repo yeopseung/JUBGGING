@@ -3,11 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_main.xml" value="0.44635416666666666" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2435" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.2435" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/ic_baseline_people_outline_24.xml" value="0.2435" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2435" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/outline_rectangle.xml" value="0.2475" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/rounded_rectangle.xml" value="0.2425" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_main.xml" value="0.2857142857142857" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_ranking.xml" value="0.44635416666666666" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_together_board.xml" value="0.4453125" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/adapter_together_recycler.xml" value="0.36538461538461536" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_togerther_newpage.xml" value="0.2857142857142857" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_together_board.xml" value="0.19623770842240273" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/adapter_together_recycler.xml" value="0.3828571428571429" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/menu/bottom_menu.xml" value="0.44635416666666666" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2435" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2435" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3085" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3085" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/activity_main.xml" value="0.3515625" />

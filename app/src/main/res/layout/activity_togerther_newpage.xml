@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="90">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:padding="15dp"
+
+            android:text="작성자에게 카카오톡 오픈 채팅방을 이용해야함을 알리는 설명 문구가 줄줄줄 ..."
+            android:textColor="@color/text_color"
+
+            android:gravity="center_vertical"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+
+            android:text="지역 선택"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:textSize="18dp"
+
+            android:gravity="bottom"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+
+            android:text="지역을 선택해 주세요   ▼"
+            android:textColor="@color/text_color_light"
+
+            android:gravity="center_vertical"
+            android:backgroundTint="@color/main_color_5" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+
+            android:text="제목"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:textSize="18dp"
+
+            android:gravity="bottom"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:paddingLeft="15dp"
+            android:hint="제목을 입력해주세요."
+
+            android:background="@drawable/outline_rectangle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+
+            android:text="활동 내용"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:textSize="18dp"
+
+            android:gravity="bottom"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:padding="15dp"
+            android:text="간단한 자기소개와 함께 내용을 작성해 주세요."
+
+            android:background="@drawable/outline_rectangle"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="8"
+
+                    android:text="인원"
+                    />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+
+            android:text="장소"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:textSize="18dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:hint="zz"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+
+            android:text="카카오톡 오픈 채팅방 주소"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:textSize="18dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:hint="간단한 자기소개와 함께 내용을 작성해 주세요."/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+
+        android:text="만들기"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+
+</LinearLayout>

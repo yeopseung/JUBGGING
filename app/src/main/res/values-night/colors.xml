@@ -13,10 +13,10 @@
     <!-- JaeWoo Added -->
 
     <!-- Green Juicy Apple Palette -->
-    <color name="main_color_1">#FF365902</color>
-    <color name="main_color_2">#FF84A608</color>
-    <color name="main_color_3">#FFAED914</color>
-    <color name="main_color_4">#FFC1D06A</color>
+    <color name="main_color_1">#FFC1D06A</color>
+    <color name="main_color_2">#FFAED914</color>
+    <color name="main_color_3">#FF84A608</color>
+    <color name="main_color_4">#FF365902</color>
     <color name="main_color_5">#FFF2F2F2</color>
 
     <!-- Additional Color -->
