@@ -16,7 +16,7 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="나의 줍깅"
+        android:title="나의줍깅"
         android:enabled="true"
         />
     <item
@@ -29,7 +29,7 @@
     <item
         android:id="@+id/point"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="포인트 샵"
+        android:title="포인트샵"
         android:enabled="true"
         />
 
