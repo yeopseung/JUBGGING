@@ -135,7 +135,7 @@
             android:textStyle="bold"
 
             android:gravity="center"
-            android:background="@color/main_color_4"/>
+            android:background="@drawable/rounded_rectangle"/>
 
         <TextView
             android:id="@+id/region2"
@@ -149,7 +149,7 @@
             android:textStyle="bold"
 
             android:gravity="center"
-            android:background="@color/main_color_4"/>
+            android:background="@drawable/rounded_rectangle"/>
 
         <TextView
             android:id="@+id/region3"
@@ -163,7 +163,7 @@
             android:textStyle="bold"
 
             android:gravity="center"
-            android:background="@color/main_color_4"/>
+            android:background="@drawable/rounded_rectangle"/>
 
         <TextView
             android:id="@+id/upload_time"

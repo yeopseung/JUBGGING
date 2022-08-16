@@ -23,6 +23,8 @@
     <color name="gray">#FFA1A1A1</color>
     <color name="deep_gray">#FF333333</color>
 
+    <color name="transparent">#00FFFFFF</color>
+
     <!-- Text Color -->
     <color name="text_color">@color/black</color>
     <color name="text_color_light">@color/deep_gray</color>

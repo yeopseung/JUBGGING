@@ -17,12 +17,14 @@
     <color name="main_color_2">#FFAED914</color>
     <color name="main_color_3">#FF84A608</color>
     <color name="main_color_4">#FF365902</color>
-    <color name="main_color_5">#FFF2F2F2</color>
+    <color name="main_color_5">#FF2F2F2F</color>
 
     <!-- Additional Color -->
     <color name="light_gray">#FFD3D3D3</color>
     <color name="gray">#FFA1A1A1</color>
     <color name="deep_gray">#FF333333</color>
+
+    <color name="transparent">#00FFFFFF</color>
 
     <!-- Text Color -->
     <color name="text_color">@color/white</color>
