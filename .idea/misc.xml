@@ -3,31 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2435" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/gray_line.xml" value="0.1885" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.2435" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/ic_baseline_chevron_left_24.xml" value="0.247" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/ic_baseline_people_outline_24.xml" value="0.2435" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2435" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/outline_rectangle.xml" value="0.2475" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/rounded_rectangle.xml" value="0.2425" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_main.xml" value="0.2857142857142857" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_ranking.xml" value="0.44635416666666666" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_togerther_newpage.xml" value="0.2857142857142857" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_together_board.xml" value="0.19623770842240273" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/adapter_together_recycler.xml" value="0.3828571428571429" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/menu/bottom_menu.xml" value="0.44635416666666666" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2435" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2435" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3085" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3085" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/activity_main.xml" value="0.3515625" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/activity_ranking.xml" value="0.1585144927536232" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/activity_togerther_newpage.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/activity_together_board.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/adapter_together_recycler.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/fragment_home.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/fragment_map.xml" value="0.17097264437689969" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/fragment_point_shop.xml" value="0.17097264437689969" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/fragment_ranking.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/layout/fragment_together.xml" value="0.22" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/menu/bottom_menu.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3085" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
