@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="org.techtown.my_jubgging">
-
     <!-- Jaewoo Added For Linking With Spring Boot -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.My_Jubgging"
         tools:targetApi="31">
+        <activity
+            android:name=".MainMenu"
+            android:exported="false" />
         <activity
             android:name=".ranking"
             android:exported="false" />
