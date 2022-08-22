@@ -3,6 +3,12 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        /*SeungYeop Added For Kakao Login/Logout*/
+        maven {
+            url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/'
+            allowInsecureProtocol true
+        }
+
     }
 }
 dependencyResolutionManagement {
@@ -10,6 +16,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        /*SeungYeop Added For Kakao Login/Logout*/
+        maven {
+            url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/'
+            allowInsecureProtocol true
+        }
     }
 }
 rootProject.name = "My_Jubgging"

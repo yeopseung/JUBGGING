@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.kakao.usermgmt.response.model.User;
 
 import org.techtown.my_jubgging.fragment.HomeFragment;
 import org.techtown.my_jubgging.fragment.PointShopFragment;
@@ -28,11 +32,17 @@ public class MainMenu extends AppCompatActivity {
     private TrashMapFragment trashMapFragment = new TrashMapFragment();
     private PointShopFragment pointShopFragment = new PointShopFragment();
 
+    // 내 프로필 이동 버튼
+    private Button button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        //Intent 에서 UserInfo 가져오기
+        UserInfo userInfo = (UserInfo)getIntent().getSerializableExtra("userInfo");
 
         //첫 화면 지정
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -43,6 +53,18 @@ public class MainMenu extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navi_view);
         bottomNavigationView.setOnItemSelectedListener(new MainMenu.ItemSelectedListener());
         bottomNavigationView.setSelectedItemId(R.id.home);
+
+        //Button 등록
+        button = findViewById(R.id.main_my_profile_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainMenu.this,MyProfile.class);
+                intent.putExtra("userInfo",userInfo);
+                startActivity(intent);
+            }
+        });
+
     }
 
 

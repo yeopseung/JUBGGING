@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.techtown.my_jubgging">
     <!-- Jaewoo Added For Linking With Spring Boot -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- SeungYeop Added For Kakao Api 인터넷 연결확인 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".auth.Login"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,15 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.My_Jubgging"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MyProfile"
+            android:exported="false" />
+        <activity
+            android:name=".auth.AddressAPI"
+            android:exported="false" />
+        <activity
+            android:name=".auth.SignUp"
+            android:exported="false" />
+        <activity
             android:name=".MainMenu"
-            android:exported="false" />
-        <activity
-            android:name=".ranking"
-            android:exported="false" />
-        <activity
-            android:name=".Ranking"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -33,6 +39,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="d4f06e73b7dccf835b06f39a7ee398ab" />
     </application>
 
 </manifest>
