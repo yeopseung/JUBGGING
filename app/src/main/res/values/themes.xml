@@ -12,5 +12,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!-- 캘린더 상단 색상 -->
+        <item name="colorAccent">@color/main_color_1</item>
+        <!-- 캘린더 선택 생상 -->
+        <item name="colorControlActivated">@color/main_color_1</item>
+        <item name="colorControlHighlight">@color/main_color_1</item>
+        <!-- 캘린더 확인 취소 색상 -->
+        <item name="android:textColor">@color/text_color</item>
     </style>
+
 </resources>

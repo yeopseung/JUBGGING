@@ -5,10 +5,30 @@
     android:layout_height="match_parent"
     tools:context=".fragment.TogetherFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="함께줍깅" />
+        android:padding="15dp">
 
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="함께줍깅" />
+
+        <ImageButton
+            android:id="@+id/together_add_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:onClick="OnAddPost"
+
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_add_circle_24"
+            android:background="@color/transparent"
+
+            android:layout_gravity="bottom|right"/>
+
+
+
+    </FrameLayout>
 </FrameLayout>

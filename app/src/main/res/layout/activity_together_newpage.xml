@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Head -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:id="@+id/together_newpage_back_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
 
@@ -28,6 +30,7 @@
             android:gravity="center_vertical"/>
     </LinearLayout>
 
+    <!-- Body -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -40,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!-- Annotation -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -53,6 +57,7 @@
                 android:gravity="center_vertical"
                 android:background="@color/gray"/>
 
+            <!-- Region -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
@@ -65,6 +70,7 @@
                 android:gravity="bottom"/>
 
             <Button
+                android:id="@+id/together_newpage_region"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
 
@@ -75,6 +81,7 @@
                 android:gravity="center_vertical"
                 android:backgroundTint="@color/main_color_5" />
 
+            <!-- Title -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
@@ -87,16 +94,21 @@
                 android:gravity="bottom"/>
 
             <EditText
+                android:id="@+id/together_newpage_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:paddingLeft="15dp"
+                android:padding="15dp"
 
                 android:hint="제목을 입력해주세요."
                 android:textColor="@color/text_color_light"
                 android:textSize="14dp"
 
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:maxLength="50"
                 android:background="@drawable/outline_rectangle"/>
 
+            <!-- Text Body -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
@@ -109,6 +121,7 @@
                 android:gravity="bottom"/>
 
             <EditText
+                android:id="@+id/together_newpage_content_text"
                 android:layout_width="match_parent"
                 android:layout_height="144dp"
                 android:background="@drawable/outline_rectangle"
@@ -117,13 +130,18 @@
                 android:hint="간단한 자기소개와 함께 활동 내용을 작성해 주세요."
                 android:textColor="@color/text_color_light"
                 android:textSize="14dp"
-                android:gravity="start"/>
 
+                android:gravity="start"
+                android:inputType="textMultiLine"
+                android:maxLength="1000"/>
+
+            <!-- List { PeopleNum, Gender, Date, Time } -->
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
+                <!-- People Num -->
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -132,7 +150,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="5"
+                        android:layout_weight="1"
 
                         android:text="인원"
                         android:textColor="@color/text_color"
@@ -141,16 +159,36 @@
 
                         android:gravity="bottom"/>
 
+                    <ImageButton
+                        android:id="@+id/together_newpage_remove_people"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="bottom"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_baseline_remove_circle_outline_24"/>
+
                     <TextView
-                        android:layout_width="0dp"
+                        android:id="@+id/together_newpage_people_num"
+                        android:layout_width="45dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="5"
 
                         android:text="3명"
                         android:textColor="@color/text_color_light"
                         android:textSize="20dp"
 
-                        android:gravity="bottom|right"/>
+                        android:gravity="bottom|center"/>
+
+                    <ImageButton
+                        android:id="@+id/together_newpage_add_people"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="15dp"
+
+                        android:layout_gravity="bottom"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_baseline_add_circle_outline_24"/>
+
                 </LinearLayout>
 
                 <View
@@ -158,14 +196,16 @@
                     android:layout_height="1dp"
                     android:background="@color/gray"/>
 
+                <!-- Gender -->
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="5"
+                        android:layout_weight="1"
 
                         android:text="성별"
                         android:textColor="@color/text_color"
@@ -174,16 +214,13 @@
 
                         android:gravity="bottom"/>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"
+                    <Spinner
+                        android:id="@+id/together_newpage_gender_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
 
-                        android:text="아무나"
-                        android:textColor="@color/text_color_light"
-                        android:textSize="20dp"
-
-                        android:gravity="bottom|right"/>
+                        android:layout_gravity="bottom"
+                        android:gravity="bottom|right" />
                 </LinearLayout>
 
                 <View
@@ -191,14 +228,15 @@
                     android:layout_height="1dp"
                     android:background="@color/gray"/>
 
+                <!-- Date -->
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
+
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="5"
 
                         android:text="날짜"
                         android:textColor="@color/text_color"
@@ -208,9 +246,11 @@
                         android:gravity="bottom"/>
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:id="@+id/together_newpage_date_button"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="5"
+                        android:layout_weight="1"
+                        android:paddingRight="15dp"
 
                         android:text="선택 >"
                         android:textColor="@color/text_color_light"
@@ -224,14 +264,14 @@
                     android:layout_height="1dp"
                     android:background="@color/gray"/>
 
+                <!-- Time -->
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="5"
 
                         android:text="시간"
                         android:textColor="@color/text_color"
@@ -241,9 +281,11 @@
                         android:gravity="bottom"/>
 
                     <TextView
+                        android:id="@+id/together_newpage_time_button"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="5"
+                        android:layout_weight="1"
+                        android:paddingRight="15dp"
 
                         android:text="선택 >"
                         android:textColor="@color/text_color_light"
@@ -259,6 +301,7 @@
 
             </LinearLayout>
 
+            <!-- Place -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
@@ -270,16 +313,20 @@
                 android:textSize="20dp"/>
 
             <EditText
+                android:id="@+id/together_newpage_place"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:paddingLeft="15dp"
+                android:padding="15dp"
 
                 android:hint="주소를 입력해 주세요"
                 android:textColor="@color/text_color_light"
                 android:textSize="14dp"
 
+                android:inputType="textPostalAddress"
+                android:imeOptions="actionDone"
                 android:background="@drawable/outline_rectangle"/>
 
+            <!-- Link -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
@@ -291,21 +338,27 @@
                 android:textSize="18dp"/>
 
             <EditText
+                android:id="@+id/together_newpage_link"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:paddingLeft="15dp"
+                android:padding="15dp"
 
                 android:hint="오픈 채팅방 주소를 꼭 입력해 주세요"
                 android:textColor="@color/light_gray"
                 android:textSize="14dp"
 
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionDone"
                 android:background="@drawable/outline_rectangle"/>
+
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="40dp"/>
 
+            <!-- Make Button -->
             <Button
+                android:id="@+id/together_newpage_make_button"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="5"

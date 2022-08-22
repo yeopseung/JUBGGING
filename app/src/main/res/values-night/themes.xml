@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.My_Jubgging" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/main_color_1</item>
+        <item name="colorPrimaryVariant">@color/main_color_4</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!-- 캘린더 상단 색상 -->
+        <item name="colorAccent">@color/main_color_1</item>
+        <!-- 캘린더 선택 생상 -->
+        <item name="colorControlActivated">@color/main_color_4</item>
+        <item name="colorControlHighlight">@color/main_color_4</item>
+        <!-- 캘린더 확인 취소 색상 -->
+        <item name="android:textColor">@color/text_color</item>
     </style>
 </resources>
