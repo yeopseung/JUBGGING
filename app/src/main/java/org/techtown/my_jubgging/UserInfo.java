@@ -19,8 +19,12 @@ public class UserInfo implements Serializable {
     String email;
     @SerializedName("profileURL")
     String profileURL;
-    @SerializedName("address")
-    String address;
+    @SerializedName("roadAddress")
+    String roadAddress;
+    @SerializedName("specificAddress")
+    String specificAddress;
+    @SerializedName("dong")
+    String dong;
     @SerializedName("gender")
     String gender;
 
@@ -44,52 +48,72 @@ public class UserInfo implements Serializable {
 
     }
 
-    public String getUserId() {return userId;}
-
-    public String getName() {return name;}
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getProfileURL() {
-        return profileURL;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getGender() {
-        return gender;
+    public String getUserId() {
+        return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNickName() {
+        return nickName;
     }
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getProfileURL() {
+        return profileURL;
     }
 
     public void setProfileURL(String profileURL) {
         this.profileURL = profileURL;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public String getRoadAddress() {
+        return roadAddress;
+    }
+
+    public void setRoadAddress(String roadAddress) {
+        this.roadAddress = roadAddress;
+    }
+
+    public String getSpecificAddress() {
+        return specificAddress;
+    }
+
+    public void setSpecificAddress(String specificAddress) {
+        this.specificAddress = specificAddress;
+    }
+
+    public String getDong() {
+        return dong;
+    }
+
+    public void setDong(String dong) {
+        this.dong = dong;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public void setGender(String gender) {

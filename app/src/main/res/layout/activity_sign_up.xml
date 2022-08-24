@@ -6,132 +6,161 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".auth.SignUp"
-    android:layout_margin="20dp">
+    >
 
-    <TextView
-        android:text="이름"
-        android:layout_margin="5dp"
-        android:ems ="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        />
-    <EditText
-        android:id ="@+id/sign_up_name"
-        android:hint="이름을 입력하세요."
-        android:inputType="textPersonName"
-        android:layout_margin="5dp"
-        android:ems ="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:maxLength="10"/>
+        android:layout_margin="20dp">
 
-
-    <TextView
-        android:text="닉네임"
-        android:layout_margin="5dp"
-        android:ems ="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-
-        <EditText
-            android:id="@+id/sign_up_nickName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:ems="10"
-            android:hint="닉네임을 입력하세요."
-            android:inputType="text"
-            android:maxLength="10" />
-
-        <Button
-            android:id="@+id/sign_up_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:text="중복체크" />
-    </LinearLayout>
-
-
-    <TextView
-        android:text="성별"
-        android:ems ="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="10dp"/>
-
-    <RadioGroup
-        android:id="@+id/sign_up_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-
-        <RadioButton
-            android:id="@+id/sign_up_male"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="남성"
-            android:layout_margin="10dp"/>
+            android:orientation="vertical" >
 
-        <RadioButton
-            android:id="@+id/sign_up_female"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="여성"
-            android:layout_margin="10dp"/>
-    </RadioGroup>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text="이름" />
+
+            <EditText
+                android:id="@+id/sign_up_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="이름을 입력하세요."
+                android:inputType="textPersonName"
+                android:maxLength="10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text="닉네임" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/sign_up_nickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:hint="닉네임을 입력하세요."
+                    android:inputType="text"
+                    android:maxLength="10" />
+
+                <Button
+                    android:id="@+id/sign_up_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="중복체크" />
+            </LinearLayout>
+
+            <TextView
+                android:text="성별"
+                android:ems ="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"/>
+
+            <RadioGroup
+                android:id="@+id/sign_up_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/sign_up_male"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="남성" />
+
+                <RadioButton
+                    android:id="@+id/sign_up_female"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="여성" />
+            </RadioGroup>
 
 
-    <TextView
-        android:text="이메일"
-        android:ems ="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="10dp"/>
-    <EditText
-        android:id ="@+id/sign_up_email"
-        android:enabled="false"
-        android:ems ="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="10dp"/>
+            <TextView
+                android:text="이메일"
+                android:ems ="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"/>
+            <EditText
+                android:id ="@+id/sign_up_email"
+                android:enabled="false"
+                android:ems ="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"/>
 
-    <TextView
-        android:text="주소"
-        android:ems ="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="10dp"/>
-    <EditText
-        android:id ="@+id/sign_up_address"
-        android:hint="주소를 입력하세요."
-        android:ems ="10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="10dp"/>
+            <TextView
+                android:text="주소"
+                android:ems ="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"/>
+            <EditText
+                android:id ="@+id/sign_up_road_address"
+                android:hint="주소를 입력하세요."
+                android:ems ="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:text="상세주소"
+                android:ems ="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"/>
+            <EditText
+                android:id ="@+id/sign_up_specific_address"
+                android:hint="상세주소를 입력하세요."
+                android:ems ="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:maxLines="1"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+
 
     <Button
         android:id="@+id/sign_up_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="완료"
         android:layout_margin="10dp"
         android:layout_gravity="center"/>
