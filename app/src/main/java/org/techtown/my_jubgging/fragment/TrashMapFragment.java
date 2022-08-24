@@ -1,6 +1,5 @@
 package org.techtown.my_jubgging.fragment;
 
-import static androidx.core.content.ContextCompat.getSystemServiceName;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -22,11 +21,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
-import org.techtown.my_jubgging.MainMenu;
 import org.techtown.my_jubgging.R;
 
 
@@ -60,10 +57,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         else
             checkRunTimePermission();
 
-//
-//        MapPOIItem marker = new MapPOIItem();
-//        MapPoint mapPoint = marker.getMapPoint();
-//        mapPoint.getMapPointGeoCoord();
+
 
         return rootView;
     }
@@ -92,15 +86,10 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
 
             if ( check_result ) {
-                Log.d("@@@", "start");
+                Log.d(LOG_TAG, "start");
                 //위치 값을 가져올 수 있음
                 mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
             }
-            else {
-                // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
-
-            }
-
         }
     }
 
@@ -125,7 +114,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
 
             // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), REQUIRED_PERMISSIONS[0])) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), REQUIRED_PERMISSIONS[0])) {
 
                 // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                 Toast.makeText(getActivity(), "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
@@ -193,7 +182,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                 if (checkLocationServicesStatus()) {
                     if (checkLocationServicesStatus()) {
 
-                        Log.d("@@@", "onActivityResult : GPS 활성화 되있음");
+                        Log.d(LOG_TAG, "onActivityResult : GPS 활성화 되있음");
                         checkRunTimePermission();
                         return;
                     }
