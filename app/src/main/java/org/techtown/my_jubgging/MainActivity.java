@@ -27,6 +27,7 @@ import com.kakao.util.exception.KakaoException;
 import org.techtown.my_jubgging.auth.SignUp;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
+import org.techtown.my_jubgging.trashmap.DBHelper;
 
 import java.security.MessageDigest;
 import java.util.HashMap;
@@ -39,9 +40,12 @@ import retrofit2.Retrofit;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final String LOG_TAG = "MainActivity: ";
 
     private ISessionCallback iSessionCallback;
     private TextView textViewResult;
+
+    private DBHelper dbHelper = new DBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = RetrofitClient.getInstance();
         RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
 
-
         iSessionCallback = new ISessionCallback() {
             @Override
             public void onSessionOpened() {
@@ -63,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSessionClosed(ErrorResult errorResult) {
                         //세션이 닫힌 상황
-                        Log.e("Login_SessionClosed","세션이 닫혔습니다.");
+                        Log.e(LOG_TAG,"로그인 세션이 닫혔습니다.");
                     }
 
                     @Override
                     public void onFailure(ErrorResult errorResult) {
                         //로그인 실패
-                        Log.e("Login_Fail","로그인 실패.");
+                        Log.e(LOG_TAG,"로그인 실패.");
 
                     }
 
@@ -77,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onSuccess(MeV2Response result) {
                         //로그인 성공
                         UserInfo userInfo = new UserInfo(result);
-                        Log.i("Login_Success","로그인 성공");
-                        Log.i("Login_Info_userID", String.valueOf(userInfo.userId));
-                        Log.i("Login_Info_Email",userInfo.email);
-                        Log.i("Login_Info_NickName",userInfo.nickName);
-                        Log.i("Login_Info_Gender", "Enum 형 Gender");
-                        Log.i("Login_Info_ProfileURL",userInfo.profileURL);
+                        Log.i(LOG_TAG,"로그인 성공");
+                        Log.i(LOG_TAG, "userId "+String.valueOf(userInfo.userId));
+                        Log.i(LOG_TAG,"email " + userInfo.email);
+                        Log.i(LOG_TAG,"nickName "+userInfo.nickName);
+                        Log.i(LOG_TAG, "gender "+"Enum 형 Gender");
+                        Log.i(LOG_TAG,"profileURL "+userInfo.profileURL);
 
 
                         //회원가입 여부 판단
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(Call<String> call, Response<String> response) {
                                 //통신 실패
                                 if (!response.isSuccessful()) {
-                                    Log.e("Login_Check_UserId_Fail",String.valueOf(response.code()));
+                                    Log.e(LOG_TAG,"회원가입여부 판단 실패 "+String.valueOf(response.code()));
                                     return;
                                 }
 
@@ -101,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                                 //기존 회원 -> MainMenu 이동
                                 if(result.equals("{\"user\":\"Y\"}"))
                                 {
-                                    Log.i("Login_Check_UserId_Y",result);
+                                    Log.i(LOG_TAG,"기존 회원 "+ result);
 
                                     intent = new Intent(MainActivity.this, MainMenu.class);
                                     intent.putExtra("userInfo",userInfo);
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                 //신규 회원 -> SignUp 이동
                                 else if(result.equals("{\"user\":\"N\"}"))
                                 {
-                                    Log.i("Login_Check_UserId_N",result);
+                                    Log.i(LOG_TAG,"신규 회원 "+result);
 
                                     //전달받는 것: 이메일, 닉네임(별명), 성별, 프로필사진
                                     //추가입력 요망: 이름(법적인 이름: legal name),  주소
@@ -128,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
                                 //통신 실패
-                                Log.e("Login_Check_UserId_Fail",t.getLocalizedMessage());
+                                Log.e(LOG_TAG,"회원가입여부 판단 실패 "+t.getLocalizedMessage());
+
                             }
 
                         });
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSessionOpenFailed(KakaoException exception) {
                 //세션 오픈 실패
-                Log.e("Login_SessionOpenFailed","세션 실패.");
+                Log.e(LOG_TAG,"로그인 세션 실패.");
             }
         };
         Session.getCurrentSession().addCallback(iSessionCallback);

@@ -19,10 +19,13 @@ public class AddressAPI extends AppCompatActivity {
     {
         @JavascriptInterface
         @SuppressWarnings("unused")
-        public void processDATA(String data) {
+        public void processDATA(String data, String dong) {
             Bundle extra = new Bundle();
             Intent intent = new Intent();
+            //data : 전체 도로명 주소
+            //dong : 동만 따로 ex 철산동
             extra.putString("data", data);
+            extra.putString("dong",dong);
             intent.putExtras(extra);
             setResult(RESULT_OK, intent);
             finish();
@@ -42,11 +45,11 @@ public class AddressAPI extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                webView.loadUrl("http://10.0.2.2:8080/addr");
+                webView.loadUrl("javascript:sample2_execDaumPostcode();");
             }
         });
 
-        webView.loadUrl("http://10.0.2.2:8080/");
+        webView.loadUrl("http://10.0.2.2:8080/daum.html");
 
 
     }

@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.ContactsContract;
-import android.telecom.Call;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,11 +28,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
+import org.techtown.my_jubgging.retrofit.RetrofitAPI;
+
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewpageActivity extends AppCompatActivity {
     /* Layout Reference */
@@ -72,6 +79,7 @@ public class NewpageActivity extends AppCompatActivity {
     Post post;
 
     /* */
+    private RetrofitAPI retrofitApi;
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -116,6 +124,13 @@ public class NewpageActivity extends AppCompatActivity {
 
         adapter.setDropDownViewResource(R.layout.spinner_item);
         genderSpinner.setAdapter(adapter);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.35:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitApi = retrofit.create(RetrofitAPI.class);
     }
 
     private void setButtons() {
@@ -203,16 +218,9 @@ public class NewpageActivity extends AppCompatActivity {
                 if(checkIsSatisfy()) {
                     Toast.makeText(getApplicationContext(), "저장중...", Toast.LENGTH_SHORT).show();
 
-                    boolean result1 = buildPost();
-                    boolean result2 = savePost();
+                    if(buildPost());
+                        savePost();
 
-                    if (result1 && result2) {
-                        Toast.makeText(getApplicationContext(), "저장 성공!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(), MainMenu.class);
-                        startActivity(intent);
-                    }
-                    else
-                        customErrorToast("저장 실패...! 다시 시도해주세요!");
                 }
             }
         });
@@ -302,7 +310,7 @@ public class NewpageActivity extends AppCompatActivity {
     }
 
     private boolean buildPost() {
-        post.userId = "S20182426";
+        post.userId = "";
 
         post.region1 = regionBtn[0].getText().toString();
         post.region2 = regionBtn[0].getText().toString();
@@ -326,7 +334,26 @@ public class NewpageActivity extends AppCompatActivity {
     }
 
     private boolean savePost() {
+        Call<Integer> call = retrofitApi.postNewPosting(post);
 
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (!response.isSuccessful()) {
+                    customErrorToast("Code : " + response.code());
+                    return;
+                }
+
+                Toast.makeText(getApplicationContext(), "저장 성공!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                customErrorToast("저장 실패...! 다시 시도해주세요!");
+            }
+        });
 
         return true;
     }

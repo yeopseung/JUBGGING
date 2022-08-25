@@ -13,13 +13,12 @@ import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.kakao.usermgmt.response.model.User;
 
 import org.techtown.my_jubgging.fragment.HomeFragment;
 import org.techtown.my_jubgging.fragment.PointShopFragment;
 import org.techtown.my_jubgging.fragment.RankingFragment;
 import org.techtown.my_jubgging.fragment.TogetherFragment;
-import org.techtown.my_jubgging.fragment.TrashMapFragment;
+import org.techtown.my_jubgging.trashmap.TrashMapFragment;
 
 public class MainMenu extends AppCompatActivity {
 
