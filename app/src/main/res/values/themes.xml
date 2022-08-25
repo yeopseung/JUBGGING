@@ -20,6 +20,9 @@
         <item name="colorControlHighlight">@color/main_color_1</item>
         <!-- 캘린더 확인 취소 색상 -->
         <item name="android:textColor">@color/text_color</item>
+
+        <!-- 시간 다이얼 스타일 -->
+        <item name="android:timePickerMode">spinner</item>
     </style>
 
 </resources>

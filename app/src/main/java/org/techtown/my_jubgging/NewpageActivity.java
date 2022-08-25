@@ -1,12 +1,16 @@
 package org.techtown.my_jubgging;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.ContactsContract;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,20 +19,28 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class NewpageActivity extends AppCompatActivity {
     /* Layout Reference */
     ImageButton backBtn;
 
-    Button regionBtn;
+    TextView regionBtn[];
+
     EditText titleText;
     EditText contentText;
 
@@ -45,22 +57,56 @@ public class NewpageActivity extends AppCompatActivity {
 
     Button makeBtn;
 
-    /* */
+    /* Instance Value */
     int regionNum = 0;
 
+    boolean isDateSet = false;
     int year;
     int month;
     int date;
 
+    boolean isTimeSet = false;
     int hour;
     int min;
 
     Post post;
 
+    /* */
+
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    Intent data = result.getData();
+                    regionNum = data.getIntExtra("regionCnt", 0);
+
+                    String get;
+                    String key[] = new String[3];
+                    key[0] = "region1";
+                    key[1] = "region2";
+                    key[2] = "region3";
+
+                    for (int i = 0; i < regionNum; ++i) {
+                        get = data.getStringExtra(key[i]);
+                        regionBtn[i].setText(get);
+                        regionBtn[i].setBackgroundTintList(null);
+                        regionBtn[i].setVisibility(View.VISIBLE);
+                    }
+
+                    if (regionNum < 3)
+                        regionBtn[regionNum].setVisibility(View.VISIBLE);
+                }
+            }
+    );
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_together_newpage);
+
+        post = new Post();
+        regionBtn = new TextView[3];
 
         setButtons();
         buttonsOnClickSet();
@@ -75,7 +121,10 @@ public class NewpageActivity extends AppCompatActivity {
     private void setButtons() {
         backBtn = (ImageButton) findViewById(R.id.together_newpage_back_button);
 
-        regionBtn = (Button) findViewById(R.id.together_newpage_region);
+        regionBtn[0] = (TextView) findViewById(R.id.together_newpage_region1);
+        regionBtn[1] = (TextView) findViewById(R.id.together_newpage_region2);
+        regionBtn[2] = (TextView) findViewById(R.id.together_newpage_region3);
+
         titleText = (EditText) findViewById(R.id.together_newpage_title_text);
         contentText = (EditText) findViewById(R.id.together_newpage_content_text);
 
@@ -101,6 +150,16 @@ public class NewpageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        /* 지역 선택 버튼 */
+        for (int i = 0; i < 3; ++i) {
+            regionBtn[i].setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), RegionPickerActivity.class);
+                    mStartForResult.launch(intent);
+                }
+            });
+        }
 
         /* 인원 */
         // 인원 감소
@@ -133,16 +192,34 @@ public class NewpageActivity extends AppCompatActivity {
             }
         });
 
+
+        /* 시간 */
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) { showTime(); }
+        });
+
         makeBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                checkIsSatisfy();
+                if(checkIsSatisfy()) {
+                    Toast.makeText(getApplicationContext(), "저장중...", Toast.LENGTH_SHORT).show();
 
+                    boolean result1 = buildPost();
+                    boolean result2 = savePost();
+
+                    if (result1 && result2) {
+                        Toast.makeText(getApplicationContext(), "저장 성공!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                        startActivity(intent);
+                    }
+                    else
+                        customErrorToast("저장 실패...! 다시 시도해주세요!");
+                }
             }
         });
 
     }
 
-    private void showDate () {
+    private void showDate() {
         Calendar calendar = Calendar.getInstance();
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -152,10 +229,12 @@ public class NewpageActivity extends AppCompatActivity {
                 month = m + 1;
                 date = d;
 
-                if (y == calendar.get(Calendar.YEAR))
+                if (y != calendar.get(Calendar.YEAR))
                     dateBtn.setText(year + "년 " + month + "월 " + date + "일");
                 else
                     dateBtn.setText(month + "월 " + date + "일");
+
+                isDateSet = true;
             }
         },
                 calendar.get(Calendar.YEAR),
@@ -171,14 +250,46 @@ public class NewpageActivity extends AppCompatActivity {
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(textColor);
     }
 
+    private void showTime() {
+        Calendar calendar = Calendar.getInstance();
+
+        int style;
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int h, int m) {
+                hour = h;
+                min = m;
+
+                if (m == 0)
+                    timeBtn.setText(h + "시 ");
+                else
+                    timeBtn.setText(h + "시 " + m + "분");
+
+                isTimeSet = true;
+            }
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+
+        int textColor = ContextCompat.getColor(getApplicationContext(), R.color.text_color);
+
+        timePickerDialog.show();
+    }
+
     private boolean checkIsSatisfy() {
-        //< FIXME region three check
+        if (regionNum <= 0)
+            return customErrorToast("지역을 추가해 주세요");
 
         if (titleText.getText().length() <= 0)
             return customErrorToast("제목을 입력해 주세요");
 
         if (contentText.getText().length() <= 0)
             return customErrorToast("활동 내역을 입력해 주세요");
+
+        if (!isDateSet)
+            return customErrorToast("날짜를 선택해 주세요");
+
+        if (!isTimeSet)
+            return customErrorToast("시간을 선택해 주세요");
 
         if (placeText.getText().length() <= 0)
             return customErrorToast("장소를 입력해 주세요");
@@ -190,14 +301,31 @@ public class NewpageActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean savePost() {
+    private boolean buildPost() {
         post.userId = "S20182426";
+
+        post.region1 = regionBtn[0].getText().toString();
+        post.region2 = regionBtn[0].getText().toString();
+        post.region3 = regionBtn[0].getText().toString();
 
         post.title = titleText.getText().toString();
         post.content = contentText.getText().toString();
 
         String gender[] = { "All", "Male", "Female" };
         post.possibleGender = gender[genderSpinner.getSelectedItemPosition()];
+
+        SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy MM dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh mm");
+        Calendar calendar = new GregorianCalendar(year, month, date, hour, min);
+        Date newDate = calendar.getTime();
+
+        post.localDate = dataFormat.format(newDate);
+        post.localTime = timeFormat.format(newDate);
+
+        return true;
+    }
+
+    private boolean savePost() {
 
 
         return true;

@@ -44,6 +44,8 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="d4f06e73b7dccf835b06f39a7ee398ab" />
         <activity android:name=".NewpageActivity"/>
+
+        <activity android:name=".RegionPickerActivity"/>
     </application>
 
 </manifest>

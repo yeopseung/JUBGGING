@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:layout_gravity="center">
+
+    <!-- Head -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/region_picker_back_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:background="@drawable/ic_baseline_chevron_left_24"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+
+            android:text="지역 추가"
+            android:textStyle="bold"
+            android:textColor="@color/text_color"
+            android:textSize="24dp"
+
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp">
+
+            <TextView
+                android:id="@+id/region_picker_region1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:text="비어 있음"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_color_light"
+
+                android:gravity="center"
+                android:background="@drawable/rounded_rectangle"
+                android:backgroundTint="@color/gray"/>
+
+            <Space
+                android:layout_width="15dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/region_picker_region2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:text="비어 있음"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_color_light"
+
+                android:gravity="center"
+                android:background="@drawable/rounded_rectangle"
+                android:backgroundTint="@color/gray"/>
+
+            <Space
+                android:layout_width="15dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/region_picker_region3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:text="비어 있음"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_color_light"
+
+                android:gravity="center"
+                android:background="@drawable/rounded_rectangle"
+                android:backgroundTint="@color/gray"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray"
+            android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/dialog_choice_regions_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="96px"
+                android:layout_margin="40px"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_rectangle"
+
+                    android:backgroundTint="@color/gray"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:text="상도동"
+
+                    android:textColor="@color/text_color_light"
+                    android:textSize="38px"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="40px"
+                    android:layout_height="match_parent" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:background="@drawable/rounded_rectangle"
+                    android:backgroundTint="@color/gray"
+                    android:gravity="center"
+                    android:text="상도동"
+
+                    android:textColor="@color/text_color_light"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:background="@drawable/rounded_rectangle"
+                    android:backgroundTint="@color/gray"
+                    android:gravity="center"
+                    android:text="+"
+
+                    android:textColor="@color/text_color_light"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

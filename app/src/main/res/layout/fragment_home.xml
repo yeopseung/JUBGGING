@@ -6,9 +6,128 @@
     tools:context=".fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="홈 화면" />
+        android:padding="15dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1000dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+
+                    android:text="칼로리"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+
+                    android:text="측정 시간"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+
+                    android:text="KM"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_weight="5"
+
+                    android:text="412"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_weight="5"
+
+                    android:text="1H 19M"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_weight="5"
+
+                    android:text="4.5"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+
+                    />                    android:gravity="center"/>
+
+
+            </LinearLayout>
+
+            
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="홈 화면" />
+        </LinearLayout>
+
+
+
+
+
+    </ScrollView>
 </FrameLayout>
