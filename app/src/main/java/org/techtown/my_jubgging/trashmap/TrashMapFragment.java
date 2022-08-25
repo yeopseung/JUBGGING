@@ -1,4 +1,4 @@
-package org.techtown.my_jubgging.fragment;
+package org.techtown.my_jubgging.trashmap;
 
 
 import android.Manifest;
@@ -21,10 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.kakao.usermgmt.response.model.User;
+
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import org.techtown.my_jubgging.R;
+import org.techtown.my_jubgging.UserInfo;
 
 
 public class TrashMapFragment extends Fragment implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
@@ -56,7 +59,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
             showDialogForLocationServiceSetting();
         else
             checkRunTimePermission();
-
 
 
         return rootView;
@@ -182,7 +184,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                 if (checkLocationServicesStatus()) {
                     if (checkLocationServicesStatus()) {
 
-                        Log.d(LOG_TAG, "onActivityResult : GPS 활성화 되있음");
+                        Log.i(LOG_TAG, "onActivityResult : GPS 활성화 되있음");
                         checkRunTimePermission();
                         return;
                     }
@@ -248,7 +250,37 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
     @Override
     public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
+        //지도화면을 길게 누를 경우 쓰레기통 등록 여부를 물어보는 AlertDialog 생성
+        //쓰레기통을 생성하려 할 경우 activity 이동
+        UserInfo userInfo = (UserInfo)getActivity().getIntent().getSerializableExtra("userInfo");
+        MapPoint.GeoCoordinate geoCoordinate = mapPoint.getMapPointGeoCoord();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("쓰레기통 등록하기");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                Log.i(LOG_TAG,"쓰레기통 등록 Activity 이동");
+                Intent intent = new Intent(getActivity(),CustomTrashAdd.class);
+                intent.putExtra("latitude",geoCoordinate.latitude);
+                intent.putExtra("longitude",geoCoordinate.longitude);
+                intent.putExtra("userInfo",userInfo);
+                startActivity(intent);
 
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                Log.i(LOG_TAG,"쓰레기통 등록 취소");
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        Log.i(LOG_TAG,geoCoordinate.latitude+" "+geoCoordinate.longitude);
     }
 
     @Override

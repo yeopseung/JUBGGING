@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".trashmap.CustomTrashAdd"
+    android:layout_margin="20dp"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="쓰레기통 등록"
+        android:textSize="30dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="30dp"
+        android:gravity="center"
+        android:layout_margin="20dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="20dp"
+            android:text="주소" />
+
+        <EditText
+            android:id="@+id/custom_trash_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="등록할 주소"
+            android:maxLines="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="20dp"
+            android:text="쓰레기통 종류"
+            android:layout_marginTop="40dp"/>
+
+        <RadioGroup
+            android:id="@+id/custom_trash_kind_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/custom_trash_general"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="일반" />
+
+            <RadioButton
+                android:id="@+id/custom_trash_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="재활용" />
+
+            <RadioButton
+                android:id="@+id/custom_trash_smoking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="담배꽁초" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/custom_trash_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="등록하기" />
+</LinearLayout>

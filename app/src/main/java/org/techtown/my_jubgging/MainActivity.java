@@ -27,6 +27,7 @@ import com.kakao.util.exception.KakaoException;
 import org.techtown.my_jubgging.auth.SignUp;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
+import org.techtown.my_jubgging.trashmap.DBHelper;
 
 import java.security.MessageDigest;
 import java.util.HashMap;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private ISessionCallback iSessionCallback;
     private TextView textViewResult;
 
+    private DBHelper dbHelper = new DBHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit retrofit = RetrofitClient.getInstance();
         RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
-
 
         iSessionCallback = new ISessionCallback() {
             @Override

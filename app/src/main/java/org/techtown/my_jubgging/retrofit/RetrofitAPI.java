@@ -1,21 +1,15 @@
 package org.techtown.my_jubgging.retrofit;
 
 
-import com.kakao.usermgmt.response.model.User;
-
-import org.techtown.my_jubgging.Post;
 import org.techtown.my_jubgging.UserInfo;
+import org.techtown.my_jubgging.trashmap.CustomTrash;
 
-
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 
 //RetrofitAPI Interface 정의
@@ -41,6 +35,10 @@ public interface RetrofitAPI {
     @POST("user/member")
     Call<String> createUserInfo(@Body UserInfo userInfo);
 
-    @GET("test")
-    Call<Post> getPosts();
+
+    //커스텀 쓰레기통을 Custom Trash Table 에 저장
+    //Input :  CustomTrashAddress customTrashAddress
+    //Output : String userId
+    @POST("map/trash")
+    Call<String> createCustomTrash(@Body CustomTrash customTrash);
 }
