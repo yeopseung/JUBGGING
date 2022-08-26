@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class CustomTrash {
 
+    //커스텀 쓰레기통 아이디
+    @SerializedName("id")
+    private String customTrashAddressId;
+
     //유저 아이디
     @SerializedName("userId")
     private String userId;
@@ -50,5 +54,13 @@ public class CustomTrash {
 
     public void setKind(String kind) {
         this.kind = kind;
+    }
+
+    public String getCustomTrashAddressId() {
+        return customTrashAddressId;
+    }
+
+    public void setCustomTrashAddressId(String customTrashAddressId) {
+        this.customTrashAddressId = customTrashAddressId;
     }
 }

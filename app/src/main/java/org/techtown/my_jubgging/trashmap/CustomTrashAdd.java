@@ -35,6 +35,8 @@ public class CustomTrashAdd extends AppCompatActivity {
 
     private CustomTrash customTrash = new CustomTrash();
 
+    private UserInfo userInfo;
+
     private EditText address;
     private RadioGroup kind_group;
     private RadioButton general;
@@ -66,13 +68,13 @@ public class CustomTrashAdd extends AppCompatActivity {
         double latitude,longitude;
 
 
-        UserInfo userInfo = (UserInfo) getIntent().getSerializableExtra("userInfo");
+        userInfo = (UserInfo) getIntent().getSerializableExtra("userInfo");
         latitude = getIntent().getDoubleExtra("latitude",0);
         longitude = getIntent().getDoubleExtra("longitude",0);
 
         customTrash.setUserId(userInfo.getUserId());
         customTrash.setLatitude(String.valueOf(latitude));
-        customTrash.setLatitude(String.valueOf(longitude));
+        customTrash.setLongitude(String.valueOf(longitude));
 
         Geocoder geocoder = new Geocoder(this, Locale.KOREA);
         try {
@@ -149,13 +151,10 @@ public class CustomTrashAdd extends AppCompatActivity {
                                 return;
                             }
 
-//                            //통신 성공시 MainMenu 로 이동
-//                            String result = response.body();
-//                            Log.i(LOG_TAG, result);
-//                            Intent intent = new Intent(SignUp.this, MainMenu.class);
-//                            intent.putExtra("userInfo", userInfo);
-//                            startActivity(intent);
-//                            finish();
+                            //통신 성공시 TrashMapFragment 로 이동
+                            String result = response.body();
+                            Log.i(LOG_TAG, result);
+                            finish();
 
                         }
 

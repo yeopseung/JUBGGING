@@ -6,6 +6,8 @@ import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.trashmap.CustomTrash;
 
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -43,6 +45,11 @@ public interface RetrofitAPI {
     @POST("map/trash")
     Call<String> createCustomTrash(@Body CustomTrash customTrash);
 
+    //커스텀 쓰레기통 목록을 불러옴
+    //Input :
+    //Output : String userId
+    @GET("map/trash/info")
+    Call<List<CustomTrash>> getCustomTrashList();
 
     // 새로운 게시물을 작성
     // Input : Post post

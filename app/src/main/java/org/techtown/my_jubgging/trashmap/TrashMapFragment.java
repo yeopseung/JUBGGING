@@ -23,16 +23,29 @@ import android.widget.Toast;
 
 import com.kakao.usermgmt.response.model.User;
 
+import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.UserInfo;
+import org.techtown.my_jubgging.retrofit.RetrofitAPI;
+import org.techtown.my_jubgging.retrofit.RetrofitClient;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class TrashMapFragment extends Fragment implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
     private static final String LOG_TAG = "TrashMapFragment";
     private MapView mapView;
+
+    private Retrofit retrofit = RetrofitClient.getInstance();
+    private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -59,6 +72,50 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
             showDialogForLocationServiceSetting();
         else
             checkRunTimePermission();
+
+        //커스텀 쓰레기통 불러와서 띄우기
+        //회원정보 POST
+        Call<List<CustomTrash>> call_userinfo = retrofitAPI.getCustomTrashList();
+        call_userinfo.enqueue(new Callback<List<CustomTrash>>() {
+            @Override
+            public void onResponse(Call<List<CustomTrash>> call, Response<List<CustomTrash>> response) {
+                //통신 실패
+                if (!response.isSuccessful()) {
+                    Log.e(LOG_TAG, String.valueOf(response.code()));
+                    return;
+                }
+
+                //통신 성공시 TrashMapFragment 로 이동
+                List<CustomTrash> result = response.body();
+                int index =0;
+                for(CustomTrash ct : result)
+                {
+
+                    Log.i(LOG_TAG,ct.getCustomTrashAddressId() +" "+ct.getLatitude()+" "+ct.getLongitude());
+                    MapPOIItem customMarker = new MapPOIItem();
+                    //customMarker.setUserObject(ct);
+                    customMarker.setItemName("Custom Marker");
+                    customMarker.setTag(index);
+                    customMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(ct.getLatitude()),Double.parseDouble(ct.getLongitude())));
+                    customMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
+                    customMarker.setCustomImageResourceId(R.drawable.trash_general); // 마커 이미지.
+                    customMarker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
+                    customMarker.setCustomImageAnchor(0.5f, 1.0f); //   마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+
+                    mapView.addPOIItem(customMarker);
+                    index++;
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<CustomTrash>> call, Throwable t) {
+                //통신 실패
+                Log.e(LOG_TAG, t.getLocalizedMessage());
+            }
+        });
 
 
         return rootView;
