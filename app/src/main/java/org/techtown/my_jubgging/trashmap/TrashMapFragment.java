@@ -98,7 +98,18 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                     customMarker.setItemName("Custom Marker");
                     customMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(ct.getLatitude()),Double.parseDouble(ct.getLongitude())));
                     customMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
-                    customMarker.setCustomImageResourceId(R.drawable.trash_general); // 마커 이미지.
+                    switch (ct.getKind())
+                    {
+                        case "GENERAL":
+                            customMarker.setCustomImageResourceId(R.drawable.trash_general_blue); // 마커 이미지.
+                            break;
+                        case "RECYCLE":
+                            customMarker.setCustomImageResourceId(R.drawable.trash_recycle_blue); // 마커 이미지.
+                            break;
+                        case "SMOKING":
+                            customMarker.setCustomImageResourceId(R.drawable.trash_smoking_blue); // 마커 이미지.
+                            break;
+                    }
                     customMarker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
                     customMarker.setCustomImageAnchor(0.5f, 1.0f); //   마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
 
