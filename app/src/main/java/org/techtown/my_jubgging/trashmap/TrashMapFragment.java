@@ -15,20 +15,26 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.kakao.usermgmt.response.model.User;
 
+import net.daum.mf.map.api.CalloutBalloonAdapter;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.UserInfo;
+import org.techtown.my_jubgging.auth.Login;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
@@ -40,7 +46,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
-public class TrashMapFragment extends Fragment implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
+public class TrashMapFragment extends Fragment implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener,MapView.POIItemEventListener {
     private static final String LOG_TAG = "TrashMapFragment";
     private MapView mapView;
 
@@ -63,6 +69,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
         //MapView 이벤트리스너 등록
         mapView.setMapViewEventListener(this);
+        mapView.setPOIItemEventListener(this);
 
         //MapView 현재 위치 트래킹기능 사용
         mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);
@@ -72,6 +79,9 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
             showDialogForLocationServiceSetting();
         else
             checkRunTimePermission();
+
+        //커스텀쓰레기통 클릭시 말풍선 Adapter 등록
+        mapView.setCalloutBalloonAdapter(new CustomCallOutBalloonAdapter());
 
         //커스텀 쓰레기통 불러와서 띄우기
         //커스텀 쓰레기통 목록 GET
@@ -98,6 +108,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                     customMarker.setItemName("Custom Marker");
                     customMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(ct.getLatitude()),Double.parseDouble(ct.getLongitude())));
                     customMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
+
                     switch (ct.getKind())
                     {
                         case "GENERAL":
@@ -129,6 +140,89 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
 
         return rootView;
+    }
+
+    @Override
+    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+        Log.i(LOG_TAG,"onPOIItemSelected");
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+    }
+
+    @Override
+    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+    }
+
+
+    // CustomCallOutBalloonAdapter 인터페이스 구현
+    // 커스텀 쓰레기통 클릭시 띄우는 말풍선
+    class CustomCallOutBalloonAdapter implements CalloutBalloonAdapter {
+        private final View mCalloutBalloon;
+
+        public CustomCallOutBalloonAdapter() {
+            mCalloutBalloon = getLayoutInflater().inflate(R.layout.adapter_custom_callout_balloon, null);
+        }
+
+        @Override
+        public View getCalloutBalloon(MapPOIItem poiItem) {
+
+            //커스텀 마크 내부에 저장한 CustomTrash 정보 참조
+            CustomTrash customTrash  = (CustomTrash) poiItem.getUserObject();
+
+            //커스텀 쓰레기통 등록자 정보 조회
+            //커스텀 쓰레기통 등록자 정보 GET
+            Call<UserInfo> call_userinfo = retrofitAPI.getCustomTrashUser(customTrash.getCustomTrashAddressId());
+            call_userinfo.enqueue(new Callback<UserInfo>() {
+                @Override
+                public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                    //통신 실패
+                    if (!response.isSuccessful()) {
+                        Log.e(LOG_TAG, String.valueOf(response.code()));
+                        return;
+                    }
+
+                    //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
+                    UserInfo result = response.body();
+                    Log.i(LOG_TAG,"커스텀 쓰레기통 등록자 정보 Get 성공 UserId:"+result.getUserId()+" NickName: "+result.getNickName()+" heart: "+result.getHeart());
+
+                    //쓰레기통 등록자의 프로필
+                    ImageView imageView = ((ImageView) mCalloutBalloon.findViewById(R.id.custom_trash_balloon_imageView));
+                    Glide.with(mCalloutBalloon).load(result.getProfileURL()).into(imageView);
+
+
+                    //쓰레기통 등록자의 닉네임
+                    ((TextView) mCalloutBalloon.findViewById(R.id.custom_trash_balloon_nickName)).setText(result.getNickName());
+
+                    //쓰레기통 등록자의 좋아요개수
+                    ((TextView) mCalloutBalloon.findViewById(R.id.custom_trash_balloon_heart)).setText("좋아요: "+ result.getHeart());
+
+                    Log.i(LOG_TAG,"설정완료");
+                }
+
+                @Override
+                public void onFailure(Call<UserInfo> call, Throwable t) {
+                    //통신 실패
+                    Log.e(LOG_TAG, t.getLocalizedMessage());
+                }
+            });
+
+            return mCalloutBalloon;
+        }
+
+        @Override
+        public View getPressedCalloutBalloon(MapPOIItem poiItem) {
+            return  null;
+        }
     }
 
     // ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드
@@ -307,7 +401,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
     @Override
     public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
-
     }
 
     @Override

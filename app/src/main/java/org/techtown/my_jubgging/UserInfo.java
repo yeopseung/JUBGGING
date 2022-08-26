@@ -28,6 +28,14 @@ public class UserInfo implements Serializable {
     @SerializedName("gender")
     String gender;
 
+    @SerializedName("point")
+    int point;
+
+    @SerializedName("addPlaceNum")
+    int addPlaceNum;
+    @SerializedName("heart")
+    int heart;
+
 
 
     UserInfo(MeV2Response result)
@@ -119,4 +127,16 @@ public class UserInfo implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public int getPoint() { return point;}
+
+    public void setPoint(int point) {this.point = point;}
+
+    public int getAddPlaceNum() {return addPlaceNum;}
+
+    public void setAddPlaceNum(int addPlaceNum) {this.addPlaceNum = addPlaceNum;}
+
+    public int getHeart() {return heart;}
+
+    public void setHeart(int heart) {this.heart = heart;}
 }

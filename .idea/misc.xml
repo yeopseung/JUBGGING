@@ -53,7 +53,9 @@
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.20677083333333332" />
         <entry key="app/src/main/res/layout/activity_togerther_newpage.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_together_board.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/adapter_custom_callout_balloon.xml" value="0.33" />
         <entry key="app/src/main/res/layout/adapter_together_recycler.xml" value="0.24728260869565216" />
+        <entry key="app/src/main/res/layout/custom_callout_ballon.xml" value="0.40260416666666665" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.24728260869565216" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.24728260869565216" />
         <entry key="app/src/main/res/layout/fragment_point_shop.xml" value="0.24728260869565216" />

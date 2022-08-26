@@ -51,6 +51,13 @@ public interface RetrofitAPI {
     @GET("map/trash/info")
     Call<List<CustomTrash>> getCustomTrashList();
 
+    //커스텀 쓰레기통 등록자 정보를 불러옴
+    //Input : String customTrashAddressId
+    //Output : String userId
+    @GET("map/trash/user")
+    Call<UserInfo> getCustomTrashUser(@Query("customTrashAddressId") String customTrashAddressId);
+
+
     // 새로운 게시물을 작성
     // Input : Post post
     // Output : boardId
