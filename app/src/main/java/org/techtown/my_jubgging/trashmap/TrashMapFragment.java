@@ -93,7 +93,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
                     Log.i(LOG_TAG,ct.getCustomTrashAddressId() +" "+ct.getLatitude()+" "+ct.getLongitude());
                     MapPOIItem customMarker = new MapPOIItem();
-                    //customMarker.setUserObject(ct);
+                    customMarker.setUserObject(ct);
                     customMarker.setItemName("Custom Marker");
                     customMarker.setTag(index);
                     customMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(ct.getLatitude()),Double.parseDouble(ct.getLongitude())));
