@@ -2,9 +2,12 @@ package org.techtown.my_jubgging;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Post {
     @SerializedName("userId")
-    String userId = "NULL";
+    long userId = 123L;
 
     @SerializedName("region1")
     String region1 = "";
@@ -28,10 +31,10 @@ public class Post {
     String possibleGender = "All";
 
     @SerializedName("localDate")
-    String localDate = "YYYY MM DD";
+    String localDate;
 
     @SerializedName("localTime")
-    String localTime = "HH MM";
+    String localTime;
 
     @SerializedName("kakaoChatAddress")
     String kakaoChatAddress = "Address";
@@ -39,7 +42,7 @@ public class Post {
     @SerializedName("place")
     String place = "Place";
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 

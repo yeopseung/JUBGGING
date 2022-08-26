@@ -5,6 +5,28 @@
     android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@color/text_color"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/ic_baseline_more_vert_24"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
@@ -16,16 +38,11 @@
             android:layout_height="1000dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray"/>
+                android:layout_height="2dp"
+                android:background="@color/gray"
+                android:layout_marginTop="60dp"/>
 
             <Space
                 android:layout_width="match_parent"
@@ -33,7 +50,8 @@
             
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
                 
                 <TextView
                     android:layout_width="0dp"
@@ -43,7 +61,7 @@
                     android:text="칼로리"
                     android:textColor="@color/text_color"
                     android:textStyle="bold"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
 
                     android:gravity="center"/>
 
@@ -55,7 +73,7 @@
                     android:text="측정 시간"
                     android:textColor="@color/text_color"
                     android:textStyle="bold"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
 
                     android:gravity="center"/>
 
@@ -67,62 +85,311 @@
                     android:text="KM"
                     android:textColor="@color/text_color"
                     android:textStyle="bold"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
 
                     android:gravity="center"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="32dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="5"
 
                     android:text="412"
                     android:textColor="@color/text_color"
                     android:textStyle="bold"
-                    android:textSize="30dp"
+                    android:textSize="36dp"
+                    android:letterSpacing="-0.1"
+                    android:scaleY="1.3"
 
                     android:gravity="center"/>
 
+
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="32dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="5"
+                    android:gravity="center"
 
+                    android:letterSpacing="-0.1"
+                    android:scaleY="1.3"
                     android:text="1H 19M"
                     android:textColor="@color/text_color"
-                    android:textStyle="bold"
-                    android:textSize="30dp"
+                    android:textSize="36dp"
 
-                    android:gravity="center"/>
-
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="32dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="5"
+                    android:letterSpacing="-0.1"
+                    android:scaleY="1.3"
+
 
                     android:text="4.5"
                     android:textColor="@color/text_color"
                     android:textStyle="bold"
-                    android:textSize="30dp"
-
-                    />                    android:gravity="center"/>
+                    android:textSize="36dp"
+                    android:gravity="center"/>
 
 
             </LinearLayout>
 
-            
+            <!-- circle with content -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="25dp">
 
+                <ImageView
+                    android:layout_width="198dp"
+                    android:layout_height="198dp"
+                    android:src="@drawable/outline_circle"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="198dp"
+                    android:layout_height="198dp"
+
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+
+                        android:text="7月"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_color"
+                        android:textSize="28dp"
+
+                        android:gravity="center|bottom"/>
+
+                    <View
+                        android:layout_width="128dp"
+                        android:layout_height="1dp"
+                        android:layout_margin="8dp"
+                        android:background="@color/gray"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:text="오늘의 걸음"
+                        android:textColor="@color/text_color_light"
+                        android:textSize="16dp"
+
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:text="6293"
+                        android:textStyle="bold"
+                        android:textSize="48dp"
+                        android:textColor="@color/main_color_2"
+                        android:letterSpacing="-0.1"
+
+                        android:gravity="center"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- percent bar -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="8dp">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/text_color_light"
+                        android:layout_gravity="center"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/text_color_light"
+                        android:layout_gravity="center"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/text_color_light"
+                        android:layout_gravity="center"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/text_color_light"
+                        android:layout_gravity="center"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/text_color_light"
+                        android:layout_gravity="center"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/text_color_light"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/home_percent_circle1"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_circle_gray_24"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/home_percent_circle2"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_circle_gray_24"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/home_percent_circle3"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_circle_gray_24"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/home_percent_circle4"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_circle_gray_24"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/home_percent_circle5"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_circle_gray_24"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/home_percent_circle6"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_circle_gray_24"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+                    <ImageView
+                        android:id="@+id/home_percent_circle7"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_circle_gray_24"/>
+                </LinearLayout>
+
+
+
+
+            </FrameLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/gray"
+                android:layout_marginVertical="15dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="홈 화면" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/outline_rectangle"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="7/26"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:scaleY="1.3"
+
+                    android:gravity="center"/>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/text_color_light"
+                    android:layout_marginHorizontal="15dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:text="동작구 상도로"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:scaleY="1.3"
+
+                    android:gravity="center_vertical"/>
+                
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/ic_baseline_chevron_right_24"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
 
