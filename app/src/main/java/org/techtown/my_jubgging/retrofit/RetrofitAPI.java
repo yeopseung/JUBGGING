@@ -1,12 +1,15 @@
 package org.techtown.my_jubgging.retrofit;
 
 
+import com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment;
+
 import org.techtown.my_jubgging.Post;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.trashmap.CustomTrash;
 
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -55,5 +58,7 @@ public interface RetrofitAPI {
     // Input : Post post
     // Output : boardId
     @POST("board")
-    Call<Integer> postNewPosting(@Body Post post);
+    Call<Map<String, Long>> postNewPosting(@Body Post post);
+
+    //
 }

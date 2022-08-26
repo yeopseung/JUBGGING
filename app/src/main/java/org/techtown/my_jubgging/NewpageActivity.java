@@ -32,9 +32,12 @@ import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -310,7 +313,7 @@ public class NewpageActivity extends AppCompatActivity {
     }
 
     private boolean buildPost() {
-        post.userId = "";
+        post.userId = 19L;
 
         post.region1 = regionBtn[0].getText().toString();
         post.region2 = regionBtn[0].getText().toString();
@@ -334,13 +337,13 @@ public class NewpageActivity extends AppCompatActivity {
     }
 
     private boolean savePost() {
-        Call<Integer> call = retrofitApi.postNewPosting(post);
+        Call<Map<String, Long>> call = retrofitApi.postNewPosting(post);
 
-        call.enqueue(new Callback<Integer>() {
+        call.enqueue(new Callback<Map<String, Long>>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
+            public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
                 if (!response.isSuccessful()) {
-                    customErrorToast("Code : " + response.code());
+                    customErrorToast("Code : " + response.code() + response.message() + response.errorBody());
                     return;
                 }
 
@@ -350,7 +353,7 @@ public class NewpageActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onFailure(Call<Map<String, Long>> call, Throwable t) {
                 customErrorToast("저장 실패...! 다시 시도해주세요!");
             }
         });
