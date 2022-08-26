@@ -164,6 +164,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
     }
 
 
+
     // CustomCallOutBalloonAdapter 인터페이스 구현
     // 커스텀 쓰레기통 클릭시 띄우는 말풍선
     class CustomCallOutBalloonAdapter implements CalloutBalloonAdapter {

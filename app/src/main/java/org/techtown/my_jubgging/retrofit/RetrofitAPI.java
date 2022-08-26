@@ -61,6 +61,7 @@ public interface RetrofitAPI {
     Call<UserInfo> getCustomTrashUser(@Query("customTrashAddressId") String customTrashAddressId);
 
 
+
     // 새로운 게시물을 작성
     // Input : Post post
     // Output : boardId
