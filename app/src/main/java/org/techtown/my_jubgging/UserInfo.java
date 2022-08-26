@@ -139,4 +139,5 @@ public class UserInfo implements Serializable {
     public int getHeart() {return heart;}
 
     public void setHeart(int heart) {this.heart = heart;}
+
 }
