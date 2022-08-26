@@ -74,7 +74,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
             checkRunTimePermission();
 
         //커스텀 쓰레기통 불러와서 띄우기
-        //회원정보 POST
+        //커스텀 쓰레기통 목록 GET
         Call<List<CustomTrash>> call_userinfo = retrofitAPI.getCustomTrashList();
         call_userinfo.enqueue(new Callback<List<CustomTrash>>() {
             @Override
@@ -85,17 +85,17 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                     return;
                 }
 
-                //통신 성공시 TrashMapFragment 로 이동
+                //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
                 List<CustomTrash> result = response.body();
-                int index =0;
+                Log.i(LOG_TAG,"커스텀 쓰레기통 목록 Get 성공 "+result.size()+"개");
+
                 for(CustomTrash ct : result)
                 {
 
-                    Log.i(LOG_TAG,ct.getCustomTrashAddressId() +" "+ct.getLatitude()+" "+ct.getLongitude());
+
                     MapPOIItem customMarker = new MapPOIItem();
                     customMarker.setUserObject(ct);
                     customMarker.setItemName("Custom Marker");
-                    customMarker.setTag(index);
                     customMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(ct.getLatitude()),Double.parseDouble(ct.getLongitude())));
                     customMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
                     customMarker.setCustomImageResourceId(R.drawable.trash_general); // 마커 이미지.
@@ -103,7 +103,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                     customMarker.setCustomImageAnchor(0.5f, 1.0f); //   마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
 
                     mapView.addPOIItem(customMarker);
-                    index++;
                 }
 
 
