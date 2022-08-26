@@ -10,7 +10,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.data.DataSet;
+import com.google.android.gms.fitness.data.DataType;
+import com.google.android.gms.fitness.request.DataReadRequest;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -19,6 +26,10 @@ import org.techtown.my_jubgging.fragment.PointShopFragment;
 import org.techtown.my_jubgging.fragment.RankingFragment;
 import org.techtown.my_jubgging.fragment.TogetherFragment;
 import org.techtown.my_jubgging.trashmap.TrashMapFragment;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -32,7 +43,7 @@ public class MainMenu extends AppCompatActivity {
     private PointShopFragment pointShopFragment = new PointShopFragment();
 
     // 내 프로필 이동 버튼
-    private Button button;
+    private ImageButton button;
 
 
     @Override

@@ -20,19 +20,22 @@
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/outline_circle.xml" value="0.165" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/outlinne_circle.xml" value="0.1" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/rounded_rectangle.xml" value="0.1175" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_address_api.xml" value="0.1702127659574468" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_cutstom_trash_add.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_main.xml" value="0.11828774062816616" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_main_menu.xml" value="0.26132246376811596" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_main_menu.xml" value="0.262987012987013" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_my_profile.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_ranking.xml" value="0.1702127659574468" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_sign_up.xml" value="0.26132246376811596" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_togerther_newpage.xml" value="0.18857142857142858" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_together_board.xml" value="0.26132246376811596" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_together_newpage.xml" value="0.2857142857142857" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_together_post.xml" value="0.2857142857142857" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/adapter_together_recycler.xml" value="0.12601994560290117" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/adapter_together_recycler.xml" value="0.2857142857142857" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/dialog_choice_regions.xml" value="0.14285714285714285" />
-        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/fragment_home.xml" value="0.1261682242990654" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/fragment_home.xml" value="0.2857142857142857" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/fragment_map.xml" value="0.26132246376811596" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/fragment_point_shop.xml" value="0.1702127659574468" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/fragment_ranking.xml" value="0.23073436083408885" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/fragment_together.xml" value="0.36639589568191533" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/spinner_item.xml" value="0.10472659870250231" />

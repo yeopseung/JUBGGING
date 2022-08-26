@@ -54,7 +54,12 @@
             android:name=".NewpageActivity"
             android:exported="true"/>
 
-        <activity android:name=".RegionPickerActivity"/>
+        <activity
+            android:name=".RegionPickerActivity"/>
+
+        <activity
+            android:name=".ReadPostDetail"
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -1,9 +1,11 @@
 package org.techtown.my_jubgging;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -15,6 +17,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.FitnessOptions;
+import com.google.android.gms.fitness.data.DataType;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -40,6 +48,7 @@ import retrofit2.Retrofit;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
     private static final String LOG_TAG = "MainActivity: ";
 
     private ISessionCallback iSessionCallback;
@@ -164,11 +173,33 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        /* Jaewoo added for Google Fit */
+        // 필요한 권한들 정의
+        /*
+        FitnessOptions fitnessOptions =
+                FitnessOptions.builder()
+                        .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE)
+                        .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
+                        .build();
+
+        if(!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
+            GoogleSignIn.requestPermissions(this,
+                    REQUEST_OAUTH_REQUEST_CODE,
+                    GoogleSignIn.getLastSignedInAccount(this),
+                    fitnessOptions);
+        } else {
+            Fitness.getRecordingClient(this,
+                            GoogleSignIn.getLastSignedInAccount(this))
+                    .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE);
+        }
+
+         */
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
         if(Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data))
             super.onActivityResult(requestCode, resultCode, data);
     }

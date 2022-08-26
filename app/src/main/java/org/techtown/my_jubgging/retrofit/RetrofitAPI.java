@@ -4,10 +4,13 @@ package org.techtown.my_jubgging.retrofit;
 import com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment;
 
 import org.techtown.my_jubgging.Post;
+import org.techtown.my_jubgging.ReadPost;
+import org.techtown.my_jubgging.RegionPost;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.trashmap.CustomTrash;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -68,5 +72,11 @@ public interface RetrofitAPI {
     @POST("board")
     Call<Map<String, Long>> postNewPosting(@Body Post post);
 
-    //
+    // 지역 게시물 조회
+    @GET("board")
+    Call<Map<String, ArrayList<Object>>> getPosts(@Query(value = "regionName") String regionName);
+
+    // 게시물 세부 조회
+    @GET("board/spec")
+    Call<Map<String, Object>> getPostDetail(@Query(value = "boardId") long boardId);
 }

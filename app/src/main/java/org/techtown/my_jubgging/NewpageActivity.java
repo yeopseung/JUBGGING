@@ -347,6 +347,9 @@ public class NewpageActivity extends AppCompatActivity {
                     return;
                 }
 
+                Map<String,Long> data = response.body();
+                customErrorToast(data.get("boardId") + " ");
+
                 Toast.makeText(getApplicationContext(), "저장 성공!", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                 startActivity(intent);

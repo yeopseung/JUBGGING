@@ -11,15 +11,17 @@
         android:padding="15dp">
 
         <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/together_board_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="함께줍깅" />
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <ImageButton
             android:id="@+id/together_add_button"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
             android:onClick="OnAddPost"
 
             android:scaleType="fitCenter"
@@ -27,6 +29,18 @@
             android:background="@color/transparent"
 
             android:layout_gravity="bottom|right"/>
+
+        <ImageButton
+            android:id="@+id/together_post_read"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:onClick="OnAddPost"
+
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_add_circle_24"
+            android:background="@color/transparent"
+
+            android:layout_gravity="bottom|left"/>
 
 
 
