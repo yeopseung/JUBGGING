@@ -14,10 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
+import org.techtown.my_jubgging.retrofit.RetrofitClient;
 import org.w3c.dom.Text;
 
 import java.util.Map;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,14 +60,11 @@ public class ReadPostDetail extends Activity {
         Intent intent = getIntent();
         long boardId = intent.getLongExtra("boardId", 0L);
 
+        boardId = 50L;
         setButtons();
         buttonsOnClickSet();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.35:8080")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
+        Retrofit retrofit = RetrofitClient.getInstance();
         retrofitApi = retrofit.create(RetrofitAPI.class);
 
         Call<Map<String, Object>> call = retrofitApi.getPostDetail(boardId);
@@ -77,7 +77,7 @@ public class ReadPostDetail extends Activity {
                     return;
                 }
 
-                setValue(response.body());
+                //setValue(response.body());
             }
 
             @Override
@@ -133,6 +133,7 @@ public class ReadPostDetail extends Activity {
     }
 
     private void setValue(Map<String, Object> data) {
+        /*
         recruitingTxt.setText("모집중"); //< FIXME
         userNameTxt.setText(data.get("nickName").toString());
         regionTxt.setText(data.get("address").toString());
@@ -143,6 +144,7 @@ public class ReadPostDetail extends Activity {
         placeTxt.setText(data.get("place").toString());
 
         content.setText(data.get("content").toString());
+        */
     }
 
     private void customToast(String text) {

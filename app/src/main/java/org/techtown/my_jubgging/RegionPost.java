@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class RegionPost {
     @SerializedName("boardId")
-    long userId = 123L;
+    long boardId= 123L;
 
     @SerializedName("peopleNum")
     int peopleNum = 4;
@@ -31,13 +31,13 @@ public class RegionPost {
     String region3 = "";
 
     @SerializedName("modifiedTime")
-    LocalDateTime modifiedTime;
+    String modifiedTime;
 
     @SerializedName("date")
-    LocalDate date;
+    String date;
 
     public long getUserId() {
-        return userId;
+        return boardId;
     }
 
     public int getPeopleNum() {
@@ -68,11 +68,11 @@ public class RegionPost {
         return region3;
     }
 
-    public LocalDateTime getModifiedTime() {
+    public String getModifiedTime() {
         return modifiedTime;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 }

@@ -74,7 +74,7 @@ public interface RetrofitAPI {
 
     // 지역 게시물 조회
     @GET("board")
-    Call<Map<String, ArrayList<Object>>> getPosts(@Query(value = "regionName") String regionName);
+    Call<Map<String, List<RegionPost>>> getPosts(@Query("regionName") String regionName);
 
     // 게시물 세부 조회
     @GET("board/spec")

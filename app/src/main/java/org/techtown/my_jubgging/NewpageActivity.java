@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
+import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -128,10 +129,7 @@ public class NewpageActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.spinner_item);
         genderSpinner.setAdapter(adapter);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.35:8080")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit = RetrofitClient.getInstance();
 
         retrofitApi = retrofit.create(RetrofitAPI.class);
     }

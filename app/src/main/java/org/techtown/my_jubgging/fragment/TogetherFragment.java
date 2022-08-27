@@ -17,10 +17,14 @@ import org.techtown.my_jubgging.ReadPost;
 import org.techtown.my_jubgging.ReadPostDetail;
 import org.techtown.my_jubgging.RegionPost;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
+import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,26 +57,27 @@ public class TogetherFragment extends Fragment {
             }
         });
 
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        clientBuilder.addInterceptor(loggingInterceptor);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.35:8080")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit = RetrofitClient.getInstance();
 
         retrofitApi = retrofit.create(RetrofitAPI.class);
-        Call<Map<String, ArrayList<Object>>> call = retrofitApi.getPosts("상도동");
+        Call<Map<String, List<RegionPost>>> call = retrofitApi.getPosts("상도동");
 
-        call.enqueue(new Callback<Map<String, ArrayList<Object>>>() {
+        call.enqueue(new Callback<Map<String, List<RegionPost>>>() {
             @Override
-            public void onResponse(Call<Map<String, ArrayList<Object>>> call, Response<Map<String, ArrayList<Object>>> response) {
+            public void onResponse(Call<Map<String, List<RegionPost>>> call, Response<Map<String, List<RegionPost>>> response) {
                 if (!response.isSuccessful()) {
                     customToast("Code : " + response.code() + response.message() + response.errorBody());
                     return;
                 }
 
-                //Map<String, ArrayList<Object>> data = response.body();
-                //ArrayList<Object> realData = data.get("Results");
-
+                Map<String, List<RegionPost>> data = response.body();
+                List<RegionPost> realData = data.get("Results");
+                customToast(realData.size() + " ");
                 //for (int i = 0; i < realData.size(); ++i) {
                 //    customToast(((ReadPost)(realData.get(i))).getTitle());
                 //}
@@ -80,7 +85,7 @@ public class TogetherFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Map<String, ArrayList<Object>>> call, Throwable t){
+            public void onFailure(Call<Map<String, List<RegionPost>>> call, Throwable t){
                 customToast("Fail : " + t.getMessage());
             }
 
