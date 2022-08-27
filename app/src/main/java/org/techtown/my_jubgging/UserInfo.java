@@ -27,10 +27,8 @@ public class UserInfo implements Serializable {
     String dong;
     @SerializedName("gender")
     String gender;
-
     @SerializedName("point")
     int point;
-
     @SerializedName("addPlaceNum")
     int addPlaceNum;
     @SerializedName("heart")
