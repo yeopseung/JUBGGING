@@ -57,6 +57,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION};
 
+    UserInfo result;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,15 +81,16 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         else
             checkRunTimePermission();
 
-        //커스텀쓰레기통 클릭시 말풍선 Adapter 등록
-        mapView.setCalloutBalloonAdapter(new CustomCallOutBalloonAdapter());
+
 
         //커스텀 쓰레기통 불러와서 띄우기
         //커스텀 쓰레기통 목록 GET
-        Call<List<CustomTrash>> call_userinfo = retrofitAPI.getCustomTrashList();
-        call_userinfo.enqueue(new Callback<List<CustomTrash>>() {
+        Call<List<CustomTrash>> call = retrofitAPI.getCustomTrashList();
+        call.enqueue(new Callback<List<CustomTrash>>() {
             @Override
             public void onResponse(Call<List<CustomTrash>> call, Response<List<CustomTrash>> response) {
+                View callOutBalloon;
+
                 //통신 실패
                 if (!response.isSuccessful()) {
                     Log.e(LOG_TAG, String.valueOf(response.code()));
@@ -102,31 +104,48 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                 for(CustomTrash ct : result)
                 {
 
-
                     MapPOIItem customMarker = new MapPOIItem();
                     customMarker.setUserObject(ct);
+                    // 마커 이름
                     customMarker.setItemName("Custom Marker");
+                    // 마커 위치
                     customMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(ct.getLatitude()),Double.parseDouble(ct.getLongitude())));
-                    customMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
-
+                    // 마커타입을 커스텀 마커로 지정.
+                    customMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                    // 마커 이미지.
                     switch (ct.getKind())
                     {
                         case "GENERAL":
-                            customMarker.setCustomImageResourceId(R.drawable.trash_general_blue); // 마커 이미지.
+                            customMarker.setCustomImageResourceId(R.drawable.trash_general_blue);
                             break;
                         case "RECYCLE":
-                            customMarker.setCustomImageResourceId(R.drawable.trash_recycle_blue); // 마커 이미지.
+                            customMarker.setCustomImageResourceId(R.drawable.trash_recycle_blue);
                             break;
                         case "SMOKING":
-                            customMarker.setCustomImageResourceId(R.drawable.trash_smoking_blue); // 마커 이미지.
+                            customMarker.setCustomImageResourceId(R.drawable.trash_smoking_blue);
                             break;
                     }
-                    customMarker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
-                    customMarker.setCustomImageAnchor(0.5f, 1.0f); //   마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+                    // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
+                    customMarker.setCustomImageAutoscale(false);
+                    //마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+                    customMarker.setCustomImageAnchor(0.5f, 1.0f);
+
+
+                    Log.i(LOG_TAG,ct.getProfileURL());
+                    //마커의 말풍선 설정
+                    callOutBalloon = getLayoutInflater().inflate(R.layout.adapter_custom_callout_balloon, null);
+                    //쓰레기통 등록자의 프로필
+                    ImageView imageView = ((ImageView) callOutBalloon.findViewById(R.id.custom_trash_balloon_imageView));
+                    Glide.with(callOutBalloon).load(ct.getProfileURL()).into(imageView);
+                    //쓰레기통 등록자의 닉네임
+                    ((TextView) callOutBalloon.findViewById(R.id.custom_trash_balloon_nickName)).setText(ct.getNickName());
+                    //쓰레기통 등록자의 좋아요개수
+                    ((TextView) callOutBalloon.findViewById(R.id.custom_trash_balloon_heart)).setText("좋아요: "+ ct.getHeart());
+
+                    customMarker.setCustomCalloutBalloon(callOutBalloon);
 
                     mapView.addPOIItem(customMarker);
                 }
-
 
 
             }
@@ -150,7 +169,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
     @Override
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-
+        Log.i(LOG_TAG,"onCalloutBalloonOfPOIItemTouched");
     }
 
     @Override
@@ -165,66 +184,41 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
 
 
-    // CustomCallOutBalloonAdapter 인터페이스 구현
-    // 커스텀 쓰레기통 클릭시 띄우는 말풍선
-    class CustomCallOutBalloonAdapter implements CalloutBalloonAdapter {
-        private final View mCalloutBalloon;
-
-        public CustomCallOutBalloonAdapter() {
-            mCalloutBalloon = getLayoutInflater().inflate(R.layout.adapter_custom_callout_balloon, null);
-        }
-
-        @Override
-        public View getCalloutBalloon(MapPOIItem poiItem) {
-
-            //커스텀 마크 내부에 저장한 CustomTrash 정보 참조
-            CustomTrash customTrash  = (CustomTrash) poiItem.getUserObject();
-
-            //커스텀 쓰레기통 등록자 정보 조회
-            //커스텀 쓰레기통 등록자 정보 GET
-            Call<UserInfo> call_userinfo = retrofitAPI.getCustomTrashUser(customTrash.getCustomTrashAddressId());
-            call_userinfo.enqueue(new Callback<UserInfo>() {
-                @Override
-                public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
-                    //통신 실패
-                    if (!response.isSuccessful()) {
-                        Log.e(LOG_TAG, String.valueOf(response.code()));
-                        return;
-                    }
-
-                    //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
-                    UserInfo result = response.body();
-                    Log.i(LOG_TAG,"커스텀 쓰레기통 등록자 정보 Get 성공 UserId:"+result.getUserId()+" NickName: "+result.getNickName()+" heart: "+result.getHeart());
-
-                    //쓰레기통 등록자의 프로필
-                    ImageView imageView = ((ImageView) mCalloutBalloon.findViewById(R.id.custom_trash_balloon_imageView));
-                    Glide.with(mCalloutBalloon).load(result.getProfileURL()).into(imageView);
 
 
-                    //쓰레기통 등록자의 닉네임
-                    ((TextView) mCalloutBalloon.findViewById(R.id.custom_trash_balloon_nickName)).setText(result.getNickName());
+    public void callGetCustomTrashUser(CustomTrash customTrash)
+    {
 
-                    //쓰레기통 등록자의 좋아요개수
-                    ((TextView) mCalloutBalloon.findViewById(R.id.custom_trash_balloon_heart)).setText("좋아요: "+ result.getHeart());
 
-                    Log.i(LOG_TAG,"설정완료");
+        //커스텀 쓰레기통 등록자 정보 조회
+        //커스텀 쓰레기통 등록자 정보 GET
+        Call<UserInfo> call_userinfo = retrofitAPI.getCustomTrashUser(customTrash.getCustomTrashAddressId());
+        call_userinfo.enqueue(new Callback<UserInfo>() {
+            @Override
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                //통신 실패
+                if (!response.isSuccessful()) {
+                    Log.e(LOG_TAG, String.valueOf(response.code()));
+                    return;
                 }
 
-                @Override
-                public void onFailure(Call<UserInfo> call, Throwable t) {
-                    //통신 실패
-                    Log.e(LOG_TAG, t.getLocalizedMessage());
-                }
-            });
+                //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
+                result = response.body();
+                Log.i(LOG_TAG,"커스텀 쓰레기통 등록자 정보 Get 성공 UserId:"+ result.getUserId()+" NickName: "+ result.getNickName()+" heart: "+ result.getHeart());
 
-            return mCalloutBalloon;
-        }
 
-        @Override
-        public View getPressedCalloutBalloon(MapPOIItem poiItem) {
-            return  null;
-        }
+                Log.i(LOG_TAG,"설정완료");
+            }
+
+            @Override
+            public void onFailure(Call<UserInfo> call, Throwable t) {
+                //통신 실패
+                Log.e(LOG_TAG, t.getLocalizedMessage());
+            }
+        });
+
     }
+
 
     // ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드
     @Override
@@ -458,4 +452,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
 
     }
-}
+
+
+   }
