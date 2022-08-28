@@ -4,19 +4,27 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -43,9 +51,11 @@ public class ReadPostDetail extends Activity {
     TextView placeTxt;
 
     TextView content;
+    TextView partyNumText;
 
     Button participateBtn;
 
+    LinearLayout profileLayouts;
 
     private RetrofitAPI retrofitApi;
     @Override
@@ -77,7 +87,7 @@ public class ReadPostDetail extends Activity {
                     return;
                 }
 
-                //setValue(response.body());
+                setValue(response.body());
             }
 
             @Override
@@ -101,8 +111,11 @@ public class ReadPostDetail extends Activity {
         placeTxt = findViewById(R.id.together_post_place_text);
 
         content = findViewById(R.id.together_post_content_text);
+        partyNumText = findViewById(R.id.together_post_party_num_text);
 
         participateBtn = findViewById(R.id.together_post_participate_button);
+
+        profileLayouts = findViewById(R.id.together_post_profiles_layout);
     }
 
     private void buttonsOnClickSet() {
@@ -133,18 +146,44 @@ public class ReadPostDetail extends Activity {
     }
 
     private void setValue(Map<String, Object> data) {
-        /*
+        Integer attendingNum =((Double)data.get("nowAttendingNum")).intValue();
+        Integer peopleNum = ((Double)data.get("peopleNum")).intValue();
+
+        HashMap<String, String> genderTranslate = new HashMap<String, String>();
+        genderTranslate.put("Female", "여자만");
+        genderTranslate.put("Male", "남자만");
+        genderTranslate.put("All", "아무나");
+
         recruitingTxt.setText("모집중"); //< FIXME
         userNameTxt.setText(data.get("nickName").toString());
         regionTxt.setText(data.get("address").toString());
-        //timeTxt.setText(readPost.modifiedTime)
+        timeTxt.setText(data.get("modifiedTime").toString());
 
         titleTxt.setText(data.get("title").toString());
-        //genderTxt.setText(readPost.)
+        genderTxt.setText(genderTranslate.get(data.get("possibleGender")));
         placeTxt.setText(data.get("place").toString());
 
         content.setText(data.get("content").toString());
-        */
+
+        partyNumText.setText("참여 " + attendingNum + " / " + peopleNum);
+
+        profileLayouts.removeAllViews();
+        List<String> URLS = (List<String>)data.get("attendingPeopleProfileURL");
+        for (int i = 0; i < attendingNum; ++i) {
+            ImageView imgView = makeNewImageView(URLS.get(i));
+            profileLayouts.addView(imgView);
+        }
+    }
+
+    private ImageView makeNewImageView(String URL) {
+        ImageView imgView = new ImageView(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(138, 138);
+        params.setMargins(0, 0, 40, 0);
+        imgView.setLayoutParams(params);
+
+        Glide.with(this).load(URL).apply(new RequestOptions().circleCrop()).into(imgView);
+
+        return imgView;
     }
 
     private void customToast(String text) {
