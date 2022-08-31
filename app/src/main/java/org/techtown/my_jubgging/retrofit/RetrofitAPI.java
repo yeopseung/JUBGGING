@@ -8,9 +8,11 @@ import org.techtown.my_jubgging.ReadPost;
 import org.techtown.my_jubgging.RegionPost;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.trashmap.CustomTrash;
+import org.techtown.my_jubgging.trashmap.PublicTrashAddress;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +65,18 @@ public interface RetrofitAPI {
     //Output : String userId
     @GET("map/trash/user")
     Call<UserInfo> getCustomTrashUser(@Query("customTrashAddressId") String customTrashAddressId);
+
+    //공공 쓰레기통 목록을 불러옴
+    //Input :
+    //Output : UserInfo userInfo
+    @GET("map/trash/publicInfo")
+    Call<HashMap<String, List<PublicTrashAddress>>> getPublicTrashList();
+
+    //유저의 프로필 정보를 불러옴
+    //Input :
+    //Output : UserInfo userInfo
+    @GET("user/{userId}/profiles")
+    Call<UserInfo> getUserProfile(@Path("userId") String userId);
 
 
 
