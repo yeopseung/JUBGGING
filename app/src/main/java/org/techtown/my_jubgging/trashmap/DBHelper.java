@@ -36,8 +36,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // SELECT 문 (주소 목록들을 조회)
-    public ArrayList<PublicTrashAddress> getAddressList() {
-        ArrayList<PublicTrashAddress> addressItems = new ArrayList<>();
+    public ArrayList<PublicTrash> getAddressList() {
+        ArrayList<PublicTrash> addressItems = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM AddressList ORDER BY id ASC ", null);
@@ -51,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") String longitude = cursor.getString(cursor.getColumnIndex("longitude"));
                 @SuppressLint("Range") String spec = cursor.getString(cursor.getColumnIndex("spec"));
 
-                PublicTrashAddress addressItem = new PublicTrashAddress();
+                PublicTrash addressItem = new PublicTrash();
                 addressItem.setId(id);
                 addressItem.setAddress(address);
                 addressItem.setKind(kind);

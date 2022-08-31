@@ -1,6 +1,6 @@
 package org.techtown.my_jubgging.trashmap;
 
-public class PublicTrashAddress {
+public class PublicTrash {
 
     //인덱스 번호
     private Long id;
@@ -16,10 +16,10 @@ public class PublicTrashAddress {
     private String spec;
 
 
-    public PublicTrashAddress() {
+    public PublicTrash() {
     }
 
-    public PublicTrashAddress(String address, String kind, String longitude, String latitude, String spec) {
+    public PublicTrash(String address, String kind, String longitude, String latitude, String spec) {
         this.address = address;
         this.kind = kind;
         this.longitude = longitude;
