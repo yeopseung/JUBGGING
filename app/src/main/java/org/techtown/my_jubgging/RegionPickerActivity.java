@@ -44,8 +44,10 @@ public class RegionPickerActivity extends Activity {
     HashMap<String, Integer> guID;
 
     ImageButton backBtn;
+    TextView okBtn;
     boolean isDong;
-    
+
+    int targetNum;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,9 @@ public class RegionPickerActivity extends Activity {
         setContentView(R.layout.dialog_choice_regions);
 
         context = getApplicationContext();
+
+        Intent data = getIntent();
+        targetNum = data.getIntExtra("targetNum", 3);
 
         res = getResources();
         gu = res.getStringArray(R.array.spinner_seoul);
@@ -65,16 +70,26 @@ public class RegionPickerActivity extends Activity {
         region[1] = findViewById(R.id.region_picker_region2);
         region[2] = findViewById(R.id.region_picker_region3);
 
+        for (int i = targetNum; i < 3; ++i)
+            region[i].setVisibility(View.INVISIBLE);
+
         returnStr = new String[3];
-        returnStr[0] = "";
-        returnStr[1] = "";
-        returnStr[2] = "";
+        returnStr[0] = "+";
+        returnStr[1] = "+";
+        returnStr[2] = "+";
 
         backBtn = findViewById(R.id.region_picker_back_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 back();
             }
+        });
+
+        okBtn = findViewById(R.id.region_picker_ok_button);
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { okBtnPressed(); }
         });
 
         isDong = false;
@@ -84,25 +99,30 @@ public class RegionPickerActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        back();
-    }
-
-    private void back() {
         if (isDong) {
             isDong = false;
             printGu();
         }
         else {
-            Intent intent = new Intent();
-            intent.putExtra("region1", returnStr[0]);
-            intent.putExtra("region2", returnStr[1]);
-            intent.putExtra("region3", returnStr[2]);
-            intent.putExtra("regionCnt", regionCnt);
-
-            setResult(RESULT_OK, intent);
-
-            finish();
+            okBtnPressed();
         }
+    }
+
+    private void okBtnPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("region1", returnStr[0]);
+        intent.putExtra("region2", returnStr[1]);
+        intent.putExtra("region3", returnStr[2]);
+        intent.putExtra("regionCnt", regionCnt);
+
+        setResult(RESULT_OK, intent);
+
+        super.onBackPressed();
+        finish();
+    }
+
+    private void back() {
+        onBackPressed();
     }
 
     private void printGu() {
@@ -225,7 +245,7 @@ public class RegionPickerActivity extends Activity {
             // #Case : dong
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (regionCnt < 3) {
+                    if (regionCnt < targetNum) {
                         btn.setEnabled(false);
                         returnStr[regionCnt] = btn.getText().toString();
                         region[regionCnt].setBackgroundTintList(null);

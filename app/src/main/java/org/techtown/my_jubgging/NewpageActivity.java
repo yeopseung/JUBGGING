@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -69,6 +71,9 @@ public class NewpageActivity extends AppCompatActivity {
     Button makeBtn;
 
     /* Instance Value */
+    Context context;
+    int mainColor;
+
     int regionNum = 0;
 
     boolean isDateSet = false;
@@ -98,27 +103,42 @@ public class NewpageActivity extends AppCompatActivity {
                     key[1] = "region2";
                     key[2] = "region3";
 
-                    for (int i = 0; i < regionNum; ++i) {
+                    for (int i = 0; i < 3; ++i) {
                         get = data.getStringExtra(key[i]);
                         regionBtn[i].setText(get);
-                        regionBtn[i].setBackgroundTintList(null);
-                        regionBtn[i].setVisibility(View.VISIBLE);
                     }
 
-                    if (regionNum < 3)
+                    for (int i = 0; i < regionNum; ++i) {
+                        regionBtn[i].setBackgroundResource(R.drawable.rounded_rectangle);
+                        regionBtn[i].setVisibility(View.VISIBLE);
+                    }
+                    if (regionNum < 3) {
+                        regionBtn[regionNum].setBackgroundResource(R.drawable.rounded_rectangle_gray);
                         regionBtn[regionNum].setVisibility(View.VISIBLE);
+
+                        for (int i = regionNum + 1; i < 3; ++i)
+                            regionBtn[i].setVisibility(View.INVISIBLE);
+                    }
                 }
             }
     );
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_together_newpage);
 
+        context = getApplicationContext();
+
         post = new Post();
         regionBtn = new TextView[3];
+
+        mainColor = context.getResources().getColor(R.color.main_color_4);
 
         setButtons();
         buttonsOnClickSet();
@@ -314,11 +334,12 @@ public class NewpageActivity extends AppCompatActivity {
         post.userId = 19L;
 
         post.region1 = regionBtn[0].getText().toString();
-        post.region2 = regionBtn[0].getText().toString();
-        post.region3 = regionBtn[0].getText().toString();
+        post.region2 = regionBtn[1].getText().toString();
+        post.region3 = regionBtn[2].getText().toString();
 
         post.title = titleText.getText().toString();
         post.content = contentText.getText().toString();
+        post.place = placeText.getText().toString();
 
         String gender[] = { "All", "Male", "Female" };
         post.possibleGender = gender[genderSpinner.getSelectedItemPosition()];
@@ -330,6 +351,8 @@ public class NewpageActivity extends AppCompatActivity {
 
         post.localDate = dataFormat.format(newDate);
         post.localTime = timeFormat.format(newDate);
+
+        post.kakaoChatAddress = linkText.getText().toString();
 
         return true;
     }
@@ -349,8 +372,7 @@ public class NewpageActivity extends AppCompatActivity {
                 customErrorToast(data.get("boardId") + " ");
 
                 Toast.makeText(getApplicationContext(), "저장 성공!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
-                startActivity(intent);
+                onBackPressed();
             }
 
             @Override

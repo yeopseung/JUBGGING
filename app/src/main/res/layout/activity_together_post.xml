@@ -43,258 +43,275 @@
         android:background="@color/gray"/>
 
     <!-- Body -->
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="15dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <!-- profil -->
-        <TextView
-            android:id="@+id/together_post_recruiting_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"
-
-            android:text="모집 완료"
-            android:textColor="@color/deep_gray"
-            android:textSize="12dp"
-
-            android:layout_gravity=""
-            android:gravity="center"
-            android:background="@color/light_gray"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageButton
-                android:id="@+id/together_post_profile_image"
-                android:layout_width="64dp"
-                android:layout_height="64dp"/>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/together_post_username_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-
-                    android:text="사용자 이름"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_color"
-                    android:textSize="16dp"
-
-                    android:gravity="bottom"/>
-
-                <TextView
-                    android:id="@+id/together_post_region_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:paddingBottom="10dp"
-
-                    android:text="상도동"
-                    android:textColor="@color/text_color_light"
-                    android:textSize="14dp"
-
-                    android:gravity="bottom"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/together_post_posting_time_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-
-                android:text="작성 날짜 및 시간"
-                android:textColor="@color/text_color_light"
-                android:textSize="14dp"
-
-                android:gravity="bottom"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"
-            android:layout_marginVertical="15dp"/>
-
-        <!-- Title -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <!-- profil -->
+            <TextView
+                android:id="@+id/together_post_recruiting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
+                android:layout_marginBottom="8dp"
+
+                android:text="모집 완료"
+                android:textColor="@color/deep_gray"
+                android:textSize="12dp"
+
+                android:layout_gravity=""
+                android:gravity="center"
+                android:background="@color/light_gray"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/together_post_profile_image"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:paddingVertical="5dp"
+                    android:paddingRight="10dp"
+                    android:src="@color/black" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/together_post_username_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+
+                        android:text="사용자 이름"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_color"
+                        android:textSize="16dp"
+
+                        android:gravity="bottom"/>
+
+                    <TextView
+                        android:id="@+id/together_post_region_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:paddingBottom="10dp"
+
+                        android:text="상도동"
+                        android:textColor="@color/text_color_light"
+                        android:textSize="14dp"
+
+                        android:gravity="bottom"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/together_post_modified_time_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+
+                    android:text="작성 날짜 및 시간"
+                    android:textColor="@color/text_color_light"
+                    android:textSize="14dp"
+
+                    android:gravity="bottom"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                android:layout_marginVertical="15dp"/>
+
+            <!-- Title -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/together_post_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="제목에 해당하는 부분입니다."
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:textSize="18dp"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_people_24"/>
+
+                    <TextView
+                        android:id="@+id/together_post_gender_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+
+                        android:text="여자만"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_color_light"
+                        android:textSize="14dp"
+
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_location_on_24"/>
+
+                    <TextView
+                        android:id="@+id/together_post_place_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+
+                        android:text="장소를 나타내는 텍스트"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_color_light"
+                        android:textSize="14dp"
+
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
+
+                    <TextView
+                        android:id="@+id/together_post_target_time_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+
+                        android:text="시간을 나타내는 텍스트"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_color_light"
+                        android:textSize="14dp"
+
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                android:layout_marginVertical="15dp"/>
 
             <TextView
-                android:id="@+id/together_post_title_text"
+                android:id="@+id/together_post_content_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="186dp"
 
-                android:text="제목에 해당하는 부분입니다."
+                android:text="content에 해당하는 부분입니다."
                 android:textStyle="bold"
                 android:textColor="@color/text_color"
-                android:textSize="18dp"/>
+                android:textSize="16dp"/>
 
-            <Space
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="15dp"/>
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                android:layout_marginVertical="15dp"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <TextView
+                android:id="@+id/together_post_party_num_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="참여 1/2"
+                android:textStyle="bold"
+                android:textColor="@color/text_color"
+                android:textSize="16dp"/>
+
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="64dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_baseline_people_24"/>
-
-                <TextView
-                    android:id="@+id/together_post_gender_text"
+                <LinearLayout
+                    android:id="@+id/together_post_profiles_layout"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:layout_height="match_parent">
 
-                    android:text="여자만"
-                    android:textColor="@color/text_color_light"
-                    android:textSize="14dp"
+                    <ImageView
+                        android:layout_width="138px"
+                        android:layout_height="138px"
+                        android:layout_marginRight="40px"
 
-                    android:gravity="center_vertical"/>
-            </LinearLayout>
+                        android:background="@color/black"
+                        android:layout_gravity="center_vertical"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_marginRight="15dp"
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                        android:background="@color/black"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
 
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_baseline_location_on_24"/>
 
-                <TextView
-                    android:id="@+id/together_post_place_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
+            </HorizontalScrollView>
 
-                    android:text="장소를 나타내는 텍스트"
-                    android:textColor="@color/text_color_light"
-                    android:textSize="14dp"
 
-                    android:gravity="center_vertical"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_baseline_calendar_month_24"/>
-
-                <TextView
-                    android:id="@+id/together_post_datetime_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-
-                    android:text="시간을 나타내는 텍스트"
-                    android:textColor="@color/text_color_light"
-                    android:textSize="14dp"
-
-                    android:gravity="center_vertical"/>
-            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"/>
+    <Button
+        android:id="@+id/together_post_participate_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="35dp"
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"
-            android:layout_marginVertical="15dp"/>
+        android:text="참여하기"
+        android:textStyle="bold"
+        android:textColor="@color/main_color_5"
+        android:textSize="22dp"
 
-        <TextView
-            android:id="@+id/together_post_content_text"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-
-            android:text="content에 해당하는 부분입니다."
-            android:textColor="@color/text_color"
-            android:textSize="16dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"
-            android:layout_marginVertical="15dp"/>
-
-        <TextView
-            android:id="@+id/together_post_party_num_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="참여 1/2"
-            android:textStyle="bold"
-            android:textColor="@color/text_color"
-            android:textSize="16dp"/>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/together_post_profiles_layout"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="30dp">
-
-                <ImageView
-                    android:layout_width="138px"
-                    android:layout_height="138px"
-                    android:layout_marginRight="40px"
-
-                    android:background="@color/black"/>
-
-                <ImageView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:layout_marginRight="15dp"
-
-                    android:background="@color/black"/>
-            </LinearLayout>
-
-
-        </HorizontalScrollView>
-
-        <Button
-            android:id="@+id/together_post_participate_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:paddingVertical="10dp"
-
-            android:text="참여하기"
-            android:textStyle="bold"
-            android:textColor="@color/main_color_5"
-            android:textSize="22dp"/>
-
-
-
-    </LinearLayout>
-
+        android:layout_gravity="center"/>
 </LinearLayout>

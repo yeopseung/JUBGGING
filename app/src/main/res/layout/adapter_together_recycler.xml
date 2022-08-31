@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/together_board_layout_body"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="230dp"
-    android:padding="20dp">
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp">
 
     <!-- Head Line -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5">
+        android:layout_height="28dp">
 
         <TextView
-            android:id="@+id/recruiting_text"
+            android:id="@+id/together_board_recruiting_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -38,14 +38,13 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="25">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/head_text"
+            android:id="@+id/together_board_title_text"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8"
+            android:layout_height="32dp"
+            android:layout_marginTop="5dp"
 
             android:text="[헤드 라인] 테스트 문구입니다. 많이 지원해 주실거죠?"
             android:textColor="@color/text_color"
@@ -57,10 +56,9 @@
             android:gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/body_text"
+            android:id="@+id/together_board_content_text"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="12"
+            android:layout_height="48dp"
 
             android:text="몸통에 해당하는 부분입니다. 자세한 내용을 담아내고 있는 내용입니다. 내용이 길어지면 잘라지게 하고 싶습니다. 어떻게 하면 잘리게 할 수 있을까요? SAMPLE"
             android:textColor="@color/text_color_light"
@@ -72,8 +70,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -82,7 +79,7 @@
                 android:src="@drawable/ic_baseline_access_time_24"/>
 
             <TextView
-                android:id="@+id/start_time"
+                android:id="@+id/together_board_start_time"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="9"
@@ -95,8 +92,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -105,7 +101,7 @@
                 android:src="@drawable/ic_baseline_people_outline_24" />
 
             <TextView
-                android:id="@+id/participants"
+                android:id="@+id/together_board_participants"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="9"
@@ -120,11 +116,11 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp">
         
         <TextView
-            android:id="@+id/region1"
+            android:id="@+id/together_board_region1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
@@ -138,7 +134,7 @@
             android:background="@drawable/rounded_rectangle"/>
 
         <TextView
-            android:id="@+id/region2"
+            android:id="@+id/together_board_region2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
@@ -152,7 +148,7 @@
             android:background="@drawable/rounded_rectangle"/>
 
         <TextView
-            android:id="@+id/region3"
+            android:id="@+id/together_board_region3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
@@ -166,7 +162,7 @@
             android:background="@drawable/rounded_rectangle"/>
 
         <TextView
-            android:id="@+id/upload_time"
+            android:id="@+id/together_board_upload_time"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="6"
@@ -178,5 +174,10 @@
             android:textDirection="rtl"
             android:textStyle="bold"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
 
 </LinearLayout>

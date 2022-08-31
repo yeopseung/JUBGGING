@@ -5,10 +5,28 @@
     android:layout_height="match_parent"
     tools:context=".fragment.TogetherFragment">
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/together_board_region_main"
+        android:layout_width="118dp"
+        android:layout_height="36dp"
+        android:paddingHorizontal="15dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="15dp"
+
+        android:text="+"
+        android:textStyle="bold"
+        android:textSize="14dp"
+        android:textColor="@color/text_color"
+
+        android:background="@drawable/rounded_rectangle_gray"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="15dp">
+        android:paddingTop="36dp"
+        android:paddingHorizontal="15dp">
 
         <!-- TODO: Update blank fragment layout -->
         <androidx.recyclerview.widget.RecyclerView
@@ -18,31 +36,17 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <ImageButton
-            android:id="@+id/together_add_button"
-            android:layout_width="84dp"
-            android:layout_height="84dp"
-            android:onClick="OnAddPost"
+    </LinearLayout>
 
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_add_circle_24"
-            android:background="@color/transparent"
+    <ImageButton
+        android:id="@+id/together_add_button"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:onClick="OnAddPost"
 
-            android:layout_gravity="bottom|right"/>
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_baseline_add_circle_24"
+        android:background="@color/transparent"
 
-        <ImageButton
-            android:id="@+id/together_post_read"
-            android:layout_width="84dp"
-            android:layout_height="84dp"
-            android:onClick="OnAddPost"
-
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_add_circle_24"
-            android:background="@color/transparent"
-
-            android:layout_gravity="bottom|left"/>
-
-
-
-    </FrameLayout>
+        android:layout_gravity="bottom|right"/>
 </FrameLayout>

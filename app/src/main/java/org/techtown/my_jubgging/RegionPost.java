@@ -33,10 +33,10 @@ public class RegionPost {
     @SerializedName("modifiedTime")
     String modifiedTime;
 
-    @SerializedName("date")
-    String date;
+    @SerializedName("appointmentTime")
+    String appointmentTime;
 
-    public long getUserId() {
+    public long getBoardId() {
         return boardId;
     }
 
@@ -72,7 +72,5 @@ public class RegionPost {
         return modifiedTime;
     }
 
-    public String getDate() {
-        return date;
-    }
+    public String getAppointmentTime() { return appointmentTime; }
 }

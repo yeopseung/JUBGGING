@@ -86,8 +86,7 @@
                     android:textColor="@color/text_color_light"
 
                     android:gravity="center"
-                    android:background="@drawable/rounded_rectangle"
-                    android:backgroundTint="@color/gray"/>
+                    android:background="@drawable/rounded_rectangle_gray"/>
 
                 <Space
                     android:layout_width="15dp"
@@ -105,8 +104,7 @@
                     android:textColor="@color/text_color_light"
 
                     android:gravity="center"
-                    android:background="@drawable/rounded_rectangle"
-                    android:backgroundTint="@color/gray"
+                    android:background="@drawable/rounded_rectangle_gray"
                     android:visibility="invisible"/>
 
                 <Space
@@ -125,8 +123,7 @@
                     android:textColor="@color/text_color_light"
 
                     android:gravity="center"
-                    android:background="@drawable/rounded_rectangle"
-                    android:backgroundTint="@color/gray"
+                    android:background="@drawable/rounded_rectangle_gray"
                     android:visibility="invisible"/>
 
 

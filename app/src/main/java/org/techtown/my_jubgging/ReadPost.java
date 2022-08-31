@@ -1,3 +1,5 @@
+/*
+
 package org.techtown.my_jubgging;
 
 import com.google.gson.annotations.SerializedName;
@@ -84,3 +86,4 @@ public class ReadPost {
         return attendingPeopleProfileURL;
     }
 }
+*/
