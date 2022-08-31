@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.kakao.usermgmt.response.model.User;
 
 import net.daum.mf.map.api.CalloutBalloonAdapter;
@@ -38,6 +42,14 @@ import org.techtown.my_jubgging.auth.Login;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,6 +61,8 @@ import retrofit2.Retrofit;
 public class TrashMapFragment extends Fragment implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener,MapView.POIItemEventListener {
     private static final String LOG_TAG = "TrashMapFragment";
     private MapView mapView;
+    private ImageView imageView;
+    Bitmap bitmap;
 
     private Retrofit retrofit = RetrofitClient.getInstance();
     private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
@@ -135,8 +149,41 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                     //마커의 말풍선 설정
                     callOutBalloon = getLayoutInflater().inflate(R.layout.adapter_custom_callout_balloon, null);
                     //쓰레기통 등록자의 프로필
-                    ImageView imageView = ((ImageView) callOutBalloon.findViewById(R.id.custom_trash_balloon_imageView));
-                    Glide.with(callOutBalloon).load(ct.getProfileURL()).into(imageView);
+                    imageView = ((ImageView) callOutBalloon.findViewById(R.id.custom_trash_balloon_imageView));
+
+                    Thread thread = new Thread()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            try{
+                                URL url = new URL(ct.getProfileURL());
+                                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                                connection.setDoInput(true);
+                                connection.connect();
+                                InputStream is = connection.getInputStream();
+                                bitmap = BitmapFactory.decodeStream(is);
+
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    thread.start();
+                    try {
+
+                        thread.join();
+                        bitmap = Bitmap.createScaledBitmap(bitmap,100,100,true);
+                        imageView.setImageBitmap(bitmap);
+                    }
+                    catch (InterruptedException e)
+                    {
+
+                    }
+
+
                     //쓰레기통 등록자의 닉네임
                     ((TextView) callOutBalloon.findViewById(R.id.custom_trash_balloon_nickName)).setText(ct.getNickName());
                     //쓰레기통 등록자의 좋아요개수
@@ -184,6 +231,34 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
 
 
+    private class DownloadFilesTask extends AsyncTask<String,Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            Bitmap bmp = null;
+            try {
+                String img_url = strings[0]; //url of the image
+                URL url = new URL(img_url);
+                bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            // doInBackground 에서 받아온 total 값 사용 장소
+            imageView.setImageBitmap(result);
+        }
+    }
 
 
     public void callGetCustomTrashUser(CustomTrash customTrash)
