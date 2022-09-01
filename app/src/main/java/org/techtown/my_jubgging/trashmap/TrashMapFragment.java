@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
 
@@ -21,9 +22,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -52,7 +56,10 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
     private static final String LOG_TAG = "TrashMapFragment";
     private MapView mapView;
     private ImageView imageView;
+    private ImageButton current_location;
     private Bitmap bitmap;
+
+    private UserInfo userInfo;
 
     private Retrofit retrofit = RetrofitClient.getInstance();
     private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
@@ -65,18 +72,27 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        userInfo = (UserInfo) getActivity().getIntent().getSerializableExtra("userInfo");
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_map, container, false);
 
         //MapView 등록
         mapView = new MapView(rootView.getContext());
         rootView.addView(mapView);
 
+        //현위치 버튼 등록
+        current_location = new ImageButton(rootView.getContext());
+        current_location.setImageResource(R.drawable.ic_baseline_my_location_24);
+        current_location.setBackgroundColor(Color.WHITE);
+        rootView.addView(current_location,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
+
         //MapView 이벤트리스너 등록
         mapView.setMapViewEventListener(this);
         mapView.setPOIItemEventListener(this);
 
         //MapView 현재 위치 트래킹기능 사용
-        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);
+        startTracking();
 
         //GPS 위치정보 허용 여부 확인
         if (!checkLocationServicesStatus())
@@ -84,7 +100,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         else
             checkRunTimePermission();
 
-        mapView.setZoomLevel(7,true);
+        mapView.setZoomLevel(3,true);
 
         //공공데이터 쓰레기통 리스트 GET
         Call<HashMap<String, List<PublicTrash>>> call_public = retrofitAPI.getPublicTrashList();
@@ -106,7 +122,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                 int i  = 0;
                 for(PublicTrash pt : publicTrashList)
                 {
-                    Log.i(LOG_TAG,pt.getLatitude()+" "+pt.getLongitude()+""+pt.getKind());
+                    //Log.i(LOG_TAG,pt.getLatitude()+" "+pt.getLongitude()+""+pt.getKind());
                     MapPOIItem customMarker = new MapPOIItem();
                     customMarker.setUserObject(pt);
                     // 마커 이름
@@ -257,7 +273,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
             }
         });
 
-
         return rootView;
     }
 
@@ -272,32 +287,82 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
        //커스텀 말풍선을 클릭했을 때
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        String[] items = {"좋아요","좋아요 취소","신고하기","취소"};
+        String[] items = {"신고하기","취소"};
 
+        CustomTrash  ct = (CustomTrash) mapPOIItem.getUserObject();
+        Log.i(LOG_TAG,ct.getCustomTrashAddressId()+" "+userInfo.getUserId());
 
-
-        builder.setIcon(R.drawable.heart);
-        builder.setTitle("유저를 칭찬해주세요");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
+        //커스텀 쓰레기통 좋아요 여부 확인
+        Call<String> call = retrofitAPI.checkUserHeart(new Heart(ct.getCustomTrashAddressId(),userInfo.getUserId()));
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i)
-                {
-                    case 0:
-                        Log.i(LOG_TAG,"좋아요");
-                        break;
-                    case 1:
-                        Log.i(LOG_TAG,"좋아요 취소");
-                        break;
-                    case 2:
-                        Log.i(LOG_TAG,"신고하기");
-                        break;
-                    case 3:
-                       Log.i(LOG_TAG,"취소");
-                        break;
+            public void onResponse(Call<String> call, Response<String> response) {
+                View callOutBalloon;
+
+                //통신 실패
+                if (!response.isSuccessful()) {
+                    Log.e(LOG_TAG, String.valueOf(response.code()));
+                    return;
                 }
+
+                //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
+                String result = response.body();
+
+                if(result.equals("{\"heart\":\"Y\"}"))
+                {
+                    builder.setIcon(R.drawable.trash_heart_filled);
+                    builder.setItems(0, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.i(LOG_TAG,"좋아요 취소");
+                        }
+                    });
+                }
+                else if(result.equals("{\"heart\":\"N\"}"))
+                {
+                    builder.setIcon(R.drawable.trash_heart_empty);
+                    builder.setItems(0, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.i(LOG_TAG,"좋아요");
+                        }
+                    });
+                }
+                Log.i(LOG_TAG,result);
+                builder.setTitle("유저를 칭찬해주세요");
+
+
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i)
+                        {
+                            case 2:
+                                Log.i(LOG_TAG,"신고하기");
+                                break;
+                            case 3:
+                                Log.i(LOG_TAG,"취소");
+                                break;
+                        }
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+            }
+
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                //통신 실패
+                Log.e(LOG_TAG, t.getLocalizedMessage());
             }
         });
+
+
+
+
 //        builder.setPositiveButton("좋아요", new DialogInterface.OnClickListener(){
 //            @Override
 //            public void onClick(DialogInterface dialog, int id)
@@ -321,8 +386,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 //            }
 //        });
 
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
 
     }
 
@@ -573,5 +636,17 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
     }
 
+    private void startTracking()
+    {
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);
+    }
 
-   }
+    private void stopTracking()
+    {
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeadingWithoutMapMoving);
+
+    }
+
+
+
+}

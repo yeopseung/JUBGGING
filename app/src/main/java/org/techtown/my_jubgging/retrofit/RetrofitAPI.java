@@ -5,6 +5,7 @@ import org.techtown.my_jubgging.Post;
 import org.techtown.my_jubgging.RegionPost;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.trashmap.CustomTrash;
+import org.techtown.my_jubgging.trashmap.Heart;
 import org.techtown.my_jubgging.trashmap.PublicTrash;
 
 
@@ -73,6 +74,12 @@ public interface RetrofitAPI {
     //Output : UserInfo userInfo
     @GET("user/{userId}/profiles")
     Call<UserInfo> getUserProfile(@Path("userId") String userId);
+
+    //유저의 프로필 정보를 불러옴
+    //Input :
+    //Output : UserInfo userInfo
+    @POST("map/heart/check")
+    Call<String> checkUserHeart(@Body Heart heart);
 
 
 
