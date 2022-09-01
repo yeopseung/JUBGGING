@@ -92,7 +92,7 @@ public class ReadPostDetail extends Activity {
         long boardId = intent.getLongExtra("boardId", 0L);
 customToast(boardId + " ");
 
-        setButtons();
+        setViewById();
         buttonsOnClickSet();
 
         Retrofit retrofit = RetrofitClient.getInstance();
@@ -118,7 +118,7 @@ customToast(boardId + " ");
         });
     }
 
-    private void setButtons() {
+    private void setViewById() {
         backBtn = findViewById(R.id.together_post_back_button);
         settingBtn = findViewById(R.id.together_post_setting_button);
 

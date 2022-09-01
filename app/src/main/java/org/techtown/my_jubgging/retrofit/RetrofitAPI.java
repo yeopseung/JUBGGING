@@ -1,6 +1,7 @@
 package org.techtown.my_jubgging.retrofit;
 
 
+import org.techtown.my_jubgging.PloggingInfo;
 import org.techtown.my_jubgging.Post;
 import org.techtown.my_jubgging.RegionPost;
 import org.techtown.my_jubgging.UserInfo;
@@ -19,6 +20,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 
 //RetrofitAPI Interface 정의
@@ -96,4 +98,15 @@ public interface RetrofitAPI {
     // 게시물 세부 조회
     @GET("board/spec")
     Call<Map<String, Object>> getPostDetail(@Query(value = "boardId") long boardId);
+
+    /* main 줍깅 */
+    // 플로깅 기록 조회
+    @GET("user/record")
+    Call<Map<String, Object>> getPloggingInfo(
+            @Query("userId") long userId,
+            @Query("date") String date);
+
+    // 플로길 기록 등록
+    @POST("user/record")
+    Call<Map<String, Long>> savePloggingInfo(@Body PloggingInfo ploggingInfo);
 }

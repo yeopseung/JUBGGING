@@ -140,8 +140,8 @@ public class NewpageActivity extends AppCompatActivity {
 
         mainColor = context.getResources().getColor(R.color.main_color_4);
 
-        setButtons();
-        buttonsOnClickSet();
+        setViewById();
+        setOnClick();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.target_array, R.layout.spinner_item_list);
@@ -154,7 +154,7 @@ public class NewpageActivity extends AppCompatActivity {
         retrofitApi = retrofit.create(RetrofitAPI.class);
     }
 
-    private void setButtons() {
+    private void setViewById() {
         backBtn = (ImageButton) findViewById(R.id.together_newpage_back_button);
 
         regionBtn[0] = (TextView) findViewById(R.id.together_newpage_region1);
@@ -178,7 +178,7 @@ public class NewpageActivity extends AppCompatActivity {
         makeBtn = (Button) findViewById(R.id.together_newpage_make_button);
     }
 
-    private void buttonsOnClickSet() {
+    private void setOnClick() {
         /* 뒤로가기 버튼 */
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
