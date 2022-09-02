@@ -43,6 +43,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,6 +59,9 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
     private ImageView imageView;
     private ImageButton current_location;
     private Bitmap bitmap;
+
+    private DBHelper dbHelper;
+    private List<PublicTrash> publicTrashList = new ArrayList<>();
 
     private UserInfo userInfo;
 
@@ -75,6 +79,8 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
         userInfo = (UserInfo) getActivity().getIntent().getSerializableExtra("userInfo");
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_map, container, false);
+
+
 
         //MapView 등록
         mapView = new MapView(rootView.getContext());
@@ -102,67 +108,113 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
         mapView.setZoomLevel(3,true);
 
-        //공공데이터 쓰레기통 리스트 GET
-        Call<HashMap<String, List<PublicTrash>>> call_public = retrofitAPI.getPublicTrashList();
-        call_public.enqueue(new Callback<HashMap<String, List<PublicTrash>>>() {
-            @Override
-            public void onResponse(Call<HashMap<String, List<PublicTrash>>> call, Response<HashMap<String, List<PublicTrash>>> response) {
+        //공공데이터 쓰레기통 리스트를 SQLite 에서 가져옴
+        dbHelper = new DBHelper(getContext());
+        publicTrashList = dbHelper.getAddressList();
 
-                //통신 실패
-                if (!response.isSuccessful()) {
-                    Log.e(LOG_TAG, String.valueOf(response.code()));
-                    return;
-                }
+//        for(int i=8950; i<=14242;i++)
+//        {
+//            dbHelper.deleteAddress(i);
+//        }
 
-                //통신 성공시 공공데이터 쓰레기통 추가
-                HashMap<String, List<PublicTrash>> result = response.body();
-                List<PublicTrash> publicTrashList = result.get("results");
+        //만약 SQLite 에 아무 데이터도 없다면
+        if(publicTrashList.size()==0)
+        {
+            //공공데이터 쓰레기통 리스트  Retrofit 을 통해 GET
+            Call<HashMap<String, List<PublicTrash>>> call_public = retrofitAPI.getPublicTrashList();
+            call_public.enqueue(new Callback<HashMap<String, List<PublicTrash>>>() {
+                @Override
+                public void onResponse(Call<HashMap<String, List<PublicTrash>>> call, Response<HashMap<String, List<PublicTrash>>> response) {
 
-
-                int i  = 0;
-                for(PublicTrash pt : publicTrashList)
-                {
-                    //Log.i(LOG_TAG,pt.getLatitude()+" "+pt.getLongitude()+""+pt.getKind());
-                    MapPOIItem customMarker = new MapPOIItem();
-                    customMarker.setUserObject(pt);
-                    // 마커 이름
-                    customMarker.setItemName("Custom Marker");
-                    // 마커 위치
-                    customMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(pt.getLatitude()),Double.parseDouble(pt.getLongitude())));
-                    // 마커타입을 커스텀 마커로 지정.
-                    customMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
-                    // 마커 이미지.
-                    switch (pt.getKind())
-                    {
-                        case "General":
-                            customMarker.setCustomImageResourceId(R.drawable.trash_general_red);
-                            break;
-                        case "Recycle":
-                            customMarker.setCustomImageResourceId(R.drawable.trash_recycle_red);
-                            break;
-                        case "Smoking":
-                            customMarker.setCustomImageResourceId(R.drawable.trash_smoking_red);
-                            break;
+                    //통신 실패
+                    if (!response.isSuccessful()) {
+                        Log.e(LOG_TAG, String.valueOf(response.code()));
+                        return;
                     }
-                    // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
-                    customMarker.setCustomImageAutoscale(false);
-                    //마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
-                    customMarker.setCustomImageAnchor(0.5f, 1.0f);
 
-                    mapView.addPOIItem(customMarker);
+                    //통신 성공시 공공데이터 쓰레기통 추가
+                    HashMap<String, List<PublicTrash>> result = response.body();
+                    publicTrashList = result.get("results");
 
+
+                    int i  = 0;
+                    for(PublicTrash pt : publicTrashList)
+                    {
+                        //SQLite 에 저장
+                        dbHelper.InsertAddress(pt.getAddress(),pt.getKind(),pt.getLatitude(),pt.getLongitude(),pt.getSpec());
+
+                        MapPOIItem customMarker = new MapPOIItem();
+                        customMarker.setUserObject(pt);
+                        // 마커 이름
+                        customMarker.setItemName("Custom Marker");
+                        // 마커 위치
+                        customMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(pt.getLatitude()),Double.parseDouble(pt.getLongitude())));
+                        // 마커타입을 커스텀 마커로 지정.
+                        customMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                        // 마커 이미지.
+                        switch (pt.getKind())
+                        {
+                            case "General":
+                                customMarker.setCustomImageResourceId(R.drawable.trash_general_red);
+                                break;
+                            case "Recycle":
+                                customMarker.setCustomImageResourceId(R.drawable.trash_recycle_red);
+                                break;
+                            case "Smoking":
+                                customMarker.setCustomImageResourceId(R.drawable.trash_smoking_red);
+                                break;
+                        }
+                        // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
+                        customMarker.setCustomImageAutoscale(false);
+                        //마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+                        customMarker.setCustomImageAnchor(0.5f, 1.0f);
+
+                        mapView.addPOIItem(customMarker);
+                    }
                 }
 
+                @Override
+                public void onFailure(Call<HashMap<String, List<PublicTrash>>> call, Throwable t) {
+                    //통신 실패
+                    Log.e(LOG_TAG, t.getLocalizedMessage());
+                }
+            });
+        }
+        else
+        {
+            for(PublicTrash pt : publicTrashList)
+            {
+                Log.i(LOG_TAG,pt.getAddress());
+                MapPOIItem customMarker = new MapPOIItem();
+                customMarker.setUserObject(pt);
+                // 마커 이름
+                customMarker.setItemName("Custom Marker");
+                // 마커 위치
+                customMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(pt.getLatitude()),Double.parseDouble(pt.getLongitude())));
+                // 마커타입을 커스텀 마커로 지정.
+                customMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+                // 마커 이미지.
+                switch (pt.getKind())
+                {
+                    case "General":
+                        customMarker.setCustomImageResourceId(R.drawable.trash_general_red);
+                        break;
+                    case "Recycle":
+                        customMarker.setCustomImageResourceId(R.drawable.trash_recycle_red);
+                        break;
+                    case "Smoking":
+                        customMarker.setCustomImageResourceId(R.drawable.trash_smoking_red);
+                        break;
+                }
+                // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
+                customMarker.setCustomImageAutoscale(false);
+                //마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+                customMarker.setCustomImageAnchor(0.5f, 1.0f);
 
-
+                mapView.addPOIItem(customMarker);
             }
+        }
 
-            @Override
-            public void onFailure(Call<HashMap<String, List<PublicTrash>>> call, Throwable t) {
-                //통신 실패
-                Log.e(LOG_TAG, t.getLocalizedMessage());
-            }
-        });
 
 
         //커스텀 쓰레기통 불러와서 띄우기

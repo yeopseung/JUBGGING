@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 //초기화 작업:  공공쓰레기통 데이터를 응용프로그램내 저장할 용도
@@ -36,8 +37,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // SELECT 문 (주소 목록들을 조회)
-    public ArrayList<PublicTrash> getAddressList() {
-        ArrayList<PublicTrash> addressItems = new ArrayList<>();
+    public List<PublicTrash> getAddressList() {
+        List<PublicTrash> addressItems = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM AddressList ORDER BY id ASC ", null);
@@ -45,8 +46,8 @@ public class DBHelper extends SQLiteOpenHelper {
             //조회 데이터가 있을때 내부 수행
             while (cursor.moveToNext()) {
                 @SuppressLint("Range") Long id = cursor.getLong(cursor.getColumnIndex("id"));
-                @SuppressLint("Range") String address = cursor.getString(cursor.getColumnIndex("number"));
-                @SuppressLint("Range") String kind = cursor.getString(cursor.getColumnIndex("address"));
+                @SuppressLint("Range") String address = cursor.getString(cursor.getColumnIndex("address"));
+                @SuppressLint("Range") String kind = cursor.getString(cursor.getColumnIndex("kind"));
                 @SuppressLint("Range") String latitude = cursor.getString(cursor.getColumnIndex("latitude"));
                 @SuppressLint("Range") String longitude = cursor.getString(cursor.getColumnIndex("longitude"));
                 @SuppressLint("Range") String spec = cursor.getString(cursor.getColumnIndex("spec"));
