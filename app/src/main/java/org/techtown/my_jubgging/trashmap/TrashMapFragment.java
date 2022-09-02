@@ -287,14 +287,13 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
        //커스텀 말풍선을 클릭했을 때
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        String[] items = {"신고하기","취소"};
 
         CustomTrash  ct = (CustomTrash) mapPOIItem.getUserObject();
         Log.i(LOG_TAG,ct.getCustomTrashAddressId()+" "+userInfo.getUserId());
 
         //커스텀 쓰레기통 좋아요 여부 확인
-        Call<String> call = retrofitAPI.checkUserHeart(new Heart(ct.getCustomTrashAddressId(),userInfo.getUserId()));
-        call.enqueue(new Callback<String>() {
+        Call<String> call_check = retrofitAPI.checkUserHeart(new Heart(ct.getCustomTrashAddressId(),userInfo.getUserId()));
+        call_check.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 View callOutBalloon;
@@ -310,46 +309,101 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
                 if(result.equals("{\"heart\":\"Y\"}"))
                 {
+                    String[] items = {"좋아요 취소","신고하기","취소"};
                     builder.setIcon(R.drawable.trash_heart_filled);
-                    builder.setItems(0, new DialogInterface.OnClickListener() {
+                    builder.setTitle("유저를 칭찬해주세요");
+
+                    builder.setItems(items, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Log.i(LOG_TAG,"좋아요 취소");
+                            switch (i)
+                            {
+                                case 0:
+                                    Log.i(LOG_TAG,"좋아요 취소");
+                                    //커스텀 쓰레기통 좋아요
+                                    Call<String> call_add = retrofitAPI.cancelUserHeart(new Heart(ct.getCustomTrashAddressId(),userInfo.getUserId()));
+                                    call_add.enqueue(new Callback<String>() {
+                                        @Override
+                                        public void onResponse(Call<String> call, Response<String> response) {
+                                            View callOutBalloon;
+
+                                            //통신 실패
+                                            if (!response.isSuccessful()) {
+                                                Log.e(LOG_TAG, String.valueOf(response.code()));
+                                                return;
+                                            }
+
+                                            //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
+                                            String result = response.body();
+
+                                        }
+                                        @Override
+                                        public void onFailure(Call<String> call, Throwable t) {
+                                            //통신 실패
+                                            Log.e(LOG_TAG, t.getLocalizedMessage());
+                                        }
+                                    });
+                                    break;
+                                case 1:
+                                    Log.i(LOG_TAG,"신고하기");
+                                    break;
+                                case 2:
+                                    Log.i(LOG_TAG,"취소");
+                                    break;
+                            }
                         }
                     });
                 }
                 else if(result.equals("{\"heart\":\"N\"}"))
                 {
+                    String[] items = {"좋아요","신고하기","취소"};
                     builder.setIcon(R.drawable.trash_heart_empty);
-                    builder.setItems(0, new DialogInterface.OnClickListener() {
+                    builder.setTitle("유저를 칭찬해주세요");
+
+                    builder.setItems(items, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Log.i(LOG_TAG,"좋아요");
+                            switch (i)
+                            {
+                                case 0:
+                                    Log.i(LOG_TAG,"좋아요");
+                                    //커스텀 쓰레기통 좋아요
+                                    Call<String> call_add = retrofitAPI.addUserHeart(new Heart(ct.getCustomTrashAddressId(),userInfo.getUserId()));
+                                    call_add.enqueue(new Callback<String>() {
+                                        @Override
+                                        public void onResponse(Call<String> call, Response<String> response) {
+                                            View callOutBalloon;
+
+                                            //통신 실패
+                                            if (!response.isSuccessful()) {
+                                                Log.e(LOG_TAG, String.valueOf(response.code()));
+                                                return;
+                                            }
+
+                                            //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
+                                            String result = response.body();
+
+                                        }
+                                        @Override
+                                        public void onFailure(Call<String> call, Throwable t) {
+                                            //통신 실패
+                                            Log.e(LOG_TAG, t.getLocalizedMessage());
+                                        }
+                                    });
+                                    break;
+                                case 1:
+                                    Log.i(LOG_TAG,"신고하기");
+                                    break;
+                                case 2:
+                                    Log.i(LOG_TAG,"취소");
+                                    break;
+                            }
                         }
                     });
                 }
-                Log.i(LOG_TAG,result);
-                builder.setTitle("유저를 칭찬해주세요");
-
-
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i)
-                        {
-                            case 2:
-                                Log.i(LOG_TAG,"신고하기");
-                                break;
-                            case 3:
-                                Log.i(LOG_TAG,"취소");
-                                break;
-                        }
-                    }
-                });
 
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
             }
 
 
@@ -359,34 +413,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                 Log.e(LOG_TAG, t.getLocalizedMessage());
             }
         });
-
-
-
-
-//        builder.setPositiveButton("좋아요", new DialogInterface.OnClickListener(){
-//            @Override
-//            public void onClick(DialogInterface dialog, int id)
-//            {
-//
-//            }
-//        });
-//
-//        builder.setNegativeButton("X", new DialogInterface.OnClickListener(){
-//            @Override
-//            public void onClick(DialogInterface dialog, int id)
-//            {
-//                Log.i(LOG_TAG,"좋아요 취소");
-//            }
-//        });
-//
-//        builder.setNeutralButton("신고하기", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int id) {
-//                Toast.makeText(getActivity(),"유저 신고가 완료되었습니다.",Toast.LENGTH_SHORT);
-//            }
-//        });
-
-
     }
 
     @Override
@@ -398,10 +424,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
     public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
 
     }
-
-
-
-
 
     // ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드
     @Override
@@ -646,7 +668,5 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeadingWithoutMapMoving);
 
     }
-
-
 
 }

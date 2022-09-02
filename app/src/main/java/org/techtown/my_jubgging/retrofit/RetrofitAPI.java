@@ -77,12 +77,23 @@ public interface RetrofitAPI {
     @GET("user/{userId}/profiles")
     Call<UserInfo> getUserProfile(@Path("userId") String userId);
 
-    //유저의 프로필 정보를 불러옴
-    //Input :
-    //Output : UserInfo userInfo
+    //커스텀 쓰레기통에 좋아요를 눌렀는지 체크
+    //Input : Heart heart
+    //Output : String Y or N
     @POST("map/heart/check")
     Call<String> checkUserHeart(@Body Heart heart);
 
+    //커스텀 쓰레기통 좋아요 추가
+    //Input :  Heart heart
+    //Output : String heart(개수)
+    @POST("map/heart")
+    Call<String> addUserHeart(@Body Heart heart);
+
+    //커스텀 쓰레기통 좋아요 취소
+    //Input :  Heart heart
+    //Output : String heart(개수)
+    @POST("map/heart/cancel")
+    Call<String> cancelUserHeart(@Body Heart heart);
 
 
     // 새로운 게시물을 작성
