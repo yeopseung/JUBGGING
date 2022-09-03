@@ -50,34 +50,34 @@ public class PointShopFragment extends Fragment {
 
 
 
-        Call<HashMap<String, ArrayList<Item>>> call = retrofitAPI.getCustomTrashUser();
-        call.enqueue(new Callback<HashMap<String, ArrayList<Item>>>() {
-            @Override
-            public void onResponse(Call<HashMap<String, ArrayList<Item>>> call, Response<HashMap<String, ArrayList<Item>>> response) {
-                View callOutBalloon;
-
-                //통신 실패
-                if (!response.isSuccessful()) {
-                    Log.e(LOG_TAG, String.valueOf(response.code()));
-                    return;
-                }
-
-                //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
-                HashMap<String, ArrayList<Item>> result = response.body();
-
-                //RecyclerView 어뎁터 지정
-                ItemAdapter adapter = new ItemAdapter(result.get("Results"));
-                recyclerView.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onFailure(Call<HashMap<String, ArrayList<Item>>> call, Throwable t) {
-                //통신 실패
-                Log.e(LOG_TAG, t.getLocalizedMessage());
-            }
-        });
-
+//        Call<HashMap<String, ArrayList<Item>>> call = retrofitAPI.getItemList();
+//        call.enqueue(new Callback<HashMap<String, ArrayList<Item>>>() {
+//            @Override
+//            public void onResponse(Call<HashMap<String, ArrayList<Item>>> call, Response<HashMap<String, ArrayList<Item>>> response) {
+//                View callOutBalloon;
+//
+//                //통신 실패
+//                if (!response.isSuccessful()) {
+//                    Log.e(LOG_TAG, String.valueOf(response.code()));
+//                    return;
+//                }
+//
+//                //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
+//                HashMap<String, ArrayList<Item>> result = response.body();
+//
+//                //RecyclerView 어뎁터 지정
+//                ItemAdapter adapter = new ItemAdapter(result.get("Results"));
+//                recyclerView.setAdapter(adapter);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<HashMap<String, ArrayList<Item>>> call, Throwable t) {
+//                //통신 실패
+//                Log.e(LOG_TAG, t.getLocalizedMessage());
+//            }
+//        });
+//
 
 
         return rootView;
