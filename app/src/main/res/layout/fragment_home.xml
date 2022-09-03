@@ -34,9 +34,8 @@
                     android:gravity="center"/>
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="181dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="5"
 
                     android:text="측정 시간"
                     android:textColor="@color/text_color"
@@ -71,7 +70,7 @@
                     android:text="412"
                     android:textStyle="bold"
                     android:textColor="@color/text_color"
-                    android:textSize="38dp"
+                    android:textSize="52dp"
                     android:fontFamily="@font/bahnschrift"
                     android:scaleX="0.8"
                     android:letterSpacing="-0.05"
@@ -83,14 +82,13 @@
 
                 <TextView
                     android:id="@+id/home_accumulated_time_text"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5"
                     android:gravity="center"
 
-                    android:text="1H 19M"
+                    android:text="01H 19M"
                     android:textColor="@color/text_color"
-                    android:textSize="38dp"
+                    android:textSize="52dp"
                     android:fontFamily="@font/bahnschrift"
                     android:scaleX="0.8"
 
@@ -106,7 +104,7 @@
                     android:text="4.5"
                     android:textColor="@color/text_color"
                     android:textStyle="bold"
-                    android:textSize="38dp"
+                    android:textSize="52dp"
                     android:fontFamily="@font/bahnschrift"
                     android:scaleX="0.8"
                     android:letterSpacing="-0.05"
@@ -335,99 +333,139 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="홈 화면" />
+                android:paddingVertical="5dp"
+
+                android:text="예정된 함께 줍깅"
+                android:textStyle="bold"
+                android:textColor="@color/text_color"
+                android:textSize="24dp"
+
+                android:gravity="center"/>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/home_reserved_plogging_layout"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/outline_rectangle"
-                android:padding="15dp"
-                android:layout_marginVertical="5dp">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/outline_rectangle"
+                    android:padding="40px"
+                    android:layout_marginVertical="5dp">
 
-                    android:text="7/26"
-                    android:textColor="@color/text_color"
-                    android:textStyle="bold"
-                    android:textSize="24dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
-                    android:gravity="center"/>
+                        android:text="7/26"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"
+                        android:textSize="64px"
 
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/text_color_light"
-                    android:layout_marginHorizontal="15dp"/>
+                        android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    <View
+                        android:layout_width="4px"
+                        android:layout_height="match_parent"
+                        android:background="@color/text_color_light"
+                        android:layout_marginHorizontal="15dp"/>
 
-                    android:text="동작구 상도로"
-                    android:textColor="@color/text_color"
-                    android:textStyle="bold"
-                    android:textSize="24dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
 
-                    android:gravity="center_vertical"/>
-                
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@drawable/ic_baseline_chevron_right_24"/>
-            </LinearLayout>
+                        android:text="동작구 상도로"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"
+                        android:textSize="48px"
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/outline_rectangle"
-                android:padding="15dp"
-                android:layout_marginVertical="5dp">
+                        android:gravity="center_vertical"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="24px"
+                        android:layout_marginLeft="5dp"
+
+                        android:text="오늘"
+                        android:textSize="36px"
+
+                        android:background="@drawable/rounded_rectangle"
+                        android:layout_gravity="center_vertical"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="81px"
+                        android:layout_height="81px"
+                        android:background="@drawable/ic_baseline_chevron_right_24"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/outline_rectangle"
+                    android:padding="15dp"
+                    android:layout_marginVertical="5dp">
 
-                    android:text="7/28"
-                    android:textColor="@color/text_color"
-                    android:textStyle="bold"
-                    android:textSize="24dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
-                    android:gravity="center"/>
+                        android:text="7/28"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"
+                        android:textSize="24dp"
 
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/text_color_light"
-                    android:layout_marginHorizontal="15dp"/>
+                        android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/text_color_light"
+                        android:layout_marginHorizontal="15dp"/>
 
-                    android:text="강남구 오도로"
-                    android:textColor="@color/text_color"
-                    android:textStyle="bold"
-                    android:textSize="24dp"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
 
-                    android:gravity="center_vertical"/>
+                        android:text="강남구 오도로"
+                        android:textColor="@color/text_color"
+                        android:textStyle="bold"
+                        android:textSize="24dp"
 
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@drawable/ic_baseline_chevron_right_24"/>
+                        android:gravity="center_vertical"/>
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/ic_baseline_chevron_right_24"/>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
-
-
-
-
-
     </ScrollView>
+
+    <TextView
+        android:id="@+id/home_start_plogging_text"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:paddingHorizontal="60dp"
+        android:layout_margin="5dp"
+
+        android:text="줍깅 시작!"
+        android:textStyle="bold"
+        android:textSize="24dp"
+
+        android:background="@drawable/rounded_rectangle"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal|bottom"/>
 </FrameLayout>

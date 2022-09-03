@@ -25,7 +25,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="36dp"
+        android:paddingTop="48dp"
         android:paddingHorizontal="15dp">
 
         <!-- TODO: Update blank fragment layout -->

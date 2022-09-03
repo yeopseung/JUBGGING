@@ -241,7 +241,6 @@ public class NewpageActivity extends AppCompatActivity {
 
                     if(buildPost());
                         savePost();
-
                 }
             }
         });
