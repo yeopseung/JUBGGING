@@ -5,11 +5,13 @@ import org.techtown.my_jubgging.PloggingInfo;
 import org.techtown.my_jubgging.Post;
 import org.techtown.my_jubgging.RegionPost;
 import org.techtown.my_jubgging.UserInfo;
+import org.techtown.my_jubgging.pointshop.Item;
 import org.techtown.my_jubgging.trashmap.CustomTrash;
 import org.techtown.my_jubgging.trashmap.Heart;
 import org.techtown.my_jubgging.trashmap.PublicTrash;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,6 +97,8 @@ public interface RetrofitAPI {
     @POST("map/heart/cancel")
     Call<String> cancelUserHeart(@Body Heart heart);
 
+    @GET("shop")
+    Call<HashMap<String, ArrayList<Item>>> getItemList();
 
     // 새로운 게시물을 작성
     // Input : Post post
