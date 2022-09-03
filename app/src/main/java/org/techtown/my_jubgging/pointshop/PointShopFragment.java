@@ -42,42 +42,43 @@ public class PointShopFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_point_shop, container, false);
 
+        UserInfo userInfo = (UserInfo)getActivity().getIntent().getSerializableExtra("userInfo");
 
-//        Call<HashMap<String, ArrayList<Item>>> call = retrofitAPI.getItemList();
-//        call.enqueue(new Callback<HashMap<String, ArrayList<Item>>>() {
-//            @Override
-//            public void onResponse(Call<HashMap<String, ArrayList<Item>>> call, Response<HashMap<String, ArrayList<Item>>> response) {
-//                View callOutBalloon;
-//
-//                //통신 실패
-//                if (!response.isSuccessful()) {
-//                    Log.e(LOG_TAG, String.valueOf(response.code()));
-//                    return;
-//                }
-//
-//                //RecyclerView 객체 지정
-//                RecyclerView recyclerView = rootView.findViewById(R.id.point_shop_item_recycler);
-//                //그리드형식의 리사이클러뷰 (리사이클러뷰를 2개로 분할)
-//                GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
-//                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//
-//                //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
-//                HashMap<String, ArrayList<Item>> result = response.body();
-//                ArrayList<Item> itemArrayList = result.get("Results");
-//                Log.i(LOG_TAG,String.valueOf(itemArrayList.size()));
-//
-//                //RecyclerView 어뎁터 지정
-//                ItemAdapter adapter = new ItemAdapter(itemArrayList);
-//                recyclerView.setAdapter(adapter);
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<HashMap<String, ArrayList<Item>>> call, Throwable t) {
-//                //통신 실패
-//                Log.e(LOG_TAG, t.getLocalizedMessage());
-//            }
-//        });
+        Call<HashMap<String, ArrayList<Item>>> call = retrofitAPI.getItemList();
+        call.enqueue(new Callback<HashMap<String, ArrayList<Item>>>() {
+            @Override
+            public void onResponse(Call<HashMap<String, ArrayList<Item>>> call, Response<HashMap<String, ArrayList<Item>>> response) {
+                View callOutBalloon;
+
+                //통신 실패
+                if (!response.isSuccessful()) {
+                    Log.e(LOG_TAG, String.valueOf(response.code()));
+                    return;
+                }
+
+                //RecyclerView 객체 지정
+                RecyclerView recyclerView = rootView.findViewById(R.id.point_shop_item_recycler);
+                //그리드형식의 리사이클러뷰 (리사이클러뷰를 2개로 분할)
+                GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
+                recyclerView.setLayoutManager(layoutManager);
+
+                //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
+                HashMap<String, ArrayList<Item>> result = response.body();
+                ArrayList<Item> itemArrayList = result.get("Results");
+                Log.i(LOG_TAG,String.valueOf(itemArrayList.size()));
+
+                //RecyclerView 어뎁터 지정
+                ItemAdapter adapter = new ItemAdapter(itemArrayList,userInfo);
+                recyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<HashMap<String, ArrayList<Item>>> call, Throwable t) {
+                //통신 실패
+                Log.e(LOG_TAG, t.getLocalizedMessage());
+            }
+        });
 
 
 

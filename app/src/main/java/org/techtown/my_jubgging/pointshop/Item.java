@@ -11,11 +11,11 @@ public class Item {
     @SerializedName("information")
     private String information;
     @SerializedName("price")
-    private int price;
+    private String price;
     @SerializedName("stock")
-    private int stock;
+    private String stock;
 
-    public Item(String itemURL, String name, String information, int price, int stock) {
+    public Item(String itemURL, String name, String information, String price, String stock) {
         this.itemURL = itemURL;
         this.name = name;
         this.information = information;
@@ -47,19 +47,19 @@ public class Item {
         this.information = information;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public int getStock() {
+    public String getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(String stock) {
         this.stock = stock;
     }
 }
