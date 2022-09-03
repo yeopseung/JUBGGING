@@ -21,22 +21,21 @@
         android:theme="@style/Theme.My_Jubgging"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <activity
             android:name=".trashmap.CustomTrashAdd"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".MyProfile"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".auth.AddressAPI"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".auth.SignUp"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".MainMenu"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -56,14 +55,10 @@
             android:exported="true"/>
 
         <activity
-            android:name=".RegionPickerActivity"
-            android:exported="true"/>
+            android:name=".RegionPickerActivity"/>
 
         <activity
             android:name=".ReadPostDetail"
-            android:exported="true"/>
-
-        <activity android:name=".JubggingActivity"
             android:exported="true"/>
     </application>
 

@@ -117,13 +117,7 @@ public interface RetrofitAPI {
             @Query("userId") long userId,
             @Query("date") String date);
 
-    // 플로깅 기록 등록
+    // 플로길 기록 등록
     @POST("user/record")
     Call<Map<String, Long>> savePloggingInfo(@Body PloggingInfo ploggingInfo);
-
-    // 플로깅 예정 조회
-    @GET("user/appointment")
-    Call<Map<String, List<Object>>> getReservedPloggingList(
-            @Query("userId") long userId);
-
 }

@@ -2,10 +2,7 @@ package org.techtown.my_jubgging.fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.nfc.Tag;
 import android.os.Bundle;
 
@@ -15,7 +12,6 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Debug;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +19,6 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +29,6 @@ import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import org.techtown.my_jubgging.JubggingActivity;
-import org.techtown.my_jubgging.NewpageActivity;
 import org.techtown.my_jubgging.PloggingInfo;
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.RegionPost;
@@ -67,8 +60,6 @@ public class HomeFragment extends Fragment {
     long userId = 19L; //< FIXME
     String targetDate;
 
-    int textColor;
-
     /* */
     TextView calorieTxt;
     TextView accumulatedTimeTxt;
@@ -81,9 +72,6 @@ public class HomeFragment extends Fragment {
 
     View percentBar[];
     ImageView percentCircle[];
-
-    LinearLayout reservedTogetherLayout;
-    TextView startPloggingTxt;
 
     /* */
     int year;
@@ -101,14 +89,17 @@ public class HomeFragment extends Fragment {
         Retrofit retrofit = RetrofitClient.getInstance();
         retrofitApi = retrofit.create(RetrofitAPI.class);
 
-        textColor = ContextCompat.getColor(context, R.color.text_color);
-
         setViewById();
         setOnClick();
 
         Calendar today = Calendar.getInstance();
-        getPloggingInfo(today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
-        getReservedPloggingList();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = today.getTime();
+
+        targetDate = dateFormat.format(date);
+        getPloggingInfo(targetDate);
+
+        drawPercentBar(7295);
 
         return rootView;
     }
@@ -139,26 +130,14 @@ public class HomeFragment extends Fragment {
         percentCircle[3] = rootView.findViewById(R.id.home_percent_circle4);
         percentCircle[4] = rootView.findViewById(R.id.home_percent_circle5);
         percentCircle[5] = rootView.findViewById(R.id.home_percent_circle6);
-
-        reservedTogetherLayout = rootView.findViewById(R.id.home_reserved_plogging_layout);
-        startPloggingTxt = rootView.findViewById(R.id.home_start_plogging_text);
     }
 
     private void setOnClick() {
         circleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDate();
                 //savePloggingInfo();
-                //customToast("save clicked");
-            }
-        });
-
-        startPloggingTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, JubggingActivity.class);
-                startActivity(intent);
+                customToast("save clicked");
             }
         });
     }
@@ -176,6 +155,7 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < idx; ++i) {
             percentCircle[i].setImageResource(R.drawable.ic_baseline_circle_green_24);
             percentBar[i].setBackgroundColor(green);
+
         }
         for (int i = idx; i < 6; ++i) {
             percentCircle[i].setImageResource(R.drawable.ic_baseline_circle_gray_24);
@@ -183,38 +163,43 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    /*
     private void showDate() {
         Calendar calendar = Calendar.getInstance();
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int y, int m, int d) {
                 year = y;
                 month = m + 1;
                 date = d;
 
-                // 년도 출력 여부
-                if (year == calendar.get(Calendar.YEAR))
-                    yearTxt.setVisibility(View.INVISIBLE);
-                else {
-                    yearTxt.setText(year + "년");
-                    yearTxt.setVisibility(View.VISIBLE);
-                }
 
-                getPloggingInfo(year, month, date);
+                if (y != calendar.get(Calendar.YEAR))
+                    dateBtn.setText(year + "년 " + month + "월 " + date + "일");
+                else
+                    dateBtn.setText(month + "월 " + date + "일");
+
+                isDateSet = true;
+
+
             }
         },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
 
-        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+        //int textColor = ContextCompat.getColor(getApplicationContext(), R.color.text_color);
+
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
         datePickerDialog.show();
 
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(textColor);
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(textColor);
     }
+*/
 
+<<<<<<< HEAD
     private void getPloggingInfo(int year, int month, int date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateTxt.setText(month + "월 " + date + "일");
@@ -223,8 +208,16 @@ public class HomeFragment extends Fragment {
         cal.set(year, month, date);
         Date target = cal.getTime();
         targetDate = dateFormat.format(target);
+=======
+    private void getPloggingInfo(String date) {
+        /*
+        Map<String, Object> query = new HashMap<String, Object>();
+        query.put("userId", userId);
+        query.put("date", dateStr);
+>>>>>>> parent of fe5b611... [장재우] 안드로이드 version 31에 대한 대응
 
-        Call<Map<String, Object>> call = retrofitApi.getPloggingInfo(userId, targetDate);
+         */
+        Call<Map<String, Object>> call = retrofitApi.getPloggingInfo(userId, date);
 
         call.enqueue(new Callback<Map<String, Object>>() {
             @Override
@@ -245,6 +238,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+<<<<<<< HEAD
     private void getReservedPloggingList() {
         Call<Map<String, List<Object>>> call = retrofitApi.getReservedPloggingList(userId);
 
@@ -366,8 +360,9 @@ public class HomeFragment extends Fragment {
     }
 
 
+=======
+>>>>>>> parent of fe5b611... [장재우] 안드로이드 version 31에 대한 대응
     private void savePloggingInfo() {
-        //< FIXME
         int walkingNum = 123;
         String walkingTime = "01:23:45";
 
@@ -375,6 +370,7 @@ public class HomeFragment extends Fragment {
         info.userId = userId;
         info.walkingNum = walkingNum;
         info.walkingTime = walkingTime;
+
 
         Call<Map<String, Long>> call = retrofitApi.savePloggingInfo(info);
 
@@ -399,6 +395,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setValue(Map<String, Object> data) {
+<<<<<<< HEAD
         Integer calorie = ((Double)data.get("calorie")).intValue();
         Integer walkingNum = ((Double)data.get("walkingNum")).intValue();
 
@@ -416,6 +413,12 @@ public class HomeFragment extends Fragment {
         kmTxt.setText(String.format("%.2f" , data.get("kilometer")));
 
         drawPercentBar(walkingNum);
+=======
+        calorieTxt.setText(data.get("calorie").toString());
+        warkingCntTxt.setText(data.get("walkingNum").toString());
+        accumulatedTimeTxt.setText(data.get("walkingTime").toString());
+        kmTxt.setText(data.get("kilometer").toString());
+>>>>>>> parent of fe5b611... [장재우] 안드로이드 version 31에 대한 대응
     }
 
     private void customToast(String text) {
