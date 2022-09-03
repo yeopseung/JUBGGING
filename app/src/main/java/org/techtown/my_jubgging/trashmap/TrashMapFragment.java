@@ -118,6 +118,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 //        }
 
         //만약 SQLite 에 아무 데이터도 없다면
+        /*
         if(publicTrashList.size()==0)
         {
             //공공데이터 쓰레기통 리스트  Retrofit 을 통해 GET
@@ -184,7 +185,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         {
             for(PublicTrash pt : publicTrashList)
             {
-                Log.i(LOG_TAG,pt.getAddress());
+                //Log.i(LOG_TAG,pt.getAddress());
                 MapPOIItem customMarker = new MapPOIItem();
                 customMarker.setUserObject(pt);
                 // 마커 이름
@@ -214,7 +215,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                 mapView.addPOIItem(customMarker);
             }
         }
-
+        */
 
 
         //커스텀 쓰레기통 불러와서 띄우기

@@ -354,10 +354,10 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/outline_rectangle"
                     android:padding="40px"
-                    android:layout_marginBottom="8px">
+                    android:layout_marginVertical="5dp">
 
                     <TextView
-                        android:layout_width="181px"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:text="7/26"
@@ -371,7 +371,7 @@
                         android:layout_width="4px"
                         android:layout_height="match_parent"
                         android:background="@color/text_color_light"
-                        android:layout_marginHorizontal="8dp"/>
+                        android:layout_marginHorizontal="15dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -391,7 +391,7 @@
                         android:layout_marginLeft="5dp"
 
                         android:text="오늘"
-                        android:textSize="14dp"
+                        android:textSize="36px"
 
                         android:background="@drawable/rounded_rectangle"
                         android:layout_gravity="center_vertical"/>
@@ -404,7 +404,7 @@
                     <ImageView
                         android:layout_width="81px"
                         android:layout_height="81px"
-                        android:src="@drawable/ic_baseline_chevron_right_24"
+                        android:background="@drawable/ic_baseline_chevron_right_24"
                         android:layout_gravity="center_vertical"/>
                 </LinearLayout>
                 <LinearLayout
@@ -416,10 +416,10 @@
                     android:layout_marginVertical="5dp">
 
                     <TextView
-                        android:layout_width="181px"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="12/31"
+                        android:text="7/28"
                         android:textColor="@color/text_color"
                         android:textStyle="bold"
                         android:textSize="24dp"
@@ -430,7 +430,7 @@
                         android:layout_width="2dp"
                         android:layout_height="match_parent"
                         android:background="@color/text_color_light"
-                        android:layout_marginHorizontal="10dp"/>
+                        android:layout_marginHorizontal="15dp"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -440,7 +440,7 @@
                         android:text="강남구 오도로"
                         android:textColor="@color/text_color"
                         android:textStyle="bold"
-                        android:textSize="18dp"
+                        android:textSize="24dp"
 
                         android:gravity="center_vertical"/>
 
