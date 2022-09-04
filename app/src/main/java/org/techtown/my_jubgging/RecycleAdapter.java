@@ -158,9 +158,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private String setDate() {
         if (todayDate.get(Calendar.YEAR) == targetDate.get(Calendar.YEAR))
-            return (targetDate.get(Calendar.MONTH) + "월 " + targetDate.get(Calendar.DATE) + "일");
+            return ((targetDate.get(Calendar.MONTH) + 1) + "월 " + targetDate.get(Calendar.DATE) + "일");
 
-        return (targetDate.get(Calendar.YEAR) + "년 " + targetDate.get(Calendar.MONTH) + "월 " + targetDate.get(Calendar.DATE) +"일");
+        return (targetDate.get(Calendar.YEAR) + "년 " + (targetDate.get(Calendar.MONTH) + 1) + "월 " + targetDate.get(Calendar.DATE) +"일");
     }
 
     @Override

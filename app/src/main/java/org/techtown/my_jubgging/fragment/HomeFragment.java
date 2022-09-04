@@ -38,6 +38,7 @@ import org.techtown.my_jubgging.JubggingActivity;
 import org.techtown.my_jubgging.NewpageActivity;
 import org.techtown.my_jubgging.PloggingInfo;
 import org.techtown.my_jubgging.R;
+import org.techtown.my_jubgging.ReadPostDetail;
 import org.techtown.my_jubgging.RegionPost;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
@@ -166,7 +167,6 @@ public class HomeFragment extends Fragment {
 
     private void drawPercentBar(int walkingNum) {
         int idx = (int)((double)walkingNum / (double)goalWalkingNum * (double)6);
-        Log.d("ASD", idx + " ");
 
         int green = rootView.getResources().getColor(R.color.main_color_2);
         int gray = rootView.getResources().getColor(R.color.gray);
@@ -221,7 +221,7 @@ public class HomeFragment extends Fragment {
         dateTxt.setText(month + "월 " + date + "일");
 
         Calendar cal = Calendar.getInstance();
-        cal.set(year, month, date);
+        cal.set(year, month - 1, date);
         Date target = cal.getTime();
         targetDate = dateFormat.format(target);
 
@@ -262,8 +262,19 @@ public class HomeFragment extends Fragment {
 
                 customToast(realData.size() + " ddd");
 
-                if (realData.size() > 0) {
+                reservedTogetherLayout.removeAllViews();
+                for (int i = 0; i < realData.size(); ++i) {
+                    Map<String, Object> data = (Map<String, Object>) realData.get(i);
+                    Long boardId = ((Double)(data.get("boardId"))).longValue();
+                    String dateStr = (String)data.get("localDateTime");
+                    String place = (String)data.get("place");
+                    String today = (String)data.get("today");
 
+                    boolean isToady = (today.equals("Y"))? true : false;
+
+                    LinearLayout newLine = makeNewLine(boardId, dateStr, place, isToady);
+
+                    reservedTogetherLayout.addView(newLine);
                 }
             }
 
@@ -274,7 +285,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    LinearLayout makeNewLine(long boardId, String Date, String place, boolean isToday) {
+    LinearLayout makeNewLine(long boardId, String dateStr, String place, boolean isToday) {
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setPadding(40, 40, 40, 40);
@@ -282,19 +293,26 @@ public class HomeFragment extends Fragment {
 
         LinearLayout.LayoutParams paramsMW = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        paramsMW.topMargin = 15;
+        paramsMW.bottomMargin = 15;
         linearLayout.setLayoutParams(paramsMW);
 
         // Date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(dateFormat.parse(dateStr));
+        }catch (Exception e) { }
+
         TextView date = new TextView(context);
-        date.setGravity(Gravity.CENTER);
-        date.setText("");//< FIXME
+        date.setGravity(Gravity.CENTER_VERTICAL);
+        date.setText(cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.DATE));
         date.setTextColor(textColor);
         date.setTypeface(date.getTypeface(), Typeface.BOLD);
-        date.setTextSize(64);
+        date.setTextSize(24);
 
-        LinearLayout.LayoutParams paramsWW = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        date.setLayoutParams(paramsWW);
+        LinearLayout.LayoutParams params181W = new LinearLayout.LayoutParams(181, ViewGroup.LayoutParams.WRAP_CONTENT);
+        date.setLayoutParams(params181W);
 
         linearLayout.addView(date);
 
@@ -303,8 +321,8 @@ public class HomeFragment extends Fragment {
         bar.setBackground(getResources().getDrawable(R.color.text_color_light));
 
         LinearLayout.LayoutParams params4M = new LinearLayout.LayoutParams(4, ViewGroup.LayoutParams.MATCH_PARENT);
-        params4M.leftMargin = 40;
-        params4M.rightMargin = 40;
+        params4M.leftMargin = 15;
+        params4M.rightMargin = 15;
         bar.setLayoutParams(params4M);
 
         linearLayout.addView(bar);
@@ -315,11 +333,11 @@ public class HomeFragment extends Fragment {
         placeTxt.setText(place);
         placeTxt.setTextColor(textColor);
         placeTxt.setTypeface(placeTxt.getTypeface(), Typeface.BOLD);
-        placeTxt.setTextSize(48);
+        placeTxt.setTextSize(18);
 
         LinearLayout.LayoutParams paramsWM = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        date.setLayoutParams(paramsWM);
+        placeTxt.setLayoutParams(paramsWM);
 
         linearLayout.addView(placeTxt);
 
@@ -335,6 +353,8 @@ public class HomeFragment extends Fragment {
             todayTxt.setTypeface(todayTxt.getTypeface(), Typeface.BOLD);
             todayTxt.setTextSize(36);
 
+            LinearLayout.LayoutParams paramsWW = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
             todayTxt.setLayoutParams(paramsWW);
 
             linearLayout.addView(todayTxt);
@@ -351,7 +371,7 @@ public class HomeFragment extends Fragment {
 
         // ">"
         ImageView image = new ImageView(context);
-        //image.src
+        image.setImageResource(R.drawable.ic_baseline_chevron_right_24);
 
         LinearLayout.LayoutParams params3232 = new LinearLayout.LayoutParams(81, 81);
         params3232.gravity = Gravity.CENTER_VERTICAL;
@@ -359,9 +379,14 @@ public class HomeFragment extends Fragment {
 
         linearLayout.addView(image);
 
-
-
-
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ReadPostDetail.class);
+                intent.putExtra("boardId", boardId);
+                context.startActivity(intent);
+            }
+        });
 
         return linearLayout;
     }
@@ -414,7 +439,7 @@ public class HomeFragment extends Fragment {
         calorieTxt.setText(calorie.toString());
         warkingCntTxt.setText(walkingNum.toString());
         accumulatedTimeTxt.setText(walkingTimeStr);
-        kmTxt.setText(String.format("%.2f" , data.get("kilometer")));
+        kmTxt.setText(String.format("%.1f" , data.get("kilometer")));
 
         drawPercentBar(walkingNum);
     }

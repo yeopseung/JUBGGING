@@ -18,8 +18,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="0dp"
-            android:text="프로필"
-            android:src="@drawable/outline_rectangle"/>
+            android:background="@color/transparent"/>
 
         <Space
             android:layout_width="0dp"

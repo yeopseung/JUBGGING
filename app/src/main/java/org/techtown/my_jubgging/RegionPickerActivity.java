@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -60,12 +61,22 @@ public class RegionPickerActivity extends Activity {
         Intent data = getIntent();
         targetNum = data.getIntExtra("targetNum", 3);
 
+        setViewById();
+        setOnClick();
+
+        regionCnt = 0;
+        isDong = false;
+
+        printGu();
+        setGuID();
+    }
+
+    private void setViewById() {
         res = getResources();
         gu = res.getStringArray(R.array.spinner_seoul);
 
-        regionCnt = 0;
-
         region = new TextView[3];
+
         region[0] = findViewById(R.id.region_picker_region1);
         region[1] = findViewById(R.id.region_picker_region2);
         region[2] = findViewById(R.id.region_picker_region3);
@@ -73,12 +84,16 @@ public class RegionPickerActivity extends Activity {
         for (int i = targetNum; i < 3; ++i)
             region[i].setVisibility(View.INVISIBLE);
 
+        backBtn = findViewById(R.id.region_picker_back_button);
+        okBtn = findViewById(R.id.region_picker_ok_button);
+
         returnStr = new String[3];
         returnStr[0] = "+";
         returnStr[1] = "+";
         returnStr[2] = "+";
+    }
 
-        backBtn = findViewById(R.id.region_picker_back_button);
+    private void setOnClick() {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,15 +101,29 @@ public class RegionPickerActivity extends Activity {
             }
         });
 
-        okBtn = findViewById(R.id.region_picker_ok_button);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { okBtnPressed(); }
         });
 
-        isDong = false;
-        printGu();
-        setGuID();
+        region[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeRegion(0);
+            }
+        });
+        region[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeRegion(1);
+            }
+        });
+        region[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeRegion(2);
+            }
+        });
     }
 
     @Override
@@ -245,12 +274,7 @@ public class RegionPickerActivity extends Activity {
             // #Case : dong
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (regionCnt < targetNum) {
-                        btn.setEnabled(false);
-                        returnStr[regionCnt] = btn.getText().toString();
-                        region[regionCnt].setBackgroundTintList(null);
-                        region[regionCnt++].setText(btn.getText());
-                    }
+                    addNewRegion(btn.getText().toString());
                 }
             });
         }
@@ -265,5 +289,45 @@ public class RegionPickerActivity extends Activity {
         }
 
         return btn;
+    }
+
+    private void addNewRegion(String regionName) {
+        int i;
+
+        // 기존에 추가되어 있는 지역을 거르는 필터
+        for (i = 0; i < regionCnt; ++i)
+            if (returnStr[i].equals(regionName))
+                return;
+
+        if (regionCnt < targetNum) {
+            returnStr[regionCnt] = regionName;
+            region[regionCnt].setBackgroundResource(R.drawable.rounded_rectangle);
+            region[regionCnt++].setText(regionName);
+        }
+    }
+
+    private void removeRegion(int index) {
+        Log.d("AAAA",index + " " + "regionCnt = " + regionCnt);
+
+        if (regionCnt == 0)
+            return;
+
+        for (int i = index + 1; i < regionCnt; ++i) {
+            Log.d("BBB", i + " ");
+            returnStr[i - 1] = returnStr[i];
+            region[i - 1] = region[i];
+            region[i - 1].setText(region[i].getText());
+        }
+
+        returnStr[--regionCnt] = "+";
+        region[regionCnt].setBackgroundResource(R.drawable.rounded_rectangle_gray);
+        region[regionCnt].setText("+");
+
+        Log.d("AAAA",index + " " + "regionCnt = " + regionCnt);
+    }
+
+    private boolean customErrorToast(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        return false;
     }
 }

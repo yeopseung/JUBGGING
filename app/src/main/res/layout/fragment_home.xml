@@ -404,7 +404,7 @@
                     <ImageView
                         android:layout_width="81px"
                         android:layout_height="81px"
-                        android:background="@drawable/ic_baseline_chevron_right_24"
+                        android:src="@drawable/ic_baseline_chevron_right_24"
                         android:layout_gravity="center_vertical"/>
                 </LinearLayout>
                 <LinearLayout
@@ -440,7 +440,7 @@
                         android:text="강남구 오도로"
                         android:textColor="@color/text_color"
                         android:textStyle="bold"
-                        android:textSize="24dp"
+                        android:textSize="18dp"
 
                         android:gravity="center_vertical"/>
 

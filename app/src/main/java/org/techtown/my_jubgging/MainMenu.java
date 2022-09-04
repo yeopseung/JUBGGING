@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -63,6 +65,9 @@ public class MainMenu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Glide.with(this).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(button);
+
 
     }
 
