@@ -373,7 +373,8 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                             {
                                 case 0:
                                     Log.i(LOG_TAG,"좋아요 취소");
-                                    //커스텀 쓰레기통 좋아요
+
+                                    //커스텀 쓰레기통 좋아요 취소
                                     Call<String> call_add = retrofitAPI.cancelUserHeart(new Heart(ct.getCustomTrashAddressId(),userInfo.getUserId()));
                                     call_add.enqueue(new Callback<String>() {
                                         @Override
@@ -399,6 +400,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                                     break;
                                 case 1:
                                     Log.i(LOG_TAG,"신고하기");
+                                    Toast.makeText(getActivity(),"신고가 완료되었습니다.",Toast.LENGTH_SHORT);
                                     break;
                                 case 2:
                                     Log.i(LOG_TAG,"취소");
@@ -446,6 +448,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                                     break;
                                 case 1:
                                     Log.i(LOG_TAG,"신고하기");
+                                    Toast.makeText(getActivity(),"신고가 완료되었습니다.",Toast.LENGTH_SHORT);
                                     break;
                                 case 2:
                                     Log.i(LOG_TAG,"취소");
