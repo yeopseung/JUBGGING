@@ -1,96 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".pointshop.ItemDetail"
-    android:layout_gravity="center">
+    tools:context=".pointshop.ItemDetail">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="10dp">
-
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="12dp"
-            android:textSize="24dp"
-            android:text="상품 확인" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/gray"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp">
 
-            <ImageView
-                android:id="@+id/item_detail_itemURL"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_margin="30dp"
-                app:srcCompat="@drawable/ic_baseline_people_outline_24" />
 
             <TextView
-                android:id="@+id/item_detail_name"
-                android:layout_width="match_parent"
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
                 android:layout_weight="1"
-                android:text="상품명: " />
-
-            <TextView
-                android:id="@+id/item_detail_information"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_weight="1"
-                android:text="설명: " />
-
-            <TextView
-                android:id="@+id/item_detail_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_weight="1"
-                android:text="가격: " />
-
-            <TextView
-                android:id="@+id/item_detail_stock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_weight="1"
-                android:text="재고: " />
+                android:padding="12dp"
+                android:text="상품 확인"
+                android:textSize="24dp" />
 
         </LinearLayout>
-    </ScrollView>
 
-    <Button
-        android:id="@+id/my_profile_logout"
-        android:layout_width="wrap_content"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/item_detail_itemURL"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="30dp"
+                    app:srcCompat="@drawable/ic_baseline_people_outline_24" />
+
+                <TextView
+                    android:id="@+id/item_detail_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:text="상품명: " />
+
+                <TextView
+                    android:id="@+id/item_detail_information"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:text="설명: " />
+
+                <TextView
+                    android:id="@+id/item_detail_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:text="가격: " />
+
+                <TextView
+                    android:id="@+id/item_detail_stock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:text="재고: " />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/item_detail_order_page_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:text="구매하기" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_detail_order_page"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_gravity="center"
-        android:text="구매하기" />
+        android:layout_gravity="bottom"
+        android:background="@color/light_gray"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
 
-</LinearLayout>
+
+        <ImageButton
+            android:id="@+id/item_detail_order_page_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="수량" />
+
+            <Button
+                android:id="@+id/item_detail_order_page_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/item_detail_order_page_count"
+                android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="1" />
+
+            <Button
+                android:id="@+id/item_detail_order_page_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="+" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/item_detail_order_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="구매하기" />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

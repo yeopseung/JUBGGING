@@ -1,5 +1,6 @@
 package org.techtown.my_jubgging.pointshop;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,7 +75,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     //해당 position 의 데이터를 뷰홀더의 아이템뷰에 표시
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //itemArrayList 에 있는 아이템 사진, 이름, 가격
         Item item = itemArrayList.get(position);
         //아이템 사진 설정
@@ -89,7 +90,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),ItemDetail.class);
-                intent.putExtra("userInfo",userInfo);
+                //itemId, userId 전달
+                intent.putExtra("userId",userInfo.getUserId());
+                intent.putExtra("itemId",itemArrayList.get(position).getItemId());
 
                 //아이템의 상세정보를 띄워주는 인텐트 실행
                 view.getContext().startActivity(intent);

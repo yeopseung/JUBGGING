@@ -97,8 +97,18 @@ public interface RetrofitAPI {
     @POST("map/heart/cancel")
     Call<String> cancelUserHeart(@Body Heart heart);
 
+
+    //포인트샵 아이템 목록 불러오기
+    //Input :
+    //Output :HashMap<String, ArrayList<Item>>
     @GET("shop")
     Call<HashMap<String, ArrayList<Item>>> getItemList();
+
+    //포인트샵 아이템 불러오기
+    //Input :
+    //Output : Item item
+    @GET("shop/items/{itemId}")
+    Call<Item> getItem(@Path("itemId") long itemId);
 
     // 새로운 게시물을 작성
     // Input : Post post

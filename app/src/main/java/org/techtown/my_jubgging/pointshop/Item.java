@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Item {
 
+    @SerializedName("itemId")
+    private long itemId;
     @SerializedName("itemURL")
     private String itemURL;
     @SerializedName("name")
@@ -15,7 +17,8 @@ public class Item {
     @SerializedName("stock")
     private String stock;
 
-    public Item(String itemURL, String name, String information, String price, String stock) {
+    public Item(Long itemId, String itemURL, String name, String information, String price, String stock) {
+        this.itemId = itemId;
         this.itemURL = itemURL;
         this.name = name;
         this.information = information;
@@ -62,4 +65,9 @@ public class Item {
     public void setStock(String stock) {
         this.stock = stock;
     }
+
+    public long getItemId() {return itemId;}
+
+    public void setItemId(long itemId) {this.itemId = itemId;}
+
 }

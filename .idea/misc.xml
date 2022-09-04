@@ -79,7 +79,8 @@
         <entry key="app/src/main/res/drawable/rounded_rectangle_gray.xml" value="0.2385" />
         <entry key="app/src/main/res/layout/activity_address_api.xml" value="0.24728260869565216" />
         <entry key="app/src/main/res/layout/activity_cutstom_trash_add.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_item_detail.xml" value="0.4037948829540309" />
+        <entry key="app/src/main/res/layout/activity_item_detail.xml" value="0.24621124267578126" />
+        <entry key="app/src/main/res/layout/activity_jubbgging.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main_menu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_my_profile.xml" value="0.23697916666666666" />
