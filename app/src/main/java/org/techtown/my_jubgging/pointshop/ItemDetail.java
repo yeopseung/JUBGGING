@@ -21,6 +21,8 @@ import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +47,11 @@ public class ItemDetail extends AppCompatActivity {
     private Button order_plus;
     private Button order_minus;
     private TextView order_count;
+    private Button order_finish;
+
+    private long itemId;
     private int count = 1;
+    private String userId;
 
     boolean isPageOpen=false;
     private Animation translateUpAnim;
@@ -59,7 +65,7 @@ public class ItemDetail extends AppCompatActivity {
         setContentView(R.layout.activity_item_detail);
 
         //전달받은 itemId, userId
-        long itemId = getIntent().getLongExtra("itemId",0);
+        itemId = getIntent().getLongExtra("itemId",0);
         String userId = getIntent().getStringExtra("userId");
         Log.i(LOG_TAG,itemId+" "+userId);
 
@@ -78,7 +84,7 @@ public class ItemDetail extends AppCompatActivity {
         order_plus = findViewById(R.id.item_detail_order_page_plus);
         order_minus = findViewById(R.id.item_detail_order_page_minus);
         order_count = findViewById(R.id.item_detail_order_page_count);
-
+        order_finish = findViewById(R.id.item_detail_order_end);
 
         //주문페이지 띄우는 애니메이션 등록
         translateUpAnim = AnimationUtils.loadAnimation(this,R.anim.translate_up);
@@ -93,6 +99,7 @@ public class ItemDetail extends AppCompatActivity {
         order_close.setOnClickListener(buttonClickListener);
         order_plus.setOnClickListener(buttonClickListener);
         order_minus.setOnClickListener(buttonClickListener);
+        order_finish.setOnClickListener(buttonClickListener);
 
 
         //상품의 상세내용을 받아옴
@@ -209,7 +216,34 @@ public class ItemDetail extends AppCompatActivity {
 
                 case R.id.item_detail_order_end:
                     //상품 주문 완료
-                    
+                    Call<String> call = retrofitAPI.createOrder(new Order(userId,itemId,count));
+                    call.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            View callOutBalloon;
+
+                            //통신 실패
+                            if (!response.isSuccessful()) {
+                                Log.e(LOG_TAG, response.toString());
+                                return;
+                            }
+
+                            //통신 성공시 커스텀마커 (커스텀 쓰레기통) 추가
+                            String result_create = response.body();
+                            Toast.makeText(getApplicationContext(),"주문이 완료되었습니다.",Toast.LENGTH_SHORT).show();
+                            result.setStock(String.valueOf(Long.parseLong(result.getStock()) - count));
+                            stock.setText("재고: "+ result.getStock());
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            //통신 실패
+                            Log.e(LOG_TAG, t.getLocalizedMessage());
+                        }
+                    });
+
+                    break;
             }
         }
     }

@@ -17,7 +17,7 @@ public class Item {
     @SerializedName("stock")
     private String stock;
 
-    public Item(Long itemId, String itemURL, String name, String information, String price, String stock) {
+    public Item(long itemId, String itemURL, String name, String information, String price, String stock) {
         this.itemId = itemId;
         this.itemURL = itemURL;
         this.name = name;

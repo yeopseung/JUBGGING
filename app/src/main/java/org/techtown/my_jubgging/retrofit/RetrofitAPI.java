@@ -6,6 +6,7 @@ import org.techtown.my_jubgging.Post;
 import org.techtown.my_jubgging.RegionPost;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.pointshop.Item;
+import org.techtown.my_jubgging.pointshop.Order;
 import org.techtown.my_jubgging.trashmap.CustomTrash;
 import org.techtown.my_jubgging.trashmap.Heart;
 import org.techtown.my_jubgging.trashmap.PublicTrash;
@@ -109,6 +110,12 @@ public interface RetrofitAPI {
     //Output : Item item
     @GET("shop/items/{itemId}")
     Call<Item> getItem(@Path("itemId") long itemId);
+
+    //포인트샵 아이템 주문
+    //Input :
+    //Output : String userId
+    @POST("order")
+    Call<String> createOrder(@Body Order order);
 
     // 새로운 게시물을 작성
     // Input : Post post
