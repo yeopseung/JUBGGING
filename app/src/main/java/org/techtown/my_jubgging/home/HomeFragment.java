@@ -1,57 +1,39 @@
-package org.techtown.my_jubgging.fragment;
+package org.techtown.my_jubgging.home;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.wifi.p2p.WifiP2pManager;
-import android.nfc.Tag;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.os.Debug;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.fitness.Fitness;
-import com.google.android.gms.fitness.FitnessOptions;
-import com.google.android.gms.fitness.data.DataType;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
 import org.techtown.my_jubgging.JubggingActivity;
-import org.techtown.my_jubgging.NewpageActivity;
 import org.techtown.my_jubgging.PloggingInfo;
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.ReadPostDetail;
-import org.techtown.my_jubgging.RegionPost;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
-import retrofit2.CallAdapter;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -306,7 +288,7 @@ public class HomeFragment extends Fragment {
 
         TextView date = new TextView(context);
         date.setGravity(Gravity.CENTER_VERTICAL);
-        date.setText(cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.DATE));
+        date.setText((cal.get(Calendar.MONTH) + 1)+ "/" + cal.get(Calendar.DATE));
         date.setTextColor(textColor);
         date.setTypeface(date.getTypeface(), Typeface.BOLD);
         date.setTextSize(24);

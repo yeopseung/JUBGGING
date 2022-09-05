@@ -1,17 +1,10 @@
-package org.techtown.my_jubgging;
+package org.techtown.my_jubgging.together;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.provider.CalendarContract;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,26 +20,24 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
+import org.techtown.my_jubgging.MainMenu;
+import org.techtown.my_jubgging.R;
+import org.techtown.my_jubgging.RegionPickerActivity;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewpageActivity extends AppCompatActivity {
     /* Layout Reference */
@@ -182,7 +173,7 @@ public class NewpageActivity extends AppCompatActivity {
         /* 뒤로가기 버튼 */
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MainMenu.class);
+                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                 startActivity(intent);
             }
         });

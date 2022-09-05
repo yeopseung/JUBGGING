@@ -57,7 +57,7 @@
             android:value="d4f06e73b7dccf835b06f39a7ee398ab" />
 
         <activity
-            android:name=".NewpageActivity"
+            android:name=".together.NewpageActivity"
             android:exported="true" />
         <activity
             android:name=".RegionPickerActivity"

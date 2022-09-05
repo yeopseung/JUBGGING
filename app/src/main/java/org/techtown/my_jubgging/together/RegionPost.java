@@ -1,4 +1,4 @@
-package org.techtown.my_jubgging;
+package org.techtown.my_jubgging.together;
 
 import com.google.gson.annotations.SerializedName;
 

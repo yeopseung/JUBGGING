@@ -16,9 +16,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import org.techtown.my_jubgging.fragment.HomeFragment;
-import org.techtown.my_jubgging.fragment.RankingFragment;
-import org.techtown.my_jubgging.fragment.TogetherFragment;
+import org.techtown.my_jubgging.home.HomeFragment;
+import org.techtown.my_jubgging.ranking.RankingFragment;
+import org.techtown.my_jubgging.together.TogetherFragment;
 import org.techtown.my_jubgging.pointshop.PointShopFragment;
 import org.techtown.my_jubgging.trashmap.TrashMapFragment;
 

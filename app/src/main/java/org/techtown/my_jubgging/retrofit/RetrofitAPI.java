@@ -2,8 +2,9 @@ package org.techtown.my_jubgging.retrofit;
 
 
 import org.techtown.my_jubgging.PloggingInfo;
-import org.techtown.my_jubgging.Post;
-import org.techtown.my_jubgging.RegionPost;
+import org.techtown.my_jubgging.ranking.RankInfo;
+import org.techtown.my_jubgging.together.Post;
+import org.techtown.my_jubgging.together.RegionPost;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.pointshop.Item;
 import org.techtown.my_jubgging.pointshop.Order;
@@ -23,7 +24,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 
 //RetrofitAPI Interface 정의
@@ -153,4 +153,8 @@ public interface RetrofitAPI {
     Call<Map<String, List<Object>>> getReservedPloggingList(
             @Query("userId") long userId);
 
+    /* 랭킹 */
+    // 랭킹 조회
+    @GET("user/record/rank")
+    Call<Map<String, List<RankInfo>>> getRankList();
 }

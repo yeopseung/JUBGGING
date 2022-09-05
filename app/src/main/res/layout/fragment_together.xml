@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.TogetherFragment">
+    tools:context=".together.TogetherFragment">
 
     <TextView
         android:id="@+id/together_board_region_main"

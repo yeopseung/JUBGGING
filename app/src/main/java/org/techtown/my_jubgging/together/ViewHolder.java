@@ -1,4 +1,4 @@
-package org.techtown.my_jubgging;
+package org.techtown.my_jubgging.together;
 
 import android.view.View;
 import android.widget.LinearLayout;
@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.techtown.my_jubgging.R;
 import org.w3c.dom.Text;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
