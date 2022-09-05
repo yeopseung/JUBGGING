@@ -66,7 +66,7 @@ public class ItemDetail extends AppCompatActivity {
 
         //전달받은 itemId, userId
         itemId = getIntent().getLongExtra("itemId",0);
-        String userId = getIntent().getStringExtra("userId");
+        userId = getIntent().getStringExtra("userId");
         Log.i(LOG_TAG,itemId+" "+userId);
 
 

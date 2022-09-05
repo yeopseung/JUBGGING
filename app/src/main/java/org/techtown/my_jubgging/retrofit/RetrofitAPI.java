@@ -117,6 +117,12 @@ public interface RetrofitAPI {
     @POST("order")
     Call<String> createOrder(@Body Order order);
 
+    //주문 목록 불러오기
+    //Input :
+    //Output :HashMap<String, ArrayList<Item>>
+    @GET("user/{userId}/orders")
+    Call<HashMap<String, ArrayList<Order>>> getOrderList(@Path("userId") String userId);
+
     // 새로운 게시물을 작성
     // Input : Post post
     // Output : boardId

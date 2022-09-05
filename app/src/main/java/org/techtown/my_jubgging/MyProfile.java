@@ -18,6 +18,7 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 
+import org.techtown.my_jubgging.pointshop.OrderList;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 import org.techtown.my_jubgging.trashmap.CustomTrash;
@@ -45,6 +46,7 @@ public class MyProfile extends AppCompatActivity {
     private TextView specificAddress;
     private TextView point;
     private Button logout;
+    private Button order;
 
 
     @Override
@@ -63,6 +65,7 @@ public class MyProfile extends AppCompatActivity {
         specificAddress = findViewById(R.id.my_profile_specific_address);
         point = findViewById(R.id.my_profile_point);
         logout = findViewById(R.id.my_profile_logout);
+        order = findViewById(R.id.my_profile_order);
 
 
         //커스텀 쓰레기통 불러와서 띄우기
@@ -124,6 +127,15 @@ public class MyProfile extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+            }
+        });
+
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyProfile.this, OrderList.class);
+                intent.putExtra("userInfo",userInfo);
+                startActivity(intent);
             }
         });
     }

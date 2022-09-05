@@ -33,7 +33,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,6 +48,12 @@
                 android:layout_gravity="center"
                 android:layout_margin="30dp"
                 app:srcCompat="@drawable/ic_baseline_people_outline_24" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/gray" />
 
             <TextView
                 android:id="@+id/my_profile_name"
@@ -104,14 +111,34 @@
                 android:layout_weight="1"
                 android:text="포인트: " />
 
-            <Button
-                android:id="@+id/my_profile_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:text="로그아웃" />
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/my_profile_order"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:text="주문내역조회" />
+
+                <Button
+                    android:id="@+id/my_profile_logout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_weight="1"
+                    android:text="로그아웃" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
