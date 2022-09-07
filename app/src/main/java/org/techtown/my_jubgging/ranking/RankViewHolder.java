@@ -2,6 +2,7 @@ package org.techtown.my_jubgging.ranking;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.techtown.my_jubgging.R;
 
 public class RankViewHolder extends RecyclerView.ViewHolder {
+    LinearLayout bodyLayout;
+
     TextView rankNum;
 
     ImageView profileImg;
@@ -17,6 +20,8 @@ public class RankViewHolder extends RecyclerView.ViewHolder {
 
     RankViewHolder(View itemView) {
         super(itemView);
+
+        bodyLayout = itemView.findViewById(R.id.ranking_adapter_body_layout);
 
         rankNum = itemView.findViewById(R.id.ranking_adapter_rank_num);
         profileImg = itemView.findViewById(R.id.ranking_adapter_profile_image);

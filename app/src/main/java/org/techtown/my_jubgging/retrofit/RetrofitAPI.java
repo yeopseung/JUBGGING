@@ -157,4 +157,17 @@ public interface RetrofitAPI {
     // 랭킹 조회
     @GET("user/record/rank")
     Call<Map<String, List<RankInfo>>> getRankList();
+
+    // 해당 게시물에 해당 유저가 참여중인지 여부 조회
+    @GET("board/check/attending")
+    Call<Map<String, String>> isParticipating(
+            @Query("userId") long userId,
+            @Query("boardId") long boardId);
+
+    //
+    @GET("board/attend")
+    Call<Map<String, Long>> addParticipant(
+            @Query("boardId") long boardId,
+            @Query("userId") long userId);
+
 }

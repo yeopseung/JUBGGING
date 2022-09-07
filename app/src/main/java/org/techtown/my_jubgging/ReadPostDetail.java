@@ -1,6 +1,8 @@
 package org.techtown.my_jubgging;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,6 +44,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ReadPostDetail extends Activity {
     /* */
     Context context;
+    UserInfo userInfo;
+
+    LinearLayout profileLayout;
+    LinearLayout openChatLayout;
 
     ImageButton backBtn;
     ImageButton settingBtn;
@@ -63,9 +69,15 @@ public class ReadPostDetail extends Activity {
 
     Button participateBtn;
 
-    LinearLayout profileLayouts;
+    TextView openChatLinkTxt;
+    Button copyLinkBtn;
 
     /* */
+    long userId;
+    long boardId;
+    boolean isParticipated;
+    boolean isRecruiting;
+
     int recruitingBoxColor;
 
     long nowMS;
@@ -87,10 +99,12 @@ public class ReadPostDetail extends Activity {
         setContentView(R.layout.activity_together_post);
 
         context = getApplicationContext();
+        userInfo = (UserInfo)getIntent().getSerializableExtra("userInfo");
+        userId = Long.parseLong(userInfo.userId);
 
         Intent intent = getIntent();
-        long boardId = intent.getLongExtra("boardId", 0L);
-customToast(boardId + " ");
+        boardId = intent.getLongExtra("boardId", 0L);
+        //customToast(boardId + " ");
 
         setViewById();
         buttonsOnClickSet();
@@ -98,27 +112,13 @@ customToast(boardId + " ");
         Retrofit retrofit = RetrofitClient.getInstance();
         retrofitApi = retrofit.create(RetrofitAPI.class);
 
-        Call<Map<String, Object>> call = retrofitApi.getPostDetail(boardId);
-
-        call.enqueue(new Callback<Map<String, Object>>() {
-            @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                if (!response.isSuccessful()) {
-                    customToast("Code : " + response.code() + response.message() + response.errorBody());
-                    return;
-                }
-
-                setValue(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
-            }
-        });
+        getPost();
     }
 
     private void setViewById() {
+        profileLayout = findViewById(R.id.together_post_profiles_layout);
+        openChatLayout = findViewById(R.id.together_post_open_chat_layout);
+
         backBtn = findViewById(R.id.together_post_back_button);
         settingBtn = findViewById(R.id.together_post_setting_button);
 
@@ -139,7 +139,8 @@ customToast(boardId + " ");
 
         participateBtn = findViewById(R.id.together_post_participate_button);
 
-        profileLayouts = findViewById(R.id.together_post_profiles_layout);
+        openChatLinkTxt = findViewById(R.id.together_post_open_chat_link_text);
+        copyLinkBtn = findViewById(R.id.together_post_copy_link_button);
     }
 
     private void buttonsOnClickSet() {
@@ -161,9 +162,117 @@ customToast(boardId + " ");
         participateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isParticipated) {
+                    isParticipated = true;
+                    customToast("함께 줍깅에 참여했어요!");
+                    addParticipant();
+                    setParticipateBtnActivate(true);
+                }
+            }
+        });
+
+        copyLinkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("LINK", openChatLinkTxt.getText().toString());
+                clipboardManager.setPrimaryClip(clipData);
+
+                customToast("링크가 복사되었어요!");
+            }
+        });
+    }
+
+    private void getPost() {
+        Call<Map<String, Object>> call = retrofitApi.getPostDetail(boardId);
+
+        call.enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (!response.isSuccessful()) {
+                    customToast("Code : " + response.code() + response.message() + response.errorBody());
+                    return;
+                }
+
+                setValue(response.body());
+                isParticipate();
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                customToast("게시물 불러오기를 실패했어요...");
+            }
+        });
+    }
+
+    private void isParticipate() {
+        Call<Map<String, String>> call = retrofitApi.isParticipating(userId, boardId);
+
+        call.enqueue(new Callback<Map<String, String>>() {
+            @Override
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
+                if (!response.isSuccessful()) {
+                    customToast("Code : " + response.code() + response.message() + response.errorBody());
+                    return;
+                }
+
+                Map<String, String> data = response.body();
+                String realData = (String)data.get("attending");
+
+                if(realData.equals("Y"))
+                    isParticipated = true;
+                else
+                    isParticipated = false;
+
+                if (isParticipated || !isRecruiting)
+                    setParticipateBtnActivate(false);
+                else
+                    setParticipateBtnActivate(true);
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
 
             }
         });
+    }
+
+    private void addParticipant() {
+        Call<Map<String, Long>> call = retrofitApi.addParticipant(boardId, userId);
+
+        call.enqueue(new Callback<Map<String, Long>>() {
+            @Override
+            public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
+                if (!response.isSuccessful()) {
+                    customToast("Code : " + response.code() + response.message() + response.errorBody());
+                    return;
+                }
+
+                getPost();
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Long>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void setParticipateBtnActivate(boolean activate) {
+        if (activate) {
+            participateBtn.setEnabled(true);
+            participateBtn.setBackgroundResource(R.drawable.rounded_rectangle);
+            participateBtn.setText("참여하기");
+            openChatLayout.setVisibility(View.INVISIBLE);
+        }
+
+        else {
+            participateBtn.setEnabled(false);
+            participateBtn.setBackgroundResource(R.drawable.rounded_rectangle_gray);
+            participateBtn.setText("참여완료");
+            openChatLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setValue(Map<String, Object> data) {
@@ -191,20 +300,24 @@ customToast(boardId + " ");
 
         partyNumText.setText("참여 " + attendingNum + " / " + peopleNum);
 
-        profileLayouts.removeAllViews();
+        profileLayout.removeAllViews();
 
         List<String> URLS = (List<String>)data.get("attendingPeopleProfileURL");
         for (int i = 0; i < attendingNum; ++i) {
             ImageView imgView = makeNewImageView(URLS.get(i));
-            profileLayouts.addView(imgView);
+            profileLayout.addView(imgView);
         }
+
+        //openChatLinkTxt.setText(data.get(FIXME).toString());
     }
 
     private String setRecruiting() {
-        if ((attendingNum == peopleNum) || (nowMS >= dateMS)) {
+        if ((attendingNum >= peopleNum) || (nowMS >= dateMS)) {
+            isRecruiting = false;
             recruitingBoxColor = context.getResources().getColor(R.color.light_gray);
             return "모집 완료";
         } else {
+            isRecruiting = true;
             recruitingBoxColor = context.getResources().getColor(R.color.main_color_4);
             return "모집중";
         }
@@ -284,6 +397,6 @@ customToast(boardId + " ");
     }
 
     private void customToast(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 }

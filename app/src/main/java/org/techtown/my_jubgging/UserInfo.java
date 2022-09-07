@@ -10,7 +10,7 @@ import java.io.Serializable;
 //Json 데이터 통신에 사용
 public class UserInfo implements Serializable {
     @SerializedName("userId")
-    String userId;
+    public String userId;
     @SerializedName("name")
     String name;
     @SerializedName("nickName")

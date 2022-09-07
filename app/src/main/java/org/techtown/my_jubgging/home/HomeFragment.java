@@ -24,6 +24,7 @@ import org.techtown.my_jubgging.JubggingActivity;
 import org.techtown.my_jubgging.PloggingInfo;
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.ReadPostDetail;
+import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
@@ -42,12 +43,13 @@ import retrofit2.Retrofit;
 public class HomeFragment extends Fragment {
     private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
     private RetrofitAPI retrofitApi;
+    UserInfo userInfo;
 
     Context context;
     ViewGroup rootView;
 
     static private int goalWalkingNum = 10000;
-    long userId = 19L; //< FIXME
+    long userId = 0L; //< FIXME
     String targetDate;
 
     int textColor;
@@ -83,6 +85,10 @@ public class HomeFragment extends Fragment {
 
         Retrofit retrofit = RetrofitClient.getInstance();
         retrofitApi = retrofit.create(RetrofitAPI.class);
+
+        Intent data = getActivity().getIntent();
+        userInfo = (UserInfo)data.getSerializableExtra("userInfo");
+        userId = Long.parseLong(userInfo.userId);
 
         textColor = ContextCompat.getColor(context, R.color.text_color);
 
@@ -142,6 +148,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, JubggingActivity.class);
+                intent.putExtra("userInfo",userInfo);
                 startActivity(intent);
             }
         });
@@ -366,6 +373,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ReadPostDetail.class);
                 intent.putExtra("boardId", boardId);
+                intent.putExtra("userInfo",userInfo);
                 context.startActivity(intent);
             }
         });

@@ -291,13 +291,66 @@
                         android:background="@color/black"
                         android:layout_gravity="center_vertical"/>
                 </LinearLayout>
-
-
             </HorizontalScrollView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                android:layout_marginVertical="15dp"/>
 
+            <LinearLayout
+                android:id="@+id/together_post_open_chat_layout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="64dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+
+                    android:text="오픈 채팅방 링크"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:textSize="16dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp">
+
+                    <TextView
+                        android:id="@+id/together_post_open_chat_link_text"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:paddingHorizontal="15dp"
+                        android:layout_marginRight="15dp"
+
+                        android:text="kakao@link"
+                        android:textColor="@color/text_color_light"
+                        android:textSize="14dp"
+                        android:maxLines="1"
+
+                        android:gravity="center_vertical"
+                        android:background="@drawable/outline_rectangle"/>
+
+                    <Button
+                        android:id="@+id/together_post_copy_link_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+
+                        android:text="복사"
+                        android:textStyle="bold"
+                        android:textSize="14dp"
+
+                        android:backgroundTint="@color/main_color_4"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -306,12 +359,14 @@
         android:id="@+id/together_post_participate_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
         android:layout_marginHorizontal="35dp"
 
         android:text="참여하기"
         android:textStyle="bold"
-        android:textColor="@color/main_color_5"
         android:textSize="22dp"
+        android:enabled="false"
 
+        android:background="@drawable/rounded_rectangle"
         android:layout_gravity="center"/>
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import org.techtown.my_jubgging.R;
+import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 import org.techtown.my_jubgging.together.RegionPost;
@@ -30,6 +31,8 @@ import retrofit2.Retrofit;
 public class RankingFragment extends Fragment {
     private RetrofitAPI retrofitAPI;
     private RecyclerView recyclerView;
+    UserInfo userInfo;
+    public static long userId;
 
     private Context context;
 
@@ -39,6 +42,8 @@ public class RankingFragment extends Fragment {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_ranking, container, false);
 
         context = getActivity();
+        userInfo = (UserInfo) getActivity().getIntent().getSerializableExtra("userInfo");
+        userId = Long.parseLong(userInfo.userId);
 
         Retrofit retrofit = RetrofitClient.getInstance();
         retrofitAPI = retrofit.create(RetrofitAPI.class);

@@ -1,15 +1,18 @@
 package org.techtown.my_jubgging.together;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.ReadPostDetail;
+import org.techtown.my_jubgging.UserInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     Context context;
+    UserInfo userInfo;
 
     /* */
     int recruitingBoxColor;
@@ -41,6 +45,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         context = parent.getContext();
+        userInfo = TogetherFragment.userInfo;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -68,6 +73,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<ViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ReadPostDetail.class);
                 intent.putExtra("boardId", boardId);
+                intent.putExtra("userInfo",userInfo);
                 context.startActivity(intent);
             }
         });
@@ -125,7 +131,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     private String setRecruiting() {
-        if ((attendingNum == peopleNum) || (nowMS >= dateMS)) {
+        if ((attendingNum >= peopleNum)  || (nowMS >= dateMS)) {
             recruitingBoxColor = context.getResources().getColor(R.color.light_gray);
             return "모집 완료";
         } else {

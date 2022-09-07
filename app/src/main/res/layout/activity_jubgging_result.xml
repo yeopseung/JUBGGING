@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="줍깅 결과"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+        android:textSize="24dp"
+        android:padding="15dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+
+            android:text="RESULT"
+            android:textStyle="bold"
+            android:textColor="@color/text_color"
+            android:textSize="24dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="3"
+
+                    android:text="KM"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:textSize="36dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="4"
+
+                    android:text="TIME"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:textSize="36dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="5"
+
+                    android:text="CALORIE"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:textSize="36dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/jubgging_result_kilometer_text"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_weight="3"
+
+                    android:text="12.29"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color_light"
+                    android:textSize="24dp"/>
+
+                <TextView
+                    android:id="@+id/jubgging_result_time_text"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_weight="4"
+
+                    android:text="2:05:25"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color_light"
+                    android:textSize="24dp"/>
+
+                <TextView
+                    android:id="@+id/jubgging_result_calorie_text"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_weight="5"
+
+                    android:text="1,234"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color_light"
+                    android:textSize="24dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="28dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginVertical="15dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+
+            android:text="PHOTO"
+            android:textStyle="bold"
+            android:textColor="@color/text_color"
+            android:textSize="24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+
+            android:text="사진을 찍어 인증하면 포인트를 드려요!"
+            android:textColor="@color/text_color_light"
+            android:textSize="14dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/jubgging_result_add_photo_button"
+                android:layout_width="256dp"
+                android:layout_height="256dp"
+                android:layout_gravity="center"
+                android:background="@color/light_gray"
+                android:layout_centerHorizontal="true"
+
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_baseline_add_a_photo_24" />
+
+            <LinearLayout
+                android:id="@+id/jubgging_result_instagram_layout"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+
+                android:layout_alignLeft="@id/jubgging_result_add_photo_button"
+                android:layout_below="@id/jubgging_result_add_photo_button">
+
+                <ImageButton
+                    android:id="@+id/jubgging_result_share_story_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+
+                    android:background="@color/transparent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_instagram_icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+
+                    android:text="Story Share"
+                    android:textColor="@color/text_color_light"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/jubgging_result_exit_button"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+
+        android:text="나가기"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textColor="@color/text_color"
+
+        android:layout_gravity="center|bottom"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="28dp"/>
+
+</LinearLayout>

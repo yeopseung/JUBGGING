@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import org.techtown.my_jubgging.MainMenu;
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.RegionPickerActivity;
+import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
@@ -40,6 +41,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class NewpageActivity extends AppCompatActivity {
+    UserInfo userInfo;
+
     /* Layout Reference */
     ImageButton backBtn;
 
@@ -183,6 +186,12 @@ public class NewpageActivity extends AppCompatActivity {
             regionBtn[i].setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), RegionPickerActivity.class);
+
+                    intent.putExtra("region1", regionBtn[0].getText().toString());
+                    intent.putExtra("region2", regionBtn[1].getText().toString());
+                    intent.putExtra("region3", regionBtn[2].getText().toString());
+                    intent.putExtra("regionCnt", regionNum);
+
                     mStartForResult.launch(intent);
                 }
             });
@@ -321,7 +330,7 @@ public class NewpageActivity extends AppCompatActivity {
     }
 
     private boolean buildPost() {
-        post.userId = 19L;
+        post.userId = Long.parseLong(userInfo.userId);
 
         post.region1 = regionBtn[0].getText().toString();
         post.region2 = regionBtn[1].getText().toString();

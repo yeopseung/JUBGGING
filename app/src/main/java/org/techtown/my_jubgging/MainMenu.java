@@ -36,6 +36,7 @@ public class MainMenu extends AppCompatActivity {
     // 내 프로필 이동 버튼
     private ImageButton button;
 
+    UserInfo userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         //Intent 에서 UserInfo 가져오기
-        UserInfo userInfo = (UserInfo)getIntent().getSerializableExtra("userInfo");
+        userInfo = (UserInfo)getIntent().getSerializableExtra("userInfo");
 
         //첫 화면 지정
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -67,8 +68,6 @@ public class MainMenu extends AppCompatActivity {
         });
 
         Glide.with(this).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(button);
-
-
     }
 
 

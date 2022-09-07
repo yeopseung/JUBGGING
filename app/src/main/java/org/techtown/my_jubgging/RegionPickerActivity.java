@@ -28,6 +28,7 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.resource.bitmap.CenterInside;
 import com.google.gson.TypeAdapterFactory;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +40,6 @@ public class RegionPickerActivity extends Activity {
     String[] dong;
     
     TextView[] region;
-    String[] returnStr;
     int regionCnt;
     
     HashMap<String, Integer> guID;
@@ -60,15 +60,34 @@ public class RegionPickerActivity extends Activity {
 
         Intent data = getIntent();
         targetNum = data.getIntExtra("targetNum", 3);
+        regionCnt = data.getIntExtra("regionCnt", 0);
 
         setViewById();
         setOnClick();
+        setInitRegion(data);
 
-        regionCnt = 0;
         isDong = false;
 
         printGu();
         setGuID();
+    }
+    private void setInitRegion(Intent data) {
+        String get;
+        String key[] = new String[3];
+        key[0] = "region1";
+        key[1] = "region2";
+        key[2] = "region3";
+
+        for (int i = 0; i < 3; ++i) {
+            get = data.getStringExtra(key[i]);
+            region[i].setText(get);
+        }
+
+        for (int i = 0; i < regionCnt; ++i)
+            region[i].setBackgroundResource(R.drawable.rounded_rectangle);
+
+        for (int i = regionCnt; i < targetNum; ++i)
+            region[i].setBackgroundResource(R.drawable.rounded_rectangle_gray);
     }
 
     private void setViewById() {
@@ -86,11 +105,6 @@ public class RegionPickerActivity extends Activity {
 
         backBtn = findViewById(R.id.region_picker_back_button);
         okBtn = findViewById(R.id.region_picker_ok_button);
-
-        returnStr = new String[3];
-        returnStr[0] = "+";
-        returnStr[1] = "+";
-        returnStr[2] = "+";
     }
 
     private void setOnClick() {
@@ -139,6 +153,18 @@ public class RegionPickerActivity extends Activity {
 
     private void okBtnPressed() {
         Intent intent = new Intent();
+
+        String tmpStr[] = new String[regionCnt];
+        for (int i = 0; i < regionCnt; ++i)
+            tmpStr[i] = region[i].getText().toString();
+        Arrays.sort(tmpStr);
+
+        String returnStr[] = new String[3];
+        for (int i = 0; i < regionCnt; ++i)
+            returnStr[i] = tmpStr[i];
+        for (int i = regionCnt; i < 3; ++i)
+            returnStr[i] = "+";
+
         intent.putExtra("region1", returnStr[0]);
         intent.putExtra("region2", returnStr[1]);
         intent.putExtra("region3", returnStr[2]);
@@ -296,34 +322,24 @@ public class RegionPickerActivity extends Activity {
 
         // 기존에 추가되어 있는 지역을 거르는 필터
         for (i = 0; i < regionCnt; ++i)
-            if (returnStr[i].equals(regionName))
+            if (regionName.equals(region[i].getText().toString()))
                 return;
 
         if (regionCnt < targetNum) {
-            returnStr[regionCnt] = regionName;
             region[regionCnt].setBackgroundResource(R.drawable.rounded_rectangle);
             region[regionCnt++].setText(regionName);
         }
     }
 
     private void removeRegion(int index) {
-        Log.d("AAAA",index + " " + "regionCnt = " + regionCnt);
-
         if (regionCnt == 0)
             return;
 
-        for (int i = index + 1; i < regionCnt; ++i) {
-            Log.d("BBB", i + " ");
-            returnStr[i - 1] = returnStr[i];
-            region[i - 1] = region[i];
+        for (int i = index + 1; i < regionCnt; ++i)
             region[i - 1].setText(region[i].getText());
-        }
 
-        returnStr[--regionCnt] = "+";
-        region[regionCnt].setBackgroundResource(R.drawable.rounded_rectangle_gray);
+        region[--regionCnt].setBackgroundResource(R.drawable.rounded_rectangle_gray);
         region[regionCnt].setText("+");
-
-        Log.d("AAAA",index + " " + "regionCnt = " + regionCnt);
     }
 
     private boolean customErrorToast(String text) {

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.RegionPickerActivity;
+import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
@@ -35,8 +36,10 @@ import retrofit2.Retrofit;
 public class TogetherFragment extends Fragment {
     private RetrofitAPI retrofitApi;
     private RecyclerView recyclerView;
+    public static UserInfo userInfo;
 
     private Context context;
+    public static TogetherFragment mContext;
 
     public static final int RESULT_OK = -1;
 
@@ -47,10 +50,15 @@ public class TogetherFragment extends Fragment {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_together, container, false);
 
         context = getActivity();
+        mContext = this;
+        userInfo = (UserInfo)getActivity().getIntent().getSerializableExtra("userInfo");
+
+
         ImageButton Button = rootView.findViewById(R.id.together_add_button);
         Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, NewpageActivity.class);
+                intent.putExtra("userInfo",userInfo);
                 startActivity(intent);
             }
         });
@@ -60,6 +68,7 @@ public class TogetherFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, RegionPickerActivity.class);
+                intent.putExtra("userInfo",userInfo);
                 intent.putExtra("targetNum", 1);
                 mStartForResult.launch(intent);
             }

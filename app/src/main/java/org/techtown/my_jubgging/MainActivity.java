@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
 import com.google.android.gms.fitness.data.DataType;
+import com.google.android.gms.fitness.data.Subscription;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.kakao.auth.ISessionCallback;
@@ -173,11 +174,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    /*
+    private void googleSingIn() {
 
-        /* Jaewoo added for Google Fit */
+        /* Jaewoo added for Google Fit
         // 필요한 권한들 정의
-        /*
         FitnessOptions fitnessOptions =
                 FitnessOptions.builder()
                         .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE)
@@ -190,20 +193,29 @@ public class MainActivity extends AppCompatActivity {
                     GoogleSignIn.getLastSignedInAccount(this),
                     fitnessOptions);
         } else {
-            Fitness.getRecordingClient(this,
-                            GoogleSignIn.getLastSignedInAccount(this))
-                    .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE);
+            subscribe();
         }
+    }
+    */
 
-         */
+    public void subscribe() {
+        Fitness.getRecordingClient(this,
+                        GoogleSignIn.getLastSignedInAccount(this))
+                .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        /*
+        if(resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_OAUTH_REQUEST_CODE)
+                subscribe();
+        }
+         */
+
         if(Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data))
             super.onActivityResult(requestCode, resultCode, data);
     }
-
 
     @Override
     protected void onDestroy() {

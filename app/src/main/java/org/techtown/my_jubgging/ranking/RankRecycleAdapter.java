@@ -50,6 +50,9 @@ public class RankRecycleAdapter extends RecyclerView.Adapter<RankViewHolder> {
         viewHolder.walkingCnt.setText("걸음 수 : " + walkingNum.toString());
         viewHolder.nickName.setText(dataList.get(position).getUserNickName());
 
+        if (RankingFragment.userId == dataList.get(position).userId)
+            viewHolder.bodyLayout.setBackgroundResource(R.drawable.outline_rectangle_bold);
+
         Glide.with(context).load(dataList.get(position).getProfileURL()).apply(new RequestOptions().circleCrop()).into(viewHolder.profileImg);
     }
 
