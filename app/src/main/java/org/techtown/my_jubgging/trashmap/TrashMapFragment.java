@@ -28,12 +28,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import net.daum.mf.map.api.CalloutBalloonAdapter;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
+import org.techtown.my_jubgging.MyProfile;
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
@@ -65,6 +67,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
     private List<PublicTrash> publicTrashList = new ArrayList<>();
 
     private UserInfo userInfo;
+    private ImageButton profileImgBtn;
 
     private Retrofit retrofit = RetrofitClient.getInstance();
     private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
@@ -82,8 +85,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
         userInfo = (UserInfo) getActivity().getIntent().getSerializableExtra("userInfo");
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_map, container, false);
-
-
 
         //MapView 등록
         mapView = new MapView(rootView.getContext());

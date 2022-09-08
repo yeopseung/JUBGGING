@@ -55,19 +55,6 @@ public class MainMenu extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navi_view);
         bottomNavigationView.setOnItemSelectedListener(new MainMenu.ItemSelectedListener());
         bottomNavigationView.setSelectedItemId(R.id.home);
-
-        //Button 등록
-        button = findViewById(R.id.main_my_profile_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainMenu.this,MyProfile.class);
-                intent.putExtra("userInfo",userInfo);
-                startActivity(intent);
-            }
-        });
-
-        Glide.with(this).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(button);
     }
 
 

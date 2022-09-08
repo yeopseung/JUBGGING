@@ -1,5 +1,6 @@
 package org.techtown.my_jubgging.pointshop;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
+import org.techtown.my_jubgging.MyProfile;
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
@@ -36,6 +40,7 @@ public class PointShopFragment extends Fragment {
     private Retrofit retrofit = RetrofitClient.getInstance();
     private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
 
+    ImageButton profileImgBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +48,16 @@ public class PointShopFragment extends Fragment {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_point_shop, container, false);
 
         UserInfo userInfo = (UserInfo)getActivity().getIntent().getSerializableExtra("userInfo");
+
+        profileImgBtn = rootView.findViewById(R.id.point_shop_my_profile_button);
+        profileImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), MyProfile.class);
+                intent.putExtra("userInfo",userInfo);
+                startActivity(intent);
+            }
+        });
 
         Call<HashMap<String, ArrayList<Item>>> call = retrofitAPI.getItemList();
         call.enqueue(new Callback<HashMap<String, ArrayList<Item>>>() {
@@ -55,6 +70,8 @@ public class PointShopFragment extends Fragment {
                     Log.e(LOG_TAG, String.valueOf(response.code()));
                     return;
                 }
+
+                Glide.with(getContext()).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
 
                 //RecyclerView 객체 지정
                 RecyclerView recyclerView = rootView.findViewById(R.id.point_shop_item_recycler);

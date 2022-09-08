@@ -5,27 +5,133 @@
     android:layout_height="match_parent"
     tools:context=".together.TogetherFragment">
 
-    <TextView
-        android:id="@+id/together_board_region_main"
-        android:layout_width="118dp"
-        android:layout_height="36dp"
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="함께줍깅"
+            android:textStyle="bold"
+            android:textColor="@color/text_color"
+            android:textSize="14dp"
+
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="상도동"
+                android:textStyle="bold"
+                android:textColor="@color/text_color"
+                android:textSize="24dp"
+
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="∨"
+
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="15dp"
-        android:layout_marginVertical="5dp"
-        android:layout_marginHorizontal="15dp"
+        android:paddingVertical="10dp">
 
-        android:text="+"
-        android:textStyle="bold"
-        android:textSize="14dp"
-        android:textColor="@color/text_color"
+        <ImageButton
+            android:id="@+id/together_board_my_profile_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="0dp"
+            android:background="@color/transparent"/>
 
-        android:background="@drawable/rounded_rectangle_gray"
-        android:gravity="center"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="함께줍깅"
+                android:textStyle="bold"
+                android:textColor="@color/text_color"
+                android:textSize="14dp"
+
+                android:gravity="center"/>
+
+            <LinearLayout
+                android:id="@+id/together_board_target_region_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/together_board_target_region_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="상도동"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:textSize="24dp"
+
+                    android:gravity="bottom"
+                    android:layout_gravity="top"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="∨"
+
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/ic_baseline_more_vert_24"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="6dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray"
+        android:layout_marginTop="64dp"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="48dp"
+        android:paddingTop="64dp"
         android:paddingHorizontal="15dp">
 
         <!-- TODO: Update blank fragment layout -->

@@ -18,7 +18,7 @@ public class UserInfo implements Serializable {
     @SerializedName("email")
     String email;
     @SerializedName("profileURL")
-    String profileURL;
+    public String profileURL;
     @SerializedName("roadAddress")
     String roadAddress;
     @SerializedName("specificAddress")

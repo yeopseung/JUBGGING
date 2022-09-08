@@ -2,7 +2,11 @@ package org.techtown.my_jubgging;
 
 import android.app.Activity;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -46,6 +50,28 @@ public class JubggingActivity extends AppCompatActivity {
         transaction.replace(R.id.jubgging_frame_layout, jubggingFragment).commitAllowingStateLoss();
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("\"줍깅 끝내기\" 버튼을 누르지 않으면 지금까지의 결과가 저장되지 않아요!\n\n정말 나가실 건가요?")
+                .setPositiveButton("나가기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        exit();
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    private void exit() {
+        super.onBackPressed();
+    }
 
     private void customToast(String text) {
         Toast.makeText(context, text, Toast.LENGTH_LONG).show();

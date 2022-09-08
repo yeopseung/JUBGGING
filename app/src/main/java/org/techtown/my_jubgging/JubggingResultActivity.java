@@ -1,15 +1,21 @@
 package org.techtown.my_jubgging;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.kakao.usermgmt.response.model.User;
 
 import org.techtown.my_jubgging.ranking.RankInfo;
@@ -58,6 +65,10 @@ public class JubggingResultActivity extends AppCompatActivity {
     ImageButton shareStoryBtn;
 
     Button exitBtn;
+
+    TextView addedPointTxt;
+    TextView nowPointTxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +84,7 @@ public class JubggingResultActivity extends AppCompatActivity {
         setValue();
         setOnClick();
     }
+
     private void getViewById() {
         intagramLayout = findViewById(R.id.jubgging_result_instagram_layout);
 
@@ -84,6 +96,9 @@ public class JubggingResultActivity extends AppCompatActivity {
         shareStoryBtn = findViewById(R.id.jubgging_result_share_story_button);
 
         exitBtn = findViewById(R.id.jubgging_result_exit_button);
+
+        addedPointTxt = findViewById(R.id.jubgging_result_added_point);
+        nowPointTxt = findViewById(R.id.jubgging_result_now_point);
     }
 
     private void setValue() {
@@ -118,7 +133,6 @@ public class JubggingResultActivity extends AppCompatActivity {
         shareStoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("AAA", "log");
                 Uri stickerAssetUri = Uri.parse(addPhotoBtn.getResources().toString());
                 String sourceApplication = "org.techtown.my_jubgging";
 
@@ -180,7 +194,9 @@ public class JubggingResultActivity extends AppCompatActivity {
                      return;
                  }
 
-                 customToast("포인트 적립 성공!" + response.body().get("nowPoint"));
+                 Map<String, Integer> read = response.body();
+
+                 showPoint(walkingNum / 100, read.get("nowPoint"));
              }
 
              @Override
@@ -188,6 +204,33 @@ public class JubggingResultActivity extends AppCompatActivity {
 
              }
          });
+    }
+
+    private void showPoint(int addedPoint, int nowPoint) {
+        Animation cntDownAni = AnimationUtils.loadAnimation(context, R.anim.count_down);
+        Animation fadeOutAni = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+
+        addedPointTxt.setText("+" + addedPoint);
+        nowPointTxt.setText(nowPoint + " Point");
+
+        addedPointTxt.startAnimation(cntDownAni);
+        nowPointTxt.startAnimation(cntDownAni);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                addedPointTxt.setText("");
+                nowPointTxt.setText("");
+            }
+        }, 3000);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                addedPointTxt.startAnimation(fadeOutAni);
+                nowPointTxt.startAnimation(fadeOutAni);
+            }
+        }, 2000);
     }
 
     private void customToast(String text) {

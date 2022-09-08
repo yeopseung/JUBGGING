@@ -14,13 +14,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import org.techtown.my_jubgging.JubggingActivity;
+import org.techtown.my_jubgging.MainMenu;
+import org.techtown.my_jubgging.MyProfile;
 import org.techtown.my_jubgging.PloggingInfo;
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.ReadPostDetail;
@@ -55,6 +61,8 @@ public class HomeFragment extends Fragment {
     int textColor;
 
     /* */
+    ImageButton profileImgBtn;
+
     TextView calorieTxt;
     TextView accumulatedTimeTxt;
     TextView kmTxt;
@@ -104,6 +112,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void setViewById() {
+        profileImgBtn = rootView.findViewById(R.id.main_my_profile_button);
+
         calorieTxt = rootView.findViewById(R.id.home_calorie_text);
         accumulatedTimeTxt = rootView.findViewById(R.id.home_accumulated_time_text);
         kmTxt = rootView.findViewById(R.id.home_moving_km_text);
@@ -148,6 +158,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, JubggingActivity.class);
+                intent.putExtra("userInfo",userInfo);
+                startActivity(intent);
+            }
+        });
+
+        profileImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MyProfile.class);
                 intent.putExtra("userInfo",userInfo);
                 startActivity(intent);
             }
@@ -432,6 +451,8 @@ public class HomeFragment extends Fragment {
         kmTxt.setText(String.format("%.1f" , data.get("kilometer")));
 
         drawPercentBar(walkingNum);
+
+        Glide.with(this).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
     }
 
     private void customToast(String text) {

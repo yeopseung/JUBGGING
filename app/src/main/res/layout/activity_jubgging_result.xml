@@ -48,7 +48,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="42dp"
-                    android:layout_weight="3"
+                    android:layout_weight="1"
 
                     android:text="KM"
                     android:textStyle="bold"
@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="42dp"
-                    android:layout_weight="4"
+                    android:layout_weight="1"
 
                     android:text="TIME"
                     android:textStyle="bold"
@@ -68,9 +68,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="42dp"
-                    android:layout_weight="5"
+                    android:layout_weight="1"
 
-                    android:text="CALORIE"
+                    android:text="KCAL"
                     android:textStyle="bold"
                     android:textColor="@color/text_color"
                     android:textSize="36dp"/>
@@ -85,7 +85,7 @@
                     android:id="@+id/jubgging_result_kilometer_text"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    android:layout_weight="3"
+                    android:layout_weight="1"
 
                     android:text="12.29"
                     android:textStyle="bold"
@@ -96,7 +96,7 @@
                     android:id="@+id/jubgging_result_time_text"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    android:layout_weight="4"
+                    android:layout_weight="1"
 
                     android:text="2:05:25"
                     android:textStyle="bold"
@@ -107,7 +107,7 @@
                     android:id="@+id/jubgging_result_calorie_text"
                     android:layout_width="0dp"
                     android:layout_height="32dp"
-                    android:layout_weight="5"
+                    android:layout_weight="1"
 
                     android:text="1,234"
                     android:textStyle="bold"
@@ -148,51 +148,83 @@
             android:layout_width="match_parent"
             android:layout_height="16dp"/>
 
-        <RelativeLayout
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/jubgging_result_add_photo_button"
-                android:layout_width="256dp"
-                android:layout_height="256dp"
-                android:layout_gravity="center"
-                android:background="@color/light_gray"
-                android:layout_centerHorizontal="true"
-
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_baseline_add_a_photo_24" />
-
-            <LinearLayout
-                android:id="@+id/jubgging_result_instagram_layout"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-
-                android:layout_alignLeft="@id/jubgging_result_add_photo_button"
-                android:layout_below="@id/jubgging_result_add_photo_button">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/jubgging_result_share_story_button"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:id="@+id/jubgging_result_add_photo_button"
+                    android:layout_width="296dp"
+                    android:layout_height="296dp"
+                    android:layout_gravity="center"
+                    android:background="@color/light_gray"
+                    android:layout_centerHorizontal="true"
 
-                    android:background="@color/transparent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_instagram_icon"/>
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_baseline_add_a_photo_24" />
+
+                <LinearLayout
+                    android:id="@+id/jubgging_result_instagram_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+
+                    android:layout_alignLeft="@id/jubgging_result_add_photo_button"
+                    android:layout_below="@id/jubgging_result_add_photo_button">
+
+                    <ImageButton
+                        android:id="@+id/jubgging_result_share_story_button"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+
+                        android:background="@color/transparent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_instagram_icon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+
+                        android:text="Story Share"
+                        android:textColor="@color/text_color_light"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/jubgging_result_added_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="64dp"
+                    android:textColor="@color/main_color_1"
+
+                    android:gravity="center"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:id="@+id/jubgging_result_now_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-                    android:text="Story Share"
-                    android:textColor="@color/text_color_light"
-                    android:gravity="center_vertical"/>
-
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:gravity="center"/>
             </LinearLayout>
-        </RelativeLayout>
-
+        </FrameLayout>
 
     </LinearLayout>
 

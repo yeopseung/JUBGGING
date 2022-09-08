@@ -12,6 +12,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Debug;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.OnObbStateChangeListener;
 import android.util.Log;
@@ -19,12 +20,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -40,6 +45,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 import org.techtown.my_jubgging.trashmap.TrashMapFragment;
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -69,6 +75,7 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
 
     private Chronometer chronometer;
     private Button start_end_Btn;
+    private TextView countDownTxt;
 
     long runtime = 0;
 
@@ -131,6 +138,21 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
         start_end_Btn.setBackgroundResource(R.drawable.rounded_rectangle);
 
         rootView.addView(start_end_Btn);
+
+        /* 카운트 다운 텍스트 */
+        countDownTxt = new TextView(context);
+
+        FrameLayout.LayoutParams paramsMM = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+
+        countDownTxt.setLayoutParams(paramsMM);
+        countDownTxt.setText("");
+        countDownTxt.setTypeface(start_end_Btn.getTypeface(), Typeface.BOLD);
+        countDownTxt.setTextSize(128);
+        countDownTxt.setTextColor(getResources().getColor(R.color.black));
+        countDownTxt.setGravity(Gravity.CENTER);
+
+        rootView.addView(countDownTxt);
     }
 
     private void setOnClick() {
@@ -141,8 +163,6 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
                     isRunning = true;
                     Calendar cal = Calendar.getInstance();
                     startCnt();
-                    chronometer.setBase(SystemClock.elapsedRealtime());
-                    chronometer.start();
 
                     start_end_Btn.setText("줍깅 종료");
                     start_end_Btn.setTextColor(getResources().getColor(R.color.main_color_5));
@@ -155,7 +175,7 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
 
                     Calendar cal = Calendar.getInstance();
 
-                    step = 1000;
+                    step = 3268; //< FIXME
 
                     runtime = SystemClock.elapsedRealtime() - chronometer.getBase();
                     saveInfo();
@@ -201,6 +221,49 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
     }
 
     public void startCnt() {
+        Animation cntDownAni = AnimationUtils.loadAnimation(context, R.anim.count_down);
+
+        countDownTxt.setText("3");
+        countDownTxt.startAnimation(cntDownAni);
+
+        start_end_Btn.setEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                countDownTxt.setTextSize(128);
+                countDownTxt.setText("");
+            }
+        }, 4000);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.start();
+
+                countDownTxt.setTextSize(64);
+                countDownTxt.setText("START!");
+
+                start_end_Btn.setEnabled(true);
+            }
+        }, 3000);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                countDownTxt.setText("1");
+                countDownTxt.startAnimation(cntDownAni);
+            }
+        }, 2000);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                countDownTxt.setText("2");
+                countDownTxt.startAnimation(cntDownAni);
+            }
+        }, 1000);
+
         sensorManager.registerListener(this, stepCountSensor, SensorManager.SENSOR_DELAY_FASTEST);
     }
 

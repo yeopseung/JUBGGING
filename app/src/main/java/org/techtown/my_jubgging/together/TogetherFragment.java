@@ -2,6 +2,7 @@ package org.techtown.my_jubgging.together;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -14,9 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
+import org.techtown.my_jubgging.MyProfile;
 import org.techtown.my_jubgging.R;
 import org.techtown.my_jubgging.RegionPickerActivity;
 import org.techtown.my_jubgging.UserInfo;
@@ -43,7 +49,11 @@ public class TogetherFragment extends Fragment {
 
     public static final int RESULT_OK = -1;
 
-    TextView regionMain;
+    ImageButton profileImgBtn;
+    LinearLayout targetRegionLayout;
+    TextView regionTxt;
+    ImageButton addNewPageBtn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,35 +63,18 @@ public class TogetherFragment extends Fragment {
         mContext = this;
         userInfo = (UserInfo)getActivity().getIntent().getSerializableExtra("userInfo");
 
+        setViewById(rootView);
+        setOnClick();
 
-        ImageButton Button = rootView.findViewById(R.id.together_add_button);
-        Button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(context, NewpageActivity.class);
-                intent.putExtra("userInfo",userInfo);
-                startActivity(intent);
-            }
-        });
-
-        regionMain = rootView.findViewById(R.id.together_board_region_main);
-        regionMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, RegionPickerActivity.class);
-                intent.putExtra("userInfo",userInfo);
-                intent.putExtra("targetNum", 1);
-                mStartForResult.launch(intent);
-            }
-        });
-
-        recyclerView = (RecyclerView)rootView.findViewById(R.id.together_board_recycler);
-        LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(manager);
+        Glide.with(this).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
 
         Retrofit retrofit = RetrofitClient.getInstance();
-
         retrofitApi = retrofit.create(RetrofitAPI.class);
+
+        //regionTxt.setText(userInfo.getDong());
+        //getPost(userInfo.getDong());
         getPost("상도동");
+        regionTxt.setText("상도동");
 
         return rootView;
     }
@@ -93,23 +86,64 @@ public class TogetherFragment extends Fragment {
                     Intent data = result.getData();
                     int regionNum = data.getIntExtra("regionCnt", 0);
 
-                    String get = "";
 
-                    for (int i = 0; i < regionNum; ++i) {
-                        get = data.getStringExtra("region1");
-                        regionMain.setText(get);
-                        regionMain.setBackgroundResource(R.drawable.rounded_rectangle);
-                    }
-                    for (int i = regionNum; i < 1; ++i) {
-                        regionMain.setText("+");
-                        regionMain.setBackgroundResource(R.drawable.rounded_rectangle_gray);
-                    }
-
-                    if (regionNum > 0)
+                    if (regionNum > 0) {
+                        String get = data.getStringExtra("region1");
+                        regionTxt.setText(get);
                         getPost(get);
+                    }
                 }
             }
     );
+
+    private void setViewById(ViewGroup rootView) {
+        profileImgBtn = rootView.findViewById(R.id.together_board_my_profile_button);
+        addNewPageBtn = rootView.findViewById(R.id.together_add_button);
+
+        targetRegionLayout = rootView.findViewById(R.id.together_board_target_region_layout);
+        regionTxt = rootView.findViewById(R.id.together_board_target_region_text);
+
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.together_board_recycler);
+        LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+    }
+
+    private void setOnClick() {
+        profileImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MyProfile.class);
+                intent.putExtra("userInfo",userInfo);
+                startActivity(intent);
+            }
+        });
+
+        addNewPageBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context, NewpageActivity.class);
+                intent.putExtra("userInfo",userInfo);
+                startActivity(intent);
+            }
+        });
+
+        targetRegionLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RegionPickerActivity.class);
+                intent.putExtra("userInfo",userInfo);
+                intent.putExtra("targetNum", 1);
+
+                intent.putExtra("region1", regionTxt.getText().toString());
+                intent.putExtra("region2", "+");
+                intent.putExtra("region3", "+");
+
+                intent.putExtra("regionCnt", 1);
+
+
+                mStartForResult.launch(intent);
+            }
+        });
+    }
 
     private void getPost(String regionName) {
         Call<Map<String, List<RegionPost>>> call = retrofitApi.getPosts(regionName);
