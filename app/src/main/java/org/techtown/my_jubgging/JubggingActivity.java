@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,5 +46,9 @@ public class JubggingActivity extends AppCompatActivity {
         transaction.replace(R.id.jubgging_frame_layout, jubggingFragment).commitAllowingStateLoss();
     }
 
+
+    private void customToast(String text) {
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+    }
 
 }

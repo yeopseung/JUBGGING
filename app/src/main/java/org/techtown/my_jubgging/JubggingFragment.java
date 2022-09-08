@@ -72,7 +72,7 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
 
     long runtime = 0;
 
-    int step;
+    public static int step;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,9 +109,8 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
         chronometer.setLayoutParams(paramsW128);
         chronometer.setTypeface(chronometer.getTypeface(), Typeface.BOLD);
         chronometer.setTextSize(36);
-        chronometer.setTextColor(textColor);
+        chronometer.setTextColor(getResources().getColor(R.color.black));
         chronometer.setGravity(Gravity.CENTER);
-        chronometer.setBackgroundResource(R.color.main_color_5);
         chronometer.setPadding(40, 0, 40, 0);
 
         rootView.addView(chronometer);
@@ -144,6 +143,11 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
                     startCnt();
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     chronometer.start();
+
+                    start_end_Btn.setText("줍깅 종료");
+                    start_end_Btn.setTextColor(getResources().getColor(R.color.main_color_5));
+                    start_end_Btn.setBackgroundResource(R.drawable.rounded_rectangle_bold);
+
                 }
                 else {
                     isRunning = false;

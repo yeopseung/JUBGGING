@@ -164,10 +164,15 @@ public interface RetrofitAPI {
             @Query("userId") long userId,
             @Query("boardId") long boardId);
 
-    //
+    // 해당 게시물에 해당 유저를 참여 추가
     @GET("board/attend")
     Call<Map<String, Long>> addParticipant(
             @Query("boardId") long boardId,
             @Query("userId") long userId);
+
+    //
+    @POST("user/point")
+    Call<Map<String, Integer>> addPoint(
+            @Body Map<String, Object> data);
 
 }

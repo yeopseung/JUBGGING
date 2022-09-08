@@ -308,7 +308,7 @@ public class ReadPostDetail extends Activity {
             profileLayout.addView(imgView);
         }
 
-        //openChatLinkTxt.setText(data.get(FIXME).toString());
+        openChatLinkTxt.setText(data.get("kakaoChatAddress").toString());
     }
 
     private String setRecruiting() {

@@ -15,17 +15,31 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kakao.usermgmt.response.model.User;
 
+import org.techtown.my_jubgging.ranking.RankInfo;
+import org.techtown.my_jubgging.retrofit.RetrofitAPI;
+import org.techtown.my_jubgging.retrofit.RetrofitClient;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class JubggingResultActivity extends AppCompatActivity {
     Context context;
     UserInfo userInfo;
+    RetrofitAPI retrofitAPI;
 
     LinearLayout intagramLayout;
 
@@ -51,6 +65,9 @@ public class JubggingResultActivity extends AppCompatActivity {
 
         context = getApplicationContext();
         userInfo = (UserInfo) getIntent().getSerializableExtra("userInfo");
+
+        Retrofit retrofit = RetrofitClient.getInstance();
+        retrofitAPI = retrofit.create(RetrofitAPI.class);
 
         getViewById();
         setValue();
@@ -102,7 +119,7 @@ public class JubggingResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("AAA", "log");
-                Uri stickerAssetUri = Uri.parse(addPhotoBtn.toString());
+                Uri stickerAssetUri = Uri.parse(addPhotoBtn.getResources().toString());
                 String sourceApplication = "org.techtown.my_jubgging";
 
                 Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
@@ -144,7 +161,36 @@ public class JubggingResultActivity extends AppCompatActivity {
 
             isPhotoInserted = true;
             intagramLayout.setVisibility(View.VISIBLE);
-        }
 
+            savePoint();
+        }
+    }
+
+    private void savePoint() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("userId", Long.parseLong(userInfo.userId));
+        data.put("walkingNum", walkingNum);
+        Call<Map<String, Integer>> call = retrofitAPI.addPoint(data);
+
+        call.enqueue(new Callback<Map<String, Integer>>() {
+             @Override
+             public void onResponse(Call<Map<String, Integer>> call, Response<Map<String, Integer>> response) {
+                 if (!response.isSuccessful()) {
+                     customToast("Code : " + response.code() + response.message() + response.errorBody());
+                     return;
+                 }
+
+                 customToast("포인트 적립 성공!" + response.body().get("nowPoint"));
+             }
+
+             @Override
+             public void onFailure(Call<Map<String, Integer>> call, Throwable t) {
+
+             }
+         });
+    }
+
+    private void customToast(String text) {
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
     }
 }
