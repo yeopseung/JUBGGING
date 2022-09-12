@@ -65,10 +65,15 @@ public class NewpageActivity extends AppCompatActivity {
     Button makeBtn;
 
     /* Instance Value */
+    boolean isAmend;
+    long boardId;
+
     Context context;
     int mainColor;
 
     int regionNum = 0;
+
+    int lowerBound = 3;
 
     boolean isDateSet = false;
     int year;
@@ -89,38 +94,40 @@ public class NewpageActivity extends AppCompatActivity {
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
                     Intent data = result.getData();
-                    regionNum = data.getIntExtra("regionCnt", 0);
-
-                    String get;
-                    String key[] = new String[3];
-                    key[0] = "region1";
-                    key[1] = "region2";
-                    key[2] = "region3";
-
-                    for (int i = 0; i < 3; ++i) {
-                        get = data.getStringExtra(key[i]);
-                        regionBtn[i].setText(get);
-                    }
-
-                    for (int i = 0; i < regionNum; ++i) {
-                        regionBtn[i].setBackgroundResource(R.drawable.rounded_rectangle);
-                        regionBtn[i].setVisibility(View.VISIBLE);
-                    }
-                    if (regionNum < 3) {
-                        regionBtn[regionNum].setBackgroundResource(R.drawable.rounded_rectangle_gray);
-                        regionBtn[regionNum].setVisibility(View.VISIBLE);
-
-                        for (int i = regionNum + 1; i < 3; ++i)
-                            regionBtn[i].setVisibility(View.INVISIBLE);
-                    }
+                    setRegionBtn(data);
                 }
             }
     );
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    private void setRegionBtn(Intent data) {
+        regionNum = data.getIntExtra("regionCnt", 0);
+
+        String get;
+        String key[] = new String[3];
+        key[0] = "region1";
+        key[1] = "region2";
+        key[2] = "region3";
+
+        for (int i = 0; i < 3; ++i) {
+            get = data.getStringExtra(key[i]);
+            regionBtn[i].setText(get);
+        }
+
+        for (int i = 0; i < regionNum; ++i) {
+            regionBtn[i].setBackgroundResource(R.drawable.rounded_rectangle);
+            regionBtn[i].setVisibility(View.VISIBLE);
+        }
+        if (regionNum < 3) {
+            regionBtn[regionNum].setBackgroundResource(R.drawable.rounded_rectangle_gray);
+            regionBtn[regionNum].setVisibility(View.VISIBLE);
+
+            for (int i = regionNum + 1; i < 3; ++i)
+                regionBtn[i].setVisibility(View.INVISIBLE);
+        }
     }
+
+    @Override
+    public void onBackPressed() { super.onBackPressed(); }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,6 +135,7 @@ public class NewpageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_together_newpage);
 
         context = getApplicationContext();
+        userInfo = (UserInfo)getIntent().getSerializableExtra("userInfo");
 
         post = new Post();
         regionBtn = new TextView[3];
@@ -144,8 +152,9 @@ public class NewpageActivity extends AppCompatActivity {
         genderSpinner.setAdapter(adapter);
 
         Retrofit retrofit = RetrofitClient.getInstance();
-
         retrofitApi = retrofit.create(RetrofitAPI.class);
+
+        getContent();
     }
 
     private void setViewById() {
@@ -203,8 +212,8 @@ public class NewpageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 --post.peopleNum;
 
-                if (post.peopleNum < 3)
-                    post.peopleNum = 3;
+                if (post.peopleNum < lowerBound)
+                    post.peopleNum = lowerBound;
 
                 peopleNumText.setText(post.peopleNum + "명");
             }
@@ -245,6 +254,24 @@ public class NewpageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getContent() {
+        Intent data = getIntent();
+        isAmend = data.getBooleanExtra("isAmend", false);
+
+        if (isAmend) {
+            boardId = data.getLongExtra("boardId", 0L);
+
+            titleText.setText(data.getStringExtra("title"));
+            contentText.setText(data.getStringExtra("content"));
+
+            lowerBound = data.getIntExtra("lowerBound", 3);
+            peopleNumText.setText(data.getIntExtra("peopleNum", lowerBound) + "명");
+
+            placeText.setText(data.getStringExtra("place"));
+            linkText.setText(data.getStringExtra("link"));
+        }
     }
 
     private void showDate() {
@@ -325,6 +352,9 @@ public class NewpageActivity extends AppCompatActivity {
         if (linkText.getText().length() <= 0)
             return customErrorToast("오픈 채팅방 주소를 입력해 주세요");
 
+        if (!(linkText.getText().toString().startsWith("https://open.kakao.com")))
+            return customErrorToast("올바른 오픈 채팅방 주소를 입력해주세요");
+
         // Case : All Clear
         return true;
     }
@@ -345,7 +375,7 @@ public class NewpageActivity extends AppCompatActivity {
 
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy MM dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh mm");
-        Calendar calendar = new GregorianCalendar(year, month, date, hour, min);
+        Calendar calendar = new GregorianCalendar(year, month - 1, date, hour, min);
         Date newDate = calendar.getTime();
 
         post.localDate = dataFormat.format(newDate);
@@ -357,29 +387,54 @@ public class NewpageActivity extends AppCompatActivity {
     }
 
     private boolean savePost() {
-        Call<Map<String, Long>> call = retrofitApi.postNewPosting(post);
+        if (!isAmend) {
+            Call<Map<String, Long>> call = retrofitApi.postNewPosting(post);
 
-        call.enqueue(new Callback<Map<String, Long>>() {
-            @Override
-            public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
-                if (!response.isSuccessful()) {
-                    customErrorToast("Code : " + response.code() + response.message() + response.errorBody());
-                    return;
+            call.enqueue(new Callback<Map<String, Long>>() {
+                @Override
+                public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
+                    if (!response.isSuccessful()) {
+                        customErrorToast("Code : " + response.code() + response.message() + response.errorBody());
+                        return;
+                    }
+
+                    Map<String, Long> data = response.body();
+                    customErrorToast(data.get("boardId") + " ");
+
+                    Toast.makeText(getApplicationContext(), "저장 성공!", Toast.LENGTH_LONG).show();
+                    onBackPressed();
                 }
 
-                Map<String,Long> data = response.body();
-                customErrorToast(data.get("boardId") + " ");
+                @Override
+                public void onFailure(Call<Map<String, Long>> call, Throwable t) {
+                    customErrorToast("저장 실패...! 다시 시도해주세요!");
+                }
+            });
+        }
+        else {
+            Call<Map<String, Long>> call = retrofitApi.amendPost(boardId, post);
 
-                Toast.makeText(getApplicationContext(), "저장 성공!", Toast.LENGTH_LONG).show();
-                onBackPressed();
-            }
+            call.enqueue(new Callback<Map<String, Long>>() {
+                @Override
+                public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
+                    if (!response.isSuccessful()) {
+                        customErrorToast("Code : " + response.code() + response.message() + response.errorBody());
+                        return;
+                    }
 
-            @Override
-            public void onFailure(Call<Map<String, Long>> call, Throwable t) {
-                customErrorToast("저장 실패...! 다시 시도해주세요!");
-            }
-        });
+                    Map<String, Long> data = response.body();
+                    customErrorToast(data.get("boardId") + " ");
 
+                    Toast.makeText(getApplicationContext(), "수정 성공!", Toast.LENGTH_LONG).show();
+                    onBackPressed();
+                }
+
+                @Override
+                public void onFailure(Call<Map<String, Long>> call, Throwable t) {
+                    customErrorToast("수정 실패...! 다시 시도해주세요!");
+                }
+            });
+        }
         return true;
     }
 

@@ -20,8 +20,10 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -170,9 +172,18 @@ public interface RetrofitAPI {
             @Query("boardId") long boardId,
             @Query("userId") long userId);
 
-    //
+    // 포인트 추가
     @POST("user/point")
     Call<Map<String, Integer>> addPoint(
             @Body Map<String, Object> data);
 
+    // 게시물 삭제
+    @DELETE("board")
+    Call<Map<String, Long>> deletePost(@Query("boardId") long boardId);
+
+    // 게시물 수정
+    @PUT("board")
+    Call<Map<String, Long>> amendPost(
+            @Query("boardId") long boardId,
+            @Body Post post);
 }

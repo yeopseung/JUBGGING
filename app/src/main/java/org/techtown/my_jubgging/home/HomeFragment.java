@@ -74,6 +74,8 @@ public class HomeFragment extends Fragment {
 
     View percentBar[];
     ImageView percentCircle[];
+    Space leftSpace;
+    Space rightSpace;
 
     LinearLayout reservedTogetherLayout;
     TextView startPloggingTxt;
@@ -95,7 +97,10 @@ public class HomeFragment extends Fragment {
         retrofitApi = retrofit.create(RetrofitAPI.class);
 
         Intent data = getActivity().getIntent();
-        userInfo = (UserInfo)data.getSerializableExtra("userInfo");
+
+        if (userInfo == null)
+            userInfo = (UserInfo)data.getSerializableExtra("userInfo");
+
         userId = Long.parseLong(userInfo.userId);
 
         textColor = ContextCompat.getColor(context, R.color.text_color);
@@ -139,6 +144,9 @@ public class HomeFragment extends Fragment {
         percentCircle[3] = rootView.findViewById(R.id.home_percent_circle4);
         percentCircle[4] = rootView.findViewById(R.id.home_percent_circle5);
         percentCircle[5] = rootView.findViewById(R.id.home_percent_circle6);
+
+        leftSpace = rootView.findViewById(R.id.home_percent_left_space);
+        rightSpace = rootView.findViewById(R.id.home_percent_right_space);
 
         reservedTogetherLayout = rootView.findViewById(R.id.home_reserved_plogging_layout);
         startPloggingTxt = rootView.findViewById(R.id.home_start_plogging_text);
@@ -190,6 +198,14 @@ public class HomeFragment extends Fragment {
             percentCircle[i].setImageResource(R.drawable.ic_baseline_circle_gray_24);
             percentBar[i].setBackgroundColor(gray);
         }
+
+        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+        params1.weight = (float)idx;
+        leftSpace.setLayoutParams(params1);
+
+        params2.weight = (float)(6 - idx);
+        rightSpace.setLayoutParams(params2);
     }
 
     private void showDate() {
@@ -319,7 +335,7 @@ public class HomeFragment extends Fragment {
         date.setTypeface(date.getTypeface(), Typeface.BOLD);
         date.setTextSize(24);
 
-        LinearLayout.LayoutParams params181W = new LinearLayout.LayoutParams(181, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params181W = new LinearLayout.LayoutParams(196, ViewGroup.LayoutParams.WRAP_CONTENT);
         date.setLayoutParams(params181W);
 
         linearLayout.addView(date);

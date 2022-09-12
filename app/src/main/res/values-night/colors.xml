@@ -20,6 +20,7 @@
     <color name="main_color_5">#FF2F2F2F</color>
 
     <!-- Additional Color -->
+    <color name="very_light_gray">#22EEEEEE</color>
     <color name="light_gray">#FFD3D3D3</color>
     <color name="gray">#FFA1A1A1</color>
     <color name="deep_gray">#FF333333</color>

@@ -272,7 +272,6 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
         if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             if (event.values[0] == 1.0f) {
                 ++step;
-                //<FIXME 발걸음 수 증가 출력
             }
         }
     }

@@ -1,9 +1,11 @@
 package org.techtown.my_jubgging;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -24,6 +26,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
+import org.techtown.my_jubgging.together.NewpageActivity;
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
@@ -31,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -73,12 +77,16 @@ public class ReadPostDetail extends Activity {
     Button copyLinkBtn;
 
     /* */
+    int state; // 0 : 모집 중 | 1 : 참여 완료 | 2 : 모집 완료
+
     long userId;
     long boardId;
+    long postOwnerId;
     boolean isParticipated;
     boolean isRecruiting;
 
     int recruitingBoxColor;
+    String targetGENDER;
 
     long nowMS;
     long dateMS;
@@ -111,6 +119,13 @@ public class ReadPostDetail extends Activity {
 
         Retrofit retrofit = RetrofitClient.getInstance();
         retrofitApi = retrofit.create(RetrofitAPI.class);
+
+        getPost();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         getPost();
     }
@@ -151,11 +166,10 @@ public class ReadPostDetail extends Activity {
             }
         });
 
-        //< FIXME Setting Btn
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onSettingBtn();
             }
         });
 
@@ -166,7 +180,6 @@ public class ReadPostDetail extends Activity {
                     isParticipated = true;
                     customToast("함께 줍깅에 참여했어요!");
                     addParticipant();
-                    setParticipateBtnActivate(true);
                 }
             }
         });
@@ -183,6 +196,90 @@ public class ReadPostDetail extends Activity {
         });
     }
 
+    private void onSettingBtn() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if (userId == postOwnerId) {
+            builder.setItems(R.array.post_setting_owner_array, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which == 0) {
+                        amendPost();
+                    }
+                    else {
+                        deletePost();
+                    }
+                }
+            })
+                    .create()
+                    .show();
+        }
+        else {
+            builder.setItems(R.array.post_setting_array, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    customToast("해당 게시물이 신고 되었습니다!");
+                }
+            })
+                    .create()
+                    .show();
+        }
+    }
+
+    private void amendPost() {
+        Intent intent = new Intent(context, NewpageActivity.class);
+
+        intent.putExtra("userInfo", userInfo);
+
+        intent.putExtra("isAmend", true);
+        intent.putExtra("boardId", boardId);
+
+        intent.putExtra("title", titleTxt.getText().toString());
+        intent.putExtra("content", content.getText().toString());
+        intent.putExtra("peopleNum", peopleNum);
+        intent.putExtra("lowerBound", attendingNum);
+
+        intent.putExtra("place", placeTxt.getText().toString());
+        intent.putExtra("link", openChatLinkTxt.getText().toString());
+
+        startActivity(intent);
+    }
+
+    private void deletePost() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("정말 해당 게시물을 삭제하실 건가요?")
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Call<Map<String, Long>> call = retrofitApi.deletePost(boardId);
+
+                        call.enqueue(new Callback<Map<String, Long>>() {
+                            @Override
+                            public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
+                                if (!response.isSuccessful()) {
+                                    customToast("Code : " + response.code() + response.message() + response.errorBody());
+                                    return;
+                                }
+
+                                customToast("게시물을 삭제했어요!");
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Map<String, Long>> call, Throwable t) {
+                                customToast("게시물 삭제에 실패했어요...");
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .create()
+                .show();
+    }
+
     private void getPost() {
         Call<Map<String, Object>> call = retrofitApi.getPostDetail(boardId);
 
@@ -195,7 +292,12 @@ public class ReadPostDetail extends Activity {
                 }
 
                 setValue(response.body());
-                isParticipate();
+                if (isPossibleGender(response.body().get("possibleGender").toString().toUpperCase()))
+                    isParticipate();
+                else {
+                    setParticipateBtnActivate(false);
+                    participateBtn.setText("참여불가");
+                }
             }
 
             @Override
@@ -203,6 +305,17 @@ public class ReadPostDetail extends Activity {
                 customToast("게시물 불러오기를 실패했어요...");
             }
         });
+    }
+
+    private boolean isPossibleGender(String targetGender) {
+        targetGENDER = new String(targetGender);
+        if (targetGender.equals("ALL"))
+            return true;
+
+        if (targetGender.equals(userInfo.gender))
+            return true;
+
+        return false;
     }
 
     private void isParticipate() {
@@ -219,15 +332,25 @@ public class ReadPostDetail extends Activity {
                 Map<String, String> data = response.body();
                 String realData = (String)data.get("attending");
 
-                if(realData.equals("Y"))
-                    isParticipated = true;
-                else
-                    isParticipated = false;
 
-                if (isParticipated || !isRecruiting)
+                if(realData.equals("Y")) {
+                    openChatLayout.setVisibility(View.VISIBLE);
+
                     setParticipateBtnActivate(false);
-                else
-                    setParticipateBtnActivate(true);
+                    participateBtn.setText("참여완료");
+                }
+                else {
+                    openChatLayout.setVisibility(View.INVISIBLE);
+
+                    if (isRecruiting) {
+                        setParticipateBtnActivate(true);
+                        participateBtn.setText("참여하기");
+                    }
+                    else {
+                        setParticipateBtnActivate(false);
+                        participateBtn.setText("모집완료");
+                    }
+                }
             }
 
             @Override
@@ -263,19 +386,16 @@ public class ReadPostDetail extends Activity {
         if (activate) {
             participateBtn.setEnabled(true);
             participateBtn.setBackgroundResource(R.drawable.rounded_rectangle);
-            participateBtn.setText("참여하기");
-            openChatLayout.setVisibility(View.INVISIBLE);
         }
-
         else {
             participateBtn.setEnabled(false);
             participateBtn.setBackgroundResource(R.drawable.rounded_rectangle_gray);
-            participateBtn.setText("참여완료");
-            openChatLayout.setVisibility(View.VISIBLE);
         }
     }
 
     private void setValue(Map<String, Object> data) {
+        postOwnerId = ((Double)data.get("userId")).longValue();
+
         attendingNum =((Double)data.get("nowAttendingNum")).intValue();
         peopleNum = ((Double)data.get("peopleNum")).intValue();
 
@@ -368,10 +488,15 @@ public class ReadPostDetail extends Activity {
     }
 
     private String setDate() {
-        if (todayDate.get(Calendar.YEAR) == targetDate.get(Calendar.YEAR))
-            return ((targetDate.get(Calendar.MONTH) + 1) + "월 " + targetDate.get(Calendar.DATE) + "일");
+        int minute = targetDate.get(Calendar.MINUTE);
+        String min = (minute != 0)? minute + "분" : "";
 
-        return (targetDate.get(Calendar.YEAR) + "년 " + (targetDate.get(Calendar.MONTH) + 1) + "월 " + targetDate.get(Calendar.DATE) +"일");
+        if (todayDate.get(Calendar.YEAR) == targetDate.get(Calendar.YEAR))
+            return ((targetDate.get(Calendar.MONTH) + 1) + "월 " + targetDate.get(Calendar.DATE) + "일 " +
+                    targetDate.get(Calendar.HOUR_OF_DAY) + "시 " + min);
+
+        return (targetDate.get(Calendar.YEAR) + "년 " + (targetDate.get(Calendar.MONTH) + 1) + "월 " + targetDate.get(Calendar.DATE) +"일" +
+                targetDate.get(Calendar.HOUR_OF_DAY) + "시 " + min);
     }
 
     private String genderSetting(Object input) {
