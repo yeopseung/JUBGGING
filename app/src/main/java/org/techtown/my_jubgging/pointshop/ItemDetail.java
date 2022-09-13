@@ -120,10 +120,10 @@ public class ItemDetail extends AppCompatActivity {
 
                 //이미지 , 상품명, 설명, 가격, 재고 설정
                 Glide.with(getApplicationContext()).load(result.getItemURL()).into(itemURL);
-                name.setText("상품명: "+ result.getName());
-                information.setText("상품 정보: "+result.getInformation());
-                price.setText("가격: "+result.getPrice());
-                stock.setText("재고: "+result.getStock());
+                name.setText(result.getName());
+                information.setText(result.getInformation());
+                price.setText(result.getPrice());
+                stock.setText(result.getStock());
             }
 
             @Override

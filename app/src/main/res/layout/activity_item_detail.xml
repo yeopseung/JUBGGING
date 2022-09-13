@@ -61,6 +61,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="@color/gray"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="상품명">
+
+                </TextView>
+
                 <TextView
                     android:id="@+id/item_detail_name"
                     android:layout_width="match_parent"
@@ -68,9 +83,20 @@
                     android:layout_margin="15dp"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"
+                    android:text="상품명: " />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_color"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:text="상품명: " />
+                    android:text="상품정보"/>
 
                 <TextView
                     android:id="@+id/item_detail_information"
@@ -79,9 +105,19 @@
                     android:layout_margin="15dp"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"
+                    android:text="설명: " />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_color"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:text="설명: " />
+                    android:text="가격"/>
 
                 <TextView
                     android:id="@+id/item_detail_price"
@@ -90,9 +126,19 @@
                     android:layout_margin="15dp"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"
+                    android:text="가격: " />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_color"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:text="가격: " />
+                    android:text="재고"/>
 
                 <TextView
                     android:id="@+id/item_detail_stock"
@@ -101,13 +147,15 @@
                     android:layout_margin="15dp"
                     android:layout_weight="1"
                     android:textColor="@color/text_color"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
                     android:text="재고: " />
 
             </LinearLayout>
         </ScrollView>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray" />
         <Button
             android:id="@+id/item_detail_order_page_open"
             android:layout_width="wrap_content"
@@ -124,7 +172,7 @@
         android:layout_gravity="bottom"
         android:background="@color/light_gray"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
 
         <ImageButton
@@ -148,10 +196,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:text="수량"
                 android:textColor="@color/text_color"
-                android:textStyle="bold"
                 android:textSize="18dp"
-                android:text="수량" />
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/item_detail_order_page_minus"
@@ -160,8 +208,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@color/transparent"
-                android:src="@drawable/ic_baseline_remove_circle_outline_24"
-                />
+                android:src="@drawable/ic_baseline_remove_circle_outline_24" />
 
             <TextView
                 android:id="@+id/item_detail_order_page_count"
@@ -176,8 +223,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/transparent"
-                android:src="@drawable/ic_baseline_add_circle_outline_24"
-                />
+                android:src="@drawable/ic_baseline_add_circle_outline_24" />
         </LinearLayout>
 
         <Button

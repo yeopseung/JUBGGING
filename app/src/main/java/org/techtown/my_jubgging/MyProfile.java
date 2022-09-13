@@ -87,21 +87,22 @@ public class MyProfile extends AppCompatActivity {
 
                 Glide.with(getApplicationContext()).load(result.profileURL).into(profile);
 
-                name.setText("이름: "+result.getName());
-                nickName.setText("닉네임: "+result.getNickName());
+
+                name.setText(result.getName());
+                nickName.setText(result.getNickName());
                 switch (result.getGender())
                 {
                     case "MALE":
-                        gender.setText("성별: 남");
+                        gender.setText("남");
                         break;
                     case "FEMALE":
-                        gender.setText("성별: 여");
+                        gender.setText("여");
                         break;
                 }
-                email.setText("이메일: "+result.getEmail());
-                roadAddress.setText("주소: "+result.getRoadAddress());
-                specificAddress.setText("상세주소: "+result.getSpecificAddress());
-                point.setText("포인트: "+result.getPoint()+" 점");
+                email.setText(result.getEmail());
+                roadAddress.setText(result.getRoadAddress());
+                specificAddress.setText(result.getSpecificAddress());
+                point.setText(result.getPoint()+" 점");
 
 
             }

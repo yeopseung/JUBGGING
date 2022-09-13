@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".pointshop.PointShopFragment"
-    android:background="@color/light_gray">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,6 +49,7 @@
         android:id="@+id/point_shop_item_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="64dp"/>
+        android:layout_marginTop="64dp"
+        android:background="@color/light_gray"/>
 
 </FrameLayout>

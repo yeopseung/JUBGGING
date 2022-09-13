@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Geocoder;
 import android.location.LocationManager;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -70,8 +71,10 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
     private LinearLayout linearLayout;
     private MapPoint.GeoCoordinate geoCoordinate;
-    private Button refreshTrash;
+    private ImageButton refreshTrash;
     private ImageButton cur_location;
+    private ImageButton zoom_in;
+    private ImageButton zoom_out;
 
 
     private DBHelper dbHelper;
@@ -293,40 +296,75 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         });
 
 
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(10,10,10,10);
+        setView(rootView);
+        setButtonClickListener();
+
+        return rootView;
+    }
+
+    private void setView(ViewGroup rootView)
+    {
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        FrameLayout.LayoutParams linear_params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        linearLayout.setLayoutParams(linear_params);
+        linear_params.setMargins(10,10,10,10);
+        linear_params.gravity = Gravity.RIGHT;
 
         //반경 3km 공공쓰레기통 버튼
-        refreshTrash = new Button(getContext());
-        refreshTrash.setLayoutParams(params);
-        refreshTrash.setText("주변 쓰레기통 보기");
-        refreshTrash.setTypeface(refreshTrash.getTypeface(), Typeface.BOLD);
-        refreshTrash.setPadding(10,10,10,10);
-        refreshTrash.setTextSize(18);
-        refreshTrash.setTextColor(getResources().getColor(R.color.text_color));
-        refreshTrash.setBackgroundResource(R.drawable.shape_for_circle_button);
-        rootView.addView(refreshTrash);
+        FrameLayout.LayoutParams trash_param = new FrameLayout.LayoutParams(100,100);
+        trash_param.setMargins(10,10,10,10);
 
-        FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        params2.setMargins(10,10,10,10);
-        params2.gravity = Gravity.RIGHT;
+        refreshTrash = new ImageButton(getContext());
+        refreshTrash.setLayoutParams(trash_param);
+        refreshTrash.setImageResource(R.drawable.trash_general_blue);
+        refreshTrash.setColorFilter(R.color.black);
+        refreshTrash.setMaxWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        refreshTrash.setMaxHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        refreshTrash.setBackgroundResource(R.drawable.shape_for_circle_button);
+        linearLayout.addView(refreshTrash);
+
+
+        //현위치 버튼
+        FrameLayout.LayoutParams cur_param = new FrameLayout.LayoutParams(100,100);
+        cur_param.setMargins(10,10,10,10);
 
         cur_location = new ImageButton(getContext());
-        cur_location.setLayoutParams(params2);
+        cur_location.setLayoutParams(cur_param);
         cur_location.setBackgroundResource(R.drawable.shape_for_circle_button);
         cur_location.setImageResource(R.drawable.ic_baseline_my_location_24);
         cur_location.setMaxWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         cur_location.setMaxHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        rootView.addView(cur_location);
+        linearLayout.addView(cur_location);
+
+        //현위치 버튼
+        FrameLayout.LayoutParams in_param = new FrameLayout.LayoutParams(100,100);
+        in_param.setMargins(10,10,10,10);
+
+        zoom_in = new ImageButton(getContext());
+        zoom_in.setLayoutParams(in_param);
+        zoom_in.setBackgroundResource(R.drawable.shape_for_circle_button);
+        zoom_in.setImageResource(R.drawable.ic_baseline_add_circle_outline_24);
+        zoom_in.setMaxWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        zoom_in.setMaxHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        linearLayout.addView(zoom_in);
+
+        //현위치 버튼
+        FrameLayout.LayoutParams out_param = new FrameLayout.LayoutParams(100,100);
+        out_param.setMargins(10,10,10,10);
+
+        zoom_out = new ImageButton(getContext());
+        zoom_out.setLayoutParams(out_param);
+        zoom_out.setBackgroundResource(R.drawable.shape_for_circle_button);
+        zoom_out.setImageResource(R.drawable.ic_baseline_remove_circle_outline_24);
+        zoom_out.setMaxWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        zoom_out.setMaxHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        linearLayout.addView(zoom_out);
 
 
 
+        rootView.addView(linearLayout);
 
-        setButtonClickListener();
-
-        return rootView;
     }
 
     private void setButtonClickListener()
@@ -403,6 +441,30 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                 {
 
                 }
+            }
+        });
+
+        cur_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startTracking();
+            }
+        });
+
+        zoom_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int zoomLevel = mapView.getZoomLevel();
+                mapView.setZoomLevel(zoomLevel-1,true);
+
+            }
+        });
+
+        zoom_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int zoomLevel = mapView.getZoomLevel();
+                mapView.setZoomLevel(zoomLevel+1,true);
             }
         });
 
