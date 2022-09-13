@@ -8,6 +8,7 @@ import org.techtown.my_jubgging.together.RegionPost;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.pointshop.Item;
 import org.techtown.my_jubgging.pointshop.Order;
+import org.techtown.my_jubgging.trashmap.CurrentLocation;
 import org.techtown.my_jubgging.trashmap.CustomTrash;
 import org.techtown.my_jubgging.trashmap.Heart;
 import org.techtown.my_jubgging.trashmap.PublicTrash;
@@ -74,7 +75,7 @@ public interface RetrofitAPI {
     //Input :
     //Output : UserInfo userInfo
     @GET("map/trash/publicInfo")
-    Call<HashMap<String, List<PublicTrash>>> getPublicTrashList();
+    Call<HashMap<String, List<PublicTrash>>> getPublicTrashList(@Query("latitude") double latitude,@Query("longitude") double longitude,@Query("findMeter") int findMeter );
 
     //유저의 프로필 정보를 불러옴
     //Input :
