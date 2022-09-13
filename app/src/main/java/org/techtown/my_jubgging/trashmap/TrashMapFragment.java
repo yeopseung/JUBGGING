@@ -317,8 +317,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
         refreshTrash = new ImageButton(getContext());
         refreshTrash.setLayoutParams(trash_param);
-        refreshTrash.setImageResource(R.drawable.trash_general_blue);
-        refreshTrash.setColorFilter(R.color.black);
+        refreshTrash.setImageResource(R.drawable.trash_general_black);
         refreshTrash.setMaxWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         refreshTrash.setMaxHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         refreshTrash.setBackgroundResource(R.drawable.shape_for_circle_button);
