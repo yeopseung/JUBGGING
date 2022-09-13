@@ -6,13 +6,5 @@
     android:layout_height="match_parent"
     tools:context=".trashmap.TrashMapFragment">
 
-    <ImageView
-        android:id="@+id/fragment_map_current_location"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:adjustViewBounds="true"
-        android:padding="0sp"
-        android:scaleType="centerCrop"
-        android:layout_gravity="right"
-        android:src="@drawable/ic_baseline_my_location_24" />
+
 </FrameLayout>

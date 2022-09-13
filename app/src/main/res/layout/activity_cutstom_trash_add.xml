@@ -16,6 +16,8 @@
         android:textSize="30dp"
         android:autoSizeTextType="uniform"
         android:autoSizeMaxTextSize="30dp"
+        android:textColor="@color/text_color"
+        android:textStyle="bold"
         android:gravity="center"
         android:layout_margin="20dp"/>
 
@@ -32,6 +34,9 @@
             android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
             android:autoSizeMaxTextSize="20dp"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:textSize="18dp"
             android:text="주소" />
 
         <EditText
@@ -48,6 +53,9 @@
             android:autoSizeTextType="uniform"
             android:autoSizeMaxTextSize="20dp"
             android:text="쓰레기통 종류"
+            android:textSize="18dp"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
             android:layout_marginTop="40dp"/>
 
         <RadioGroup

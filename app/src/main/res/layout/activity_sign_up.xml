@@ -8,6 +8,27 @@
     tools:context=".auth.SignUp"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="12dp"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:text="회원가입" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -25,6 +46,9 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="이름" />
 
             <EditText
@@ -44,6 +68,9 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="닉네임" />
 
             <LinearLayout
@@ -77,6 +104,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:layout_margin="10dp"/>
 
             <RadioGroup
@@ -109,6 +139,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:layout_margin="10dp"/>
             <EditText
                 android:id ="@+id/sign_up_email"
@@ -125,6 +158,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:layout_margin="10dp"/>
             <EditText
                 android:id ="@+id/sign_up_road_address"
@@ -141,6 +177,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:layout_margin="10dp"/>
             <EditText
                 android:id ="@+id/sign_up_specific_address"

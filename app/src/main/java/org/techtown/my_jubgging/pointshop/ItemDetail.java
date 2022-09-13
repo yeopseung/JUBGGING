@@ -44,8 +44,8 @@ public class ItemDetail extends AppCompatActivity {
     private Button order_open;
     private ImageButton order_close;
     private LinearLayout order_page;
-    private Button order_plus;
-    private Button order_minus;
+    private ImageButton order_plus;
+    private ImageButton order_minus;
     private TextView order_count;
     private Button order_finish;
 

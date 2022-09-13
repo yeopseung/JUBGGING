@@ -14,7 +14,6 @@
         android:paddingHorizontal="15dp"
         android:paddingVertical="10dp">
 
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -22,6 +21,8 @@
             android:layout_weight="1"
             android:padding="12dp"
             android:textSize="24dp"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
             android:text="내 프로필" />
 
     </LinearLayout>
@@ -55,12 +56,16 @@
                 android:layout_height="2dp"
                 android:background="@color/gray" />
 
+
             <TextView
                 android:id="@+id/my_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="이름: " />
 
             <TextView
@@ -69,6 +74,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="닉네임: " />
 
             <TextView
@@ -77,6 +85,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="성별: " />
 
             <TextView
@@ -85,6 +96,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="이메일: " />
 
             <TextView
@@ -93,6 +107,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="도로명 주소: " />
 
             <TextView
@@ -101,6 +118,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="상세주소: " />
 
             <TextView
@@ -109,6 +129,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="포인트: " />
 
             <View

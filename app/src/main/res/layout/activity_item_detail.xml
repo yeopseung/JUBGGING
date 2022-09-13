@@ -26,6 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="12dp"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
                 android:text="상품 확인"
                 android:textSize="24dp" />
 
@@ -65,6 +67,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
                     android:text="상품명: " />
 
                 <TextView
@@ -73,6 +78,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
                     android:text="설명: " />
 
                 <TextView
@@ -81,6 +89,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
                     android:text="가격: " />
 
                 <TextView
@@ -89,6 +100,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:layout_weight="1"
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
                     android:text="재고: " />
 
             </LinearLayout>
@@ -110,53 +124,60 @@
         android:layout_gravity="bottom"
         android:background="@color/light_gray"
         android:orientation="vertical"
-        android:visibility="gone"
-        >
+        android:visibility="visible">
 
 
         <ImageButton
             android:id="@+id/item_detail_order_page_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24"
+            android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:layout_gravity="center"/>
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:text="수량" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/item_detail_order_page_minus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:text="-" />
+                android:background="@color/transparent"
+                android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                />
 
             <TextView
                 android:id="@+id/item_detail_order_page_count"
                 android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="1" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/item_detail_order_page_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="+" />
+                android:background="@color/transparent"
+                android:src="@drawable/ic_baseline_add_circle_outline_24"
+                />
         </LinearLayout>
 
         <Button
