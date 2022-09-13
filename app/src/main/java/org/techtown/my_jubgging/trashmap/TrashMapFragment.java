@@ -305,7 +305,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         refreshTrash.setPadding(10,10,10,10);
         refreshTrash.setTextSize(18);
         refreshTrash.setTextColor(getResources().getColor(R.color.text_color));
-        refreshTrash.setBackgroundResource(R.drawable.rounded_rectangle);
+        refreshTrash.setBackgroundResource(R.drawable.shape_for_circle_button);
         rootView.addView(refreshTrash);
 
         FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -315,6 +315,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
         cur_location = new ImageButton(getContext());
         cur_location.setLayoutParams(params2);
+        cur_location.setBackgroundResource(R.drawable.shape_for_circle_button);
         cur_location.setImageResource(R.drawable.ic_baseline_my_location_24);
         cur_location.setMaxWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         cur_location.setMaxHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
