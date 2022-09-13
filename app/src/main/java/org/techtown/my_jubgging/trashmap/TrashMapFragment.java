@@ -70,13 +70,13 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
     private LinearLayout linearLayout;
     private MapPoint.GeoCoordinate geoCoordinate;
-    private Button trash500;
-    private Button trash1000;
-    private Button trash3000;
+    private Button refreshTrash;
+    private ImageButton cur_location;
 
 
     private DBHelper dbHelper;
     private List<PublicTrash> publicTrashList;
+    private List<MapPOIItem> publicMarkerList = new ArrayList<>();
 
     private UserInfo userInfo;
     private ImageButton profileImgBtn;
@@ -293,50 +293,35 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         });
 
 
-        //반경 500,1000,3000m 공공쓰레기통 버튼 레이아웃
-        LinearLayout linearLayout = new LinearLayout(getContext());
-        //linearLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(10,10,10,10);
-        params.weight = 1f;
-
-        //반경 500m 공공쓰레기통 버튼
-        trash500 = new Button(getContext());
-        trash500.setLayoutParams(params);
-        trash500.setWidth(1);
-        trash500.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-        trash500.setText("500m");
-        trash500.setTypeface(trash500.getTypeface(), Typeface.BOLD);
-        trash500.setTextSize(18);
-        trash500.setTextColor(getResources().getColor(R.color.text_color));
-        trash500.setBackgroundResource(R.drawable.rounded_rectangle);
-        linearLayout.addView(trash500);
-
-        //반경 1km 공공쓰레기통 버튼
-        trash1000 = new Button(getContext());
-        trash1000.setLayoutParams(params);
-        trash1000.setWidth(1);
-        trash1000.setText("1km");
-        trash1000.setTypeface(trash500.getTypeface(), Typeface.BOLD);
-        trash1000.setTextSize(18);
-        trash1000.setTextColor(getResources().getColor(R.color.text_color));
-        trash1000.setBackgroundResource(R.drawable.rounded_rectangle);
-        linearLayout.addView(trash1000);
 
         //반경 3km 공공쓰레기통 버튼
-        trash3000 = new Button(getContext());
-        trash3000.setLayoutParams(params);
-        trash3000.setText("3km");
-        trash3000.setWidth(1);
-        trash3000.setTypeface(trash500.getTypeface(), Typeface.BOLD);
-        trash3000.setTextSize(18);
-        trash3000.setTextColor(getResources().getColor(R.color.text_color));
-        trash3000.setBackgroundResource(R.drawable.rounded_rectangle);
-        linearLayout.addView(trash3000);
+        refreshTrash = new Button(getContext());
+        refreshTrash.setLayoutParams(params);
+        refreshTrash.setText("주변 쓰레기통 보기");
+        refreshTrash.setTypeface(refreshTrash.getTypeface(), Typeface.BOLD);
+        refreshTrash.setPadding(10,10,10,10);
+        refreshTrash.setTextSize(18);
+        refreshTrash.setTextColor(getResources().getColor(R.color.text_color));
+        refreshTrash.setBackgroundResource(R.drawable.rounded_rectangle);
+        rootView.addView(refreshTrash);
 
-        rootView.addView(linearLayout);
+        FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        params2.setMargins(10,10,10,10);
+        params2.gravity = Gravity.RIGHT;
+
+        cur_location = new ImageButton(getContext());
+        cur_location.setLayoutParams(params2);
+        cur_location.setImageResource(R.drawable.ic_baseline_my_location_24);
+        cur_location.setMaxWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        cur_location.setMaxHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        rootView.addView(cur_location);
+
+
+
 
         setButtonClickListener();
 
@@ -345,9 +330,19 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
     private void setButtonClickListener()
     {
-        trash500.setOnClickListener(new View.OnClickListener() {
+        refreshTrash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(publicMarkerList.size() != 0)
+                {
+                    for (MapPOIItem mapPOIItem : publicMarkerList)
+                    {
+                        mapView.removePOIItem(mapPOIItem);
+                    }
+                }
+                publicMarkerList = new ArrayList<>();
+
                 Thread thread = new Thread()
                 {
                     @Override
@@ -355,7 +350,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                     {
                         MapPoint mapPoint = mapView.getMapCenterPoint();
                         geoCoordinate = mapPoint.getMapPointGeoCoord();
-                        Call<HashMap<String, List<PublicTrash>>> call_custom = retrofitAPI.getPublicTrashList(geoCoordinate.latitude,geoCoordinate.longitude,500);
+                        Call<HashMap<String, List<PublicTrash>>> call_custom = retrofitAPI.getPublicTrashList(geoCoordinate.latitude,geoCoordinate.longitude,3000);
                         try {
                             HashMap<String, List<PublicTrash>> result = call_custom.execute().body();
                             publicTrashList = result.get("results");
@@ -387,8 +382,10 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                                 customMarker.setCustomImageAutoscale(false);
                                 //마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
                                 customMarker.setCustomImageAnchor(0.5f, 1.0f);
+                                customMarker.setShowCalloutBalloonOnTouch(false);
 
                                 mapView.addPOIItem(customMarker);
+                                publicMarkerList.add(customMarker);
                             }
 
                         } catch (IOException e) {
@@ -408,19 +405,6 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
             }
         });
 
-        trash1000.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        trash3000.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     class CustomCallOutBalloonAdapter implements CalloutBalloonAdapter
@@ -435,6 +419,10 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
         @Override
         public View getCalloutBalloon(MapPOIItem mapPOIItem) {
 
+            if(publicMarkerList.contains(mapPOIItem))
+            {
+                return null;
+            }
 
             CustomTrash customTrash = (CustomTrash)mapPOIItem.getUserObject();
             thread = new Thread()
