@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- SeungYeop Added For KakaoMap 위치 허용 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
 
@@ -74,6 +75,21 @@
         <activity
             android:name=".JubggingResultActivity"
             android:exported="true"/>
-    </application>
 
+        <provider
+            android:authorities="org.techtown.my_jubgging.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+    </application>
+    <queries>
+        <intent>
+            <action android:name='com.instagram.share.ADD_TO_STORY' />
+            <data android:mimeType='image/*' />
+        </intent>
+    </queries>
 </manifest>

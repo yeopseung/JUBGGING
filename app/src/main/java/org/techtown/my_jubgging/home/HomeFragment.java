@@ -468,7 +468,8 @@ public class HomeFragment extends Fragment {
 
         drawPercentBar(walkingNum);
 
-        Glide.with(this).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
+        if (userInfo != null)
+            Glide.with(this).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
     }
 
     private void customToast(String text) {

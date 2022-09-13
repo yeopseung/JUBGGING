@@ -93,6 +93,12 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
         Intent data = getActivity().getIntent();
         userInfo = (UserInfo)data.getSerializableExtra("userInfo");
 
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
+
+            requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 0);
+        }
+
         chronometer = new Chronometer(context);
         textColor = getResources().getColor(R.color.text_color);
 
@@ -174,8 +180,6 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
                     chronometer.stop();
 
                     Calendar cal = Calendar.getInstance();
-
-                    step = 3268; //< FIXME
 
                     runtime = SystemClock.elapsedRealtime() - chronometer.getBase();
                     saveInfo();
