@@ -82,7 +82,6 @@ public class TogetherFragment extends Fragment {
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                customToast("RES!!");
                 if (result.getResultCode() == RESULT_OK) {
                     Intent data = result.getData();
                     int regionNum = data.getIntExtra("regionCnt", 0);
@@ -140,7 +139,6 @@ public class TogetherFragment extends Fragment {
 
                 intent.putExtra("regionCnt", 1);
 
-
                 mStartForResult.launch(intent);
             }
         });
@@ -161,7 +159,6 @@ public class TogetherFragment extends Fragment {
                 Map<String, List<RegionPost>> data = response.body();
                 List<RegionPost> realData = data.get("Results");
                 ArrayList<RegionPost> reformData = new ArrayList<RegionPost>(realData);
-                customToast(realData.size() + " ");
 
                 recyclerView.setAdapter(new RecycleAdapter(reformData));
 

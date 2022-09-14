@@ -230,8 +230,6 @@ public class JubggingResultActivity extends AppCompatActivity {
                 Bitmap dest = Bitmap.createBitmap(targetBitmap.getWidth(), targetBitmap.getHeight(),
                         Bitmap.Config.ARGB_8888);
 
-
-
                 Canvas cs = new Canvas(dest);
 
                 Paint paint = new Paint();
@@ -239,16 +237,16 @@ public class JubggingResultActivity extends AppCompatActivity {
                 float textSize = targetBitmap.getHeight() / 16;
                 paint.setTextSize(textSize);
                 paint.setTypeface(Typeface.create(ResourcesCompat.getFont(context, R.font.bahnschrift), Typeface.BOLD));
-                paint.setColor(getResources().getColor(R.color.deep_green));
+                paint.setColor(Color.WHITE);
 
                 Paint krPaint = new Paint();
                 krPaint.setTextSize(textSize * 0.6f);
-                krPaint.setColor(getResources().getColor(R.color.deep_green));
+                krPaint.setColor(Color.WHITE);
 
                 Paint title = new Paint();
                 title.setTextSize(textSize);
                 title.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.ITALIC));
-                title.setColor(getResources().getColor(R.color.deep_green));
+                title.setColor(Color.WHITE);
 
                 Bitmap logoBig = BitmapFactory.decodeResource(getResources(), R.drawable.image_log);
                 Bitmap logo = Bitmap.createScaledBitmap(logoBig, 256, 256, true);

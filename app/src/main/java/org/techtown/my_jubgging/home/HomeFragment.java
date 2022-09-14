@@ -284,8 +284,6 @@ public class HomeFragment extends Fragment {
                 Map<String, List<Object>> huskData = response.body();
                 List<Object> realData = huskData.get("Results");
 
-                customToast(realData.size() + " ddd");
-
                 reservedTogetherLayout.removeAllViews();
                 for (int i = 0; i < realData.size(); ++i) {
                     Map<String, Object> data = (Map<String, Object>) realData.get(i);

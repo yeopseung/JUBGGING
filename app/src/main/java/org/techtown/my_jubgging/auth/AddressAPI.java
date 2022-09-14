@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import org.techtown.my_jubgging.R;
+import org.techtown.my_jubgging.retrofit.RetrofitClient;
 
 public class AddressAPI extends AppCompatActivity {
 
@@ -49,7 +50,7 @@ public class AddressAPI extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl("http://10.0.2.2:8080/daum.html");
+        webView.loadUrl("http://13.209.92.89:8080/daum.html");
         //10.0.2.2:8080
 
     }

@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -36,6 +37,7 @@ public class JubggingActivity extends AppCompatActivity {
     private Button start_end_button;
     private long pauseOffset;
 
+    private UserInfo userInfo;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class JubggingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_jubbgging);
 
         context = getApplicationContext();
+        userInfo = (UserInfo)getIntent().getSerializableExtra("userInfo");
+
         fragmentManager = getSupportFragmentManager();
         jubggingFragment = new JubggingFragment();
 
@@ -70,7 +74,10 @@ public class JubggingActivity extends AppCompatActivity {
     }
 
     private void exit() {
-        super.onBackPressed();
+        Intent intent = new Intent(context, MainMenu.class);
+        intent.putExtra("userInfo",userInfo); //< FIXME
+        startActivity(intent);
+        finish();
     }
 
     private void customToast(String text) {

@@ -52,6 +52,8 @@ public class RankRecycleAdapter extends RecyclerView.Adapter<RankViewHolder> {
 
         if (RankingFragment.userId == dataList.get(position).userId)
             viewHolder.bodyLayout.setBackgroundResource(R.drawable.outline_rectangle_bold);
+        else
+            viewHolder.bodyLayout.setBackgroundResource(R.drawable.outline_rectangle);
 
         Glide.with(context).load(dataList.get(position).getProfileURL()).apply(new RequestOptions().circleCrop()).into(viewHolder.profileImg);
     }
