@@ -16,6 +16,7 @@
     <color name="main_color_3">#FFAED914</color>
     <color name="main_color_4">#FFC1D06A</color>
     <color name="main_color_5">#FFF2F2F2</color>
+    <color name="deep_green">#FF365902</color>
 
     <!-- Additional Color -->
     <color name="very_light_gray">#22CCCCCC</color>

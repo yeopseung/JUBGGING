@@ -186,14 +186,6 @@
                         android:background="@color/transparent"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_instagram_icon"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-
-                        android:text="Story Share"
-                        android:textColor="@color/text_color_light"
-                        android:gravity="center_vertical"/>
                 </LinearLayout>
             </RelativeLayout>
 

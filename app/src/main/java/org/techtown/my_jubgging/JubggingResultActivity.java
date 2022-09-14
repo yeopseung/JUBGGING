@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
@@ -228,6 +230,8 @@ public class JubggingResultActivity extends AppCompatActivity {
                 Bitmap dest = Bitmap.createBitmap(targetBitmap.getWidth(), targetBitmap.getHeight(),
                         Bitmap.Config.ARGB_8888);
 
+
+
                 Canvas cs = new Canvas(dest);
 
                 Paint paint = new Paint();
@@ -235,16 +239,33 @@ public class JubggingResultActivity extends AppCompatActivity {
                 float textSize = targetBitmap.getHeight() / 16;
                 paint.setTextSize(textSize);
                 paint.setTypeface(Typeface.create(ResourcesCompat.getFont(context, R.font.bahnschrift), Typeface.BOLD));
-                paint.setColor(Color.BLACK);
+                paint.setColor(getResources().getColor(R.color.deep_green));
 
+                Paint krPaint = new Paint();
+                krPaint.setTextSize(textSize * 0.6f);
+                krPaint.setColor(getResources().getColor(R.color.deep_green));
+
+                Paint title = new Paint();
+                title.setTextSize(textSize);
+                title.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.ITALIC));
+                title.setColor(getResources().getColor(R.color.deep_green));
+
+                Bitmap logoBig = BitmapFactory.decodeResource(getResources(), R.drawable.image_log);
+                Bitmap logo = Bitmap.createScaledBitmap(logoBig, 256, 256, true);
 
                 float hight = paint.measureText("yY");
 
                 cs.drawBitmap(targetBitmap, 0f, 0f, null);
+                cs.drawBitmap(logo, textSize, textSize, null);
 
-                cs.drawText(kmTxt.getText().toString() + " km", textSize, hight + textSize * 6, paint);
-                cs.drawText(timeTxt.getText().toString(), textSize, hight + textSize * 8, paint);
-                cs.drawText( calorieTxt.getText().toString() + " kcal", textSize, hight + textSize * 10, paint);
+                cs.drawText("함께 줍깅", textSize * 2, hight + textSize, title);
+
+                cs.drawText("거리", textSize, hight + textSize * 8, krPaint);
+                cs.drawText(kmTxt.getText().toString() + " km", textSize, hight + textSize * 9, paint);
+                cs.drawText("시간", textSize, hight + textSize * 10, krPaint);
+                cs.drawText(timeTxt.getText().toString(), textSize, hight + textSize * 11, paint);
+                cs.drawText("칼로리", textSize, hight + textSize * 12, krPaint);
+                cs.drawText( calorieTxt.getText().toString() + " kcal", textSize, hight + textSize * 13, paint);
 
                 addPhotoBtn.setImageBitmap(dest);
                 addPhotoBtn.setScaleType(ImageView.ScaleType.FIT_XY);
