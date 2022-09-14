@@ -49,7 +49,6 @@ import retrofit2.Retrofit;
 
 
 public class MainActivity extends AppCompatActivity {
-    private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
     private static final String LOG_TAG = "MainActivity: ";
 
     private ISessionCallback iSessionCallback;
@@ -163,34 +162,6 @@ public class MainActivity extends AppCompatActivity {
 
         //해시키 값을 얻고 싶은 경우 주석을 풀어 사용
         //getAppKeyHash();
-    }
-
-    /*
-    private void googleSingIn() {
-
-        /* Jaewoo added for Google Fit
-        // 필요한 권한들 정의
-        FitnessOptions fitnessOptions =
-                FitnessOptions.builder()
-                        .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE)
-                        .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
-                        .build();
-
-        if(!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
-            GoogleSignIn.requestPermissions(this,
-                    REQUEST_OAUTH_REQUEST_CODE,
-                    GoogleSignIn.getLastSignedInAccount(this),
-                    fitnessOptions);
-        } else {
-            subscribe();
-        }
-    }
-    */
-
-    public void subscribe() {
-        Fitness.getRecordingClient(this,
-                        GoogleSignIn.getLastSignedInAccount(this))
-                .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE);
     }
 
     @Override

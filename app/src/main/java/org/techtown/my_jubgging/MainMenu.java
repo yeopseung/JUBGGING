@@ -13,6 +13,10 @@ import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.FitnessOptions;
+import com.google.android.gms.fitness.data.DataType;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -23,6 +27,7 @@ import org.techtown.my_jubgging.pointshop.PointShopFragment;
 import org.techtown.my_jubgging.trashmap.TrashMapFragment;
 
 public class MainMenu extends AppCompatActivity {
+    private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
 
     // FrameLayout 에 각 메뉴의 Fragment 를 바꿔 줌
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -45,11 +50,11 @@ public class MainMenu extends AppCompatActivity {
 
         //Intent 에서 UserInfo 가져오기
         userInfo = (UserInfo)getIntent().getSerializableExtra("userInfo");
+        googleSingIn();
 
         //첫 화면 지정
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.main_frame_layout, homeFragment).commitAllowingStateLoss();
-
 
         //BottomNavigationView 선언 및 Listener 등록
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navi_view);
@@ -57,6 +62,30 @@ public class MainMenu extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
 
+    private void googleSingIn() {
+        /* Jaewoo added for Google Fit */
+        // 필요한 권한들 정의
+        FitnessOptions fitnessOptions =
+                FitnessOptions.builder()
+                        .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE)
+                        .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
+                        .build();
+
+        if(!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
+            GoogleSignIn.requestPermissions(this,
+                    REQUEST_OAUTH_REQUEST_CODE,
+                    GoogleSignIn.getLastSignedInAccount(this),
+                    fitnessOptions);
+        } else {
+            subscribe();
+        }
+    }
+
+    public void subscribe() {
+        Fitness.getRecordingClient(this,
+                        GoogleSignIn.getLastSignedInAccount(this))
+                .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE);
+    }
 
     //BottomNavigationView Item 선택 시
     //해당 Fragment 로 화면 전환
