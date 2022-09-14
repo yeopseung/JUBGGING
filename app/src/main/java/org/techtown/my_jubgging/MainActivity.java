@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "MainActivity: ";
 
     private ISessionCallback iSessionCallback;
-    private TextView textViewResult;
 
     private DBHelper dbHelper = new DBHelper(this);
 
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textViewResult = findViewById(R.id.result);
 
         Retrofit retrofit = RetrofitClient.getInstance();
         RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
@@ -165,15 +163,6 @@ public class MainActivity extends AppCompatActivity {
 
         //해시키 값을 얻고 싶은 경우 주석을 풀어 사용
         //getAppKeyHash();
-
-        Button bt = findViewById(R.id.button);
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,MainMenu.class);
-                startActivity(intent);
-            }
-        });
     }
 
     /*
