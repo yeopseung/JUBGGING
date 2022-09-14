@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         ImageView splash_image = findViewById(R.id.splash_image);
         Glide.with(this).load(R.drawable.login_background).into(splash_image);
         Handler hd = new Handler();
-        hd.postDelayed(new splashHandler(), 3000); // 1초 후에 hd handler 실행  3000ms = 3초
+        hd.postDelayed(new splashHandler(), 2000); // 1초 후에 hd handler 실행  3000ms = 3초
 
     }
 
