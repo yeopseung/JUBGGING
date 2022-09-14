@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/point_shop_detail_button"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
-    android:layout_margin="10dp"
-    >
+    android:background="@drawable/outline_rectangle_sharp"
+    android:layout_margin="10dp">
 
     <ImageView
         android:id="@+id/point_shop_item"
@@ -47,7 +47,6 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/point_shop_detail_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"

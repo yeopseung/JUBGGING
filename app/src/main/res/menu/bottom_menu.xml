@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/ranking"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_baseline_emoji_events_24"
         android:iconTint="@color/main_color_2"
         android:title="랭킹"
         android:enabled="true"
@@ -10,29 +10,29 @@
 
     <item
         android:id="@+id/together"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_baseline_group_add_24"
         android:iconTint="@color/main_color_2"
         android:title="함께줍깅"
         android:enabled="true"
         />
     <item
         android:id="@+id/home"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_baseline_home_24"
         android:iconTint="@color/main_color_2"
         android:title="나의줍깅"
         android:enabled="true"
         />
     <item
         android:id="@+id/trash_map"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_baseline_delete_24"
         android:iconTint="@color/main_color_2"
-        android:title="쓰레기통"
+        android:title="지도보깅"
         android:enabled="true"
         />
 
     <item
         android:id="@+id/point_shop"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:iconTint="@color/main_color_2"
         android:title="포인트샵"
         android:enabled="true"

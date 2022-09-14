@@ -178,7 +178,6 @@ public class JubggingResultActivity extends AppCompatActivity {
                 grantUriPermission(
                         "com.instagram.android", backgroundAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 if (getPackageManager().resolveActivity(intent, 0) != null) {
-                    customToast("AAA");
                     try {
                         startActivity(intent);
                     }
@@ -186,8 +185,6 @@ public class JubggingResultActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                else
-                    customToast("BBB");
             }
         });
 
@@ -235,7 +232,7 @@ public class JubggingResultActivity extends AppCompatActivity {
 
                 Paint paint = new Paint();
 
-                float textSize = targetBitmap.getHeight() / 10;
+                float textSize = targetBitmap.getHeight() / 16;
                 paint.setTextSize(textSize);
                 paint.setTypeface(Typeface.create(ResourcesCompat.getFont(context, R.font.bahnschrift), Typeface.BOLD));
                 paint.setColor(Color.BLACK);
@@ -244,9 +241,10 @@ public class JubggingResultActivity extends AppCompatActivity {
                 float hight = paint.measureText("yY");
 
                 cs.drawBitmap(targetBitmap, 0f, 0f, null);
-                cs.drawText(kmTxt.getText().toString() + "km", textSize, hight + textSize * 6, paint);
-                cs.drawText(timeTxt.getText().toString(), textSize, hight + textSize * 7, paint);
-                cs.drawText( calorieTxt.getText().toString() + "kcal", textSize, hight + textSize * 8, paint);
+
+                cs.drawText(kmTxt.getText().toString() + " km", textSize, hight + textSize * 6, paint);
+                cs.drawText(timeTxt.getText().toString(), textSize, hight + textSize * 8, paint);
+                cs.drawText( calorieTxt.getText().toString() + " kcal", textSize, hight + textSize * 10, paint);
 
                 addPhotoBtn.setImageBitmap(dest);
                 addPhotoBtn.setScaleType(ImageView.ScaleType.FIT_XY);

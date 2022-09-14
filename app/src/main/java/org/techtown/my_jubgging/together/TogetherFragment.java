@@ -82,11 +82,12 @@ public class TogetherFragment extends Fragment {
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
+                customToast("RES!!");
                 if (result.getResultCode() == RESULT_OK) {
                     Intent data = result.getData();
                     int regionNum = data.getIntExtra("regionCnt", 0);
 
-
+                    customToast(regionNum + " ");
                     if (regionNum > 0) {
                         String get = data.getStringExtra("region1");
                         regionTxt.setText(get);

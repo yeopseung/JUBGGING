@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         private ImageView itemURL;
         private TextView name;
         private TextView price;
-        private ImageButton detail;
+        private LinearLayout detail;
 
         public ItemViewHolder(@NonNull View itemView, UserInfo userInfo) {
             super(itemView);
