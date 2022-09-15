@@ -225,6 +225,10 @@ public class ItemDetail extends AppCompatActivity {
                             //통신 실패
                             if (!response.isSuccessful()) {
                                 Log.e(LOG_TAG, response.toString());
+                                if(response.code()==400)
+                                {
+                                    Toast.makeText(getApplicationContext(),"포인트가 부족합니다.",Toast.LENGTH_SHORT).show();
+                                }
                                 return;
                             }
 

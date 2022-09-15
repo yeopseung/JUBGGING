@@ -76,6 +76,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
     private ImageButton zoom_in;
     private ImageButton zoom_out;
 
+    private Context context;
 
     private DBHelper dbHelper;
     private List<PublicTrash> publicTrashList;
@@ -100,6 +101,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
 
         userInfo = (UserInfo) getActivity().getIntent().getSerializableExtra("userInfo");
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_map, container, false);
+        context = getActivity();
 
         //MapView 등록
         mapView = new MapView(rootView.getContext());
@@ -664,7 +666,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                                     break;
                                 case 1:
                                     Log.i(LOG_TAG,"신고하기");
-                                    Toast.makeText(builder.getContext(), "신고가 완료되었습니다.",Toast.LENGTH_SHORT);
+                                    Toast.makeText(context, "신고가 완료되었습니다.",Toast.LENGTH_SHORT).show();
                                     break;
                                 case 2:
                                     Log.i(LOG_TAG,"취소");
@@ -739,7 +741,7 @@ public class TrashMapFragment extends Fragment implements MapView.CurrentLocatio
                                     break;
                                 case 1:
                                     Log.i(LOG_TAG,"신고하기");
-                                    Toast.makeText(getActivity(),"신고가 완료되었습니다.",Toast.LENGTH_SHORT);
+                                    Toast.makeText(context,"신고가 완료되었습니다.",Toast.LENGTH_SHORT).show();
                                     break;
                                 case 2:
                                     Log.i(LOG_TAG,"취소");
