@@ -1,4 +1,4 @@
-package org.techtown.my_jubgging;
+package org.techtown.my_jubgging.jubgging;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -42,6 +42,9 @@ import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.kakao.usermgmt.response.model.User;
 
+import org.techtown.my_jubgging.MainMenu;
+import org.techtown.my_jubgging.R;
+import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.ranking.RankInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
@@ -77,7 +80,7 @@ public class JubggingResultActivity extends AppCompatActivity {
 
     static final int REQUEST_TAKE_PHOTO = 1;
 
-    /* */
+    /* View Reference */
     TextView kmTxt;
     TextView timeTxt;
     TextView calorieTxt;

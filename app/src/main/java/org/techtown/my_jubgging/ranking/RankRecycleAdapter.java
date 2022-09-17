@@ -18,12 +18,11 @@ import java.util.ArrayList;
 
 public class RankRecycleAdapter extends RecyclerView.Adapter<RankViewHolder> {
     private ArrayList<RankInfo> dataList = null;
+    Context context;
 
     public RankRecycleAdapter(ArrayList<RankInfo> dataList) { this.dataList = dataList; }
 
-    Context context;
-
-    /* */
+    /* For TypeCast */
     Integer rank;
     Integer walkingNum;
 

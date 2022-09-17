@@ -50,7 +50,6 @@ public class MainMenu extends AppCompatActivity {
 
         //Intent 에서 UserInfo 가져오기
         userInfo = (UserInfo)getIntent().getSerializableExtra("userInfo");
-        googleSingIn();
 
         //첫 화면 지정
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -60,31 +59,6 @@ public class MainMenu extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navi_view);
         bottomNavigationView.setOnItemSelectedListener(new MainMenu.ItemSelectedListener());
         bottomNavigationView.setSelectedItemId(R.id.home);
-    }
-
-    private void googleSingIn() {
-        /* Jaewoo added for Google Fit */
-        // 필요한 권한들 정의
-        FitnessOptions fitnessOptions =
-                FitnessOptions.builder()
-                        .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE)
-                        .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
-                        .build();
-
-        if(!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
-            GoogleSignIn.requestPermissions(this,
-                    REQUEST_OAUTH_REQUEST_CODE,
-                    GoogleSignIn.getLastSignedInAccount(this),
-                    fitnessOptions);
-        } else {
-            subscribe();
-        }
-    }
-
-    public void subscribe() {
-        Fitness.getRecordingClient(this,
-                        GoogleSignIn.getLastSignedInAccount(this))
-                .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE);
     }
 
     //BottomNavigationView Item 선택 시

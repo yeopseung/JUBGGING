@@ -1,21 +1,17 @@
-package org.techtown.my_jubgging;
+package org.techtown.my_jubgging.jubgging;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.os.storage.OnObbStateChangeListener;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,57 +25,44 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.fitness.Fitness;
-import com.google.android.gms.fitness.data.DataPoint;
-import com.google.android.gms.fitness.data.DataSet;
-import com.google.android.gms.fitness.data.DataType;
-import com.google.android.gms.fitness.data.Field;
-import com.google.android.gms.fitness.request.DataReadRequest;
-import com.google.android.gms.fitness.result.DataReadResponse;
-import com.google.android.gms.tasks.OnSuccessListener;
-
+import org.techtown.my_jubgging.PloggingInfo;
+import org.techtown.my_jubgging.R;
+import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 import org.techtown.my_jubgging.trashmap.TrashMapFragment;
-import org.w3c.dom.Text;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
 
 public class JubggingFragment extends TrashMapFragment implements SensorEventListener {
-    ViewGroup rootView;
     private RetrofitAPI retrofitApi;
-    UserInfo userInfo;
-
     private Context context;
+    UserInfo userInfo;
     SensorManager sensorManager;
     Sensor stepCountSensor;
 
+    /* Instance Value */
     private int textColor;
     private boolean isRunning = false;
+
+    long runtime = 0;
+    public static int step;
+
+    /* View Reference */
+    ViewGroup rootView;
 
     private Chronometer chronometer;
     private Button start_end_Btn;
     private TextView countDownTxt;
-
-    long runtime = 0;
-
-    public static int step;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,11 +70,8 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
         rootView = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
         context = rootView.getContext();
 
-        Retrofit retrofit = RetrofitClient.getInstance();
-        retrofitApi = retrofit.create(RetrofitAPI.class);
-
-        Intent data = getActivity().getIntent();
-        userInfo = (UserInfo)data.getSerializableExtra("userInfo");
+        retrofitApi = RetrofitClient.getApiService();
+        userInfo = (UserInfo)getActivity().getIntent().getSerializableExtra("userInfo");
 
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
@@ -106,13 +86,13 @@ public class JubggingFragment extends TrashMapFragment implements SensorEventLis
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
 
-        setView();
+        setViewById();
         setOnClick();
 
         return rootView;
     }
 
-    private void setView() {
+    private void setViewById() {
         /* 스톱워치 */
         FrameLayout.LayoutParams paramsW128 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
             128);

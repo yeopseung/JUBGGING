@@ -19,7 +19,7 @@ public class RetrofitClient {
     //private static final String BASE_URL = "http://10.0.2.2:8080";
     //private static final String BASE_URL = "http://192.168.0.35:8080";
     //private static final String BASE_URL = "http://172.30.1.13:8080";
-    public static final String BASE_URL = "http://13.209.92.89:8080";
+    public static final String BASE_URL = "http://43.206.0.85:8080";
 
     private static Retrofit retrofit = null;
 

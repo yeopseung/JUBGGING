@@ -71,6 +71,7 @@ public class RegionPickerActivity extends Activity {
         printGu();
         setGuID();
     }
+
     private void setInitRegion(Intent data) {
         String get;
         String key[] = new String[3];
@@ -340,10 +341,5 @@ public class RegionPickerActivity extends Activity {
 
         region[--regionCnt].setBackgroundResource(R.drawable.rounded_rectangle_gray);
         region[regionCnt].setText("+");
-    }
-
-    private boolean customErrorToast(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
-        return false;
     }
 }

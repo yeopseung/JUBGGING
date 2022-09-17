@@ -12,6 +12,7 @@ import org.techtown.my_jubgging.R;
 public class RankViewHolder extends RecyclerView.ViewHolder {
     LinearLayout bodyLayout;
 
+    /* View Reference */
     TextView rankNum;
 
     ImageView profileImg;

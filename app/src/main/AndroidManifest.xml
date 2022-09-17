@@ -84,13 +84,13 @@
             android:name=".RegionPickerActivity"
             android:exported="true" />
         <activity
-            android:name=".ReadPostDetail"
+            android:name=".together.ReadPostDetail"
             android:exported="true" />
         <activity
-            android:name=".JubggingActivity"
+            android:name=".jubgging.JubggingActivity"
             android:exported="true" />
         <activity
-            android:name=".JubggingResultActivity"
+            android:name=".jubgging.JubggingResultActivity"
             android:exported="true" />
 
         <provider

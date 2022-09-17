@@ -42,6 +42,7 @@ public class RankingFragment extends Fragment {
 
     public static long userId;
 
+    /* View Reference */
     private RecyclerView recyclerView;
     ImageButton profileImgBtn;
 
@@ -54,14 +55,28 @@ public class RankingFragment extends Fragment {
         userInfo = (UserInfo) getActivity().getIntent().getSerializableExtra("userInfo");
         userId = Long.parseLong(userInfo.userId);
 
-        Retrofit retrofit = RetrofitClient.getInstance();
-        retrofitAPI = retrofit.create(RetrofitAPI.class);
+        retrofitAPI = RetrofitClient.getApiService();
 
-        recyclerView = rootView.findViewById(R.id.ranking_adapter_recycler);
+        setViewById(rootView);
+        setOnClick(rootView);
+
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
 
+        // 프로필 이미지 세팅
+        Glide.with(context).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
+
+        getAndSetRank();
+
+        return rootView;
+    }
+
+    private void setViewById(ViewGroup rootView) {
+        recyclerView = rootView.findViewById(R.id.ranking_adapter_recycler);
         profileImgBtn = rootView.findViewById(R.id.ranking_adapter_my_profile_button);
+    }
+
+    private void setOnClick(ViewGroup rootView) {
         profileImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,10 +85,6 @@ public class RankingFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        getAndSetRank();
-
-        return rootView;
     }
 
     private void getAndSetRank() {
@@ -86,8 +97,6 @@ public class RankingFragment extends Fragment {
                     customToast("Code : " + response.code() + response.message() + response.errorBody());
                     return;
                 }
-
-                Glide.with(context).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
 
                 recyclerView.removeAllViews();
 

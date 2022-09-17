@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
 
-                    android:text="412"
+                    android:text=""
                     android:textStyle="bold"
                     android:textColor="@color/text_color"
                     android:textSize="52dp"
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
 
-                    android:text="01H 19M"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textSize="52dp"
                     android:fontFamily="@font/bahnschrift"
@@ -141,7 +141,7 @@
                     android:layout_weight="5"
 
 
-                    android:text="4.5"
+                    android:text=""
                     android:textColor="@color/text_color"
                     android:textStyle="bold"
                     android:textSize="52dp"
@@ -177,7 +177,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
 
-                        android:text="2022년"
+                        android:text=""
                         android:textStyle="bold"
                         android:textColor="@color/text_color"
                         android:textSize="16dp"
@@ -191,7 +191,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="36dp"
 
-                        android:text="7월 22일"
+                        android:text=""
                         android:textStyle="bold"
                         android:textColor="@color/text_color"
                         android:textSize="28dp"
@@ -220,7 +220,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:text="6293"
+                        android:text=""
                         android:textStyle="bold"
                         android:textSize="48dp"
                         android:textColor="@color/main_color_2"
@@ -436,114 +436,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/outline_rectangle"
-                    android:padding="40px"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:text="7/26"
-                        android:textColor="@color/text_color"
-                        android:textStyle="bold"
-                        android:textSize="64px"
-
-                        android:gravity="center"/>
-
-                    <View
-                        android:layout_width="4px"
-                        android:layout_height="match_parent"
-                        android:background="@color/text_color_light"
-                        android:layout_marginHorizontal="15dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:text="동작구 상도로"
-                        android:textColor="@color/text_color"
-                        android:textStyle="bold"
-                        android:textSize="48px"
-
-                        android:gravity="center_vertical"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="24px"
-                        android:layout_marginLeft="5dp"
-
-                        android:text="오늘"
-                        android:textSize="36px"
-
-                        android:background="@drawable/rounded_rectangle"
-                        android:layout_gravity="center_vertical"/>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"/>
-
-                    <ImageView
-                        android:layout_width="81px"
-                        android:layout_height="81px"
-                        android:src="@drawable/ic_baseline_chevron_right_24"
-                        android:layout_gravity="center_vertical"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/outline_rectangle"
-                    android:padding="15dp"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:text="7/28"
-                        android:textColor="@color/text_color"
-                        android:textStyle="bold"
-                        android:textSize="24dp"
-
-                        android:gravity="center"/>
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/text_color_light"
-                        android:layout_marginHorizontal="15dp"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-
-                        android:text="강남구 오도로"
-                        android:textColor="@color/text_color"
-                        android:textStyle="bold"
-                        android:textSize="18dp"
-
-                        android:gravity="center_vertical"/>
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/ic_baseline_chevron_right_24"/>
-                </LinearLayout>
             </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="72dp"/>
         </LinearLayout>
-
     </ScrollView>
 
     <TextView

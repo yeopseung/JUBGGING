@@ -1,41 +1,30 @@
-package org.techtown.my_jubgging;
+package org.techtown.my_jubgging.jubgging;
 
-import android.app.Activity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-public class JubggingActivity extends AppCompatActivity {
+import org.techtown.my_jubgging.MainMenu;
+import org.techtown.my_jubgging.R;
+import org.techtown.my_jubgging.UserInfo;
 
-    // FrameLayout 에 각 메뉴의 Fragment 를 바꿔 줌
+public class JubggingActivity extends AppCompatActivity {
+    // 엑티비티 내에 하나의 프래그먼트가 존재하는 형태
+    // 내부의 작동은 JubggingFragment.java에 기술
+
     private FragmentManager fragmentManager;
     private JubggingFragment jubggingFragment;
-
-    private FrameLayout frameLayout;
-
-    private Chronometer chronometer;
-    private boolean isRunning;
-    private Button start_end_button;
-    private long pauseOffset;
 
     private UserInfo userInfo;
     Context context;
@@ -79,9 +68,4 @@ public class JubggingActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-    private void customToast(String text) {
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-    }
-
 }

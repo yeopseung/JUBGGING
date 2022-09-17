@@ -58,6 +58,7 @@ public class PointShopFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        Glide.with(getContext()).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
 
         Call<HashMap<String, ArrayList<Item>>> call = retrofitAPI.getItemList();
         call.enqueue(new Callback<HashMap<String, ArrayList<Item>>>() {
@@ -70,8 +71,6 @@ public class PointShopFragment extends Fragment {
                     Log.e(LOG_TAG, String.valueOf(response.code()));
                     return;
                 }
-
-                Glide.with(getContext()).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
 
                 //RecyclerView 객체 지정
                 RecyclerView recyclerView = rootView.findViewById(R.id.point_shop_item_recycler);

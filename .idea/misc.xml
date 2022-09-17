@@ -22,6 +22,7 @@
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/drawable/rounded_rectangle.xml" value="0.1175" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_address_api.xml" value="0.1702127659574468" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_cutstom_trash_add.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_jubgging_result.xml" value="0.1" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_main.xml" value="0.11828774062816616" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_main_menu.xml" value="0.262987012987013" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_my_profile.xml" value="0.1644021739130435" />
@@ -31,6 +32,7 @@
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_together_board.xml" value="0.26132246376811596" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_together_newpage.xml" value="0.2857142857142857" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/activity_together_post.xml" value="0.2857142857142857" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/adapter_ranking_recycler.xml" value="0.1" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/adapter_together_recycler.xml" value="0.2857142857142857" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/dialog_choice_regions.xml" value="0.14285714285714285" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/fragment_home.xml" value="0.2857142857142857" />
@@ -40,6 +42,7 @@
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/fragment_together.xml" value="0.36639589568191533" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/spinner_item.xml" value="0.10472659870250231" />
         <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/layout/spinner_item_list.xml" value="0.10472659870250231" />
+        <entry key="..\:/Users/MK.2/Documents/GitKraken/My_Jubgging/app/src/main/res/xml/file_paths.xml" value="0.16286727456940223" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3085" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3085" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/drawable/shape_for_circle_button.xml" value="0.2655" />
@@ -74,47 +77,23 @@
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/menu/bottom_menu.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/My_Jubgging/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3085" />
         <entry key="..\:/git/My_Jubgging/app/src/main/res/layout/activity_together_post.xml" value="0.11302083333333333" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.1425" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.185" />
-        <entry key="app/src/main/res/drawable/ic_baseline_attach_money_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.1425" />
         <entry key="app/src/main/res/drawable/ic_baseline_chevron_left_24.xml" value="0.185" />
-        <entry key="app/src/main/res/drawable/ic_baseline_chevron_right_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_circle_gray_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_circle_green_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_directions_run_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_my_location_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_outlined_flag_24.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/ic_baseline_people_24.xml" value="0.1425" />
         <entry key="app/src/main/res/drawable/ic_baseline_people_outline_24.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/ic_baseline_remove_circle_outline_24.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.185" />
-        <entry key="app/src/main/res/drawable/outline_circle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/outline_rectangle.xml" value="0.229" />
-        <entry key="app/src/main/res/drawable/outline_rectangle_bold.xml" value="0.1425" />
         <entry key="app/src/main/res/drawable/rounded_rectangle.xml" value="0.229" />
-        <entry key="app/src/main/res/drawable/rounded_rectangle_bold.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/rounded_rectangle_gray.xml" value="0.1425" />
-        <entry key="app/src/main/res/drawable/shape_for_circle_button.xml" value="0.1425" />
         <entry key="app/src/main/res/layout/activity_address_api.xml" value="0.24728260869565216" />
         <entry key="app/src/main/res/layout/activity_cutstom_trash_add.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_jubgging_result.xml" value="0.21467391304347827" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22019500732421876" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main_menu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_my_profile.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/activity_ranking.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.20677083333333332" />
-        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.21467391304347827" />
         <entry key="app/src/main/res/layout/activity_togerther_newpage.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_together_board.xml" value="0.1" />
         <entry key="app/src/main/res/layout/adapter_custom_callout_balloon.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/adapter_pointshop_recycler.xml" value="0.21467391304347827" />
         <entry key="app/src/main/res/layout/adapter_together_recycler.xml" value="0.24728260869565216" />
         <entry key="app/src/main/res/layout/custom_callout_ballon.xml" value="0.40260416666666665" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.24728260869565216" />
@@ -125,7 +104,6 @@
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.2552083333333333" />
         <entry key="app/src/main/res/menu/style.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/menu/text_view.xml" value="0.25416666666666665" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1425" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>
     </option>

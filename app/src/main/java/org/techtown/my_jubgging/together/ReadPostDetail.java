@@ -1,4 +1,4 @@
-package org.techtown.my_jubgging;
+package org.techtown.my_jubgging.together;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,6 +24,9 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.techtown.my_jubgging.MainMenu;
+import org.techtown.my_jubgging.R;
+import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
 import org.techtown.my_jubgging.together.NewpageActivity;
@@ -46,7 +49,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ReadPostDetail extends Activity {
-    /* */
+    private RetrofitAPI retrofitApi;
+
+    /* View Reference */
     Context context;
     UserInfo userInfo;
 
@@ -97,8 +102,6 @@ public class ReadPostDetail extends Activity {
     Calendar todayDate;
     Calendar targetDate;
     Calendar modifiedDate;
-
-    private RetrofitAPI retrofitApi;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,8 +120,7 @@ public class ReadPostDetail extends Activity {
         setViewById();
         buttonsOnClickSet();
 
-        Retrofit retrofit = RetrofitClient.getInstance();
-        retrofitApi = retrofit.create(RetrofitAPI.class);
+        retrofitApi = RetrofitClient.getApiService();
 
         getPost();
     }
@@ -177,9 +179,21 @@ public class ReadPostDetail extends Activity {
             @Override
             public void onClick(View v) {
                 if (!isParticipated) {
+                    participateBtn.setEnabled(false);
                     isParticipated = true;
                     customToast("함께 줍깅에 참여했어요!");
                     addParticipant();
+                }
+                else {
+                    if (userId == postOwnerId) {
+                        customToast("게시물 작성자는 참여 취소할 수 없어요!");
+                    }
+                    else {
+                        participateBtn.setEnabled(false);
+                        isParticipated = false;
+                        customToast("참여에 취소했어요!");
+                        deleteParticipant();
+                    }
                 }
             }
         });
@@ -194,6 +208,14 @@ public class ReadPostDetail extends Activity {
                 customToast("링크가 복사되었어요!");
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(context, MainMenu.class);
+        intent.putExtra("userInfo",userInfo);
+        setResult(Activity.RESULT_OK, intent);
+        super.onBackPressed();
     }
 
     private void onSettingBtn() {
@@ -308,7 +330,7 @@ public class ReadPostDetail extends Activity {
     }
 
     private boolean isPossibleGender(String targetGender) {
-        targetGENDER = new String(targetGender);
+        targetGENDER = new String(targetGender).toUpperCase();
         if (targetGender.equals("ALL"))
             return true;
 
@@ -332,15 +354,16 @@ public class ReadPostDetail extends Activity {
                 Map<String, String> data = response.body();
                 String realData = (String)data.get("attending");
 
-
                 if(realData.equals("Y")) {
                     openChatLayout.setVisibility(View.VISIBLE);
+                    isParticipated = true;
 
-                    setParticipateBtnActivate(false);
-                    participateBtn.setText("참여완료");
+                    setParticipateBtnActivate(true);
+                    participateBtn.setText("참여취소");
                 }
                 else {
                     openChatLayout.setVisibility(View.INVISIBLE);
+                    isParticipated = false;
 
                     if (isRecruiting) {
                         setParticipateBtnActivate(true);
@@ -367,19 +390,43 @@ public class ReadPostDetail extends Activity {
             @Override
             public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
                 if (!response.isSuccessful()) {
+                    participateBtn.setEnabled(true);
                     customToast("Code : " + response.code() + response.message() + response.errorBody());
                     return;
                 }
 
                 getPost();
+                participateBtn.setEnabled(true);
             }
 
             @Override
             public void onFailure(Call<Map<String, Long>> call, Throwable t) {
-
+                participateBtn.setEnabled(true);
             }
         });
+    }
 
+    private void deleteParticipant() {
+        Call<Map<String, Long>> call = retrofitApi.deleteParticipant(boardId, userId);
+
+        call.enqueue(new Callback<Map<String, Long>>() {
+            @Override
+            public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
+                if (!response.isSuccessful()) {
+                    participateBtn.setEnabled(true);
+                    customToast("Code : " + response.code() + response.message() + response.errorBody());
+                    return;
+                }
+
+                getPost();
+                participateBtn.setEnabled(true);
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Long>> call, Throwable t) {
+                participateBtn.setEnabled(true);
+            }
+        });
     }
 
     private void setParticipateBtnActivate(boolean activate) {
@@ -432,11 +479,14 @@ public class ReadPostDetail extends Activity {
     }
 
     private String setRecruiting() {
+        // 모집 인원이 충족되거나 줍깅 날짜가 지난 경우 모집 완료
         if ((attendingNum >= peopleNum) || (nowMS >= dateMS)) {
             isRecruiting = false;
             recruitingBoxColor = context.getResources().getColor(R.color.light_gray);
             return "모집 완료";
-        } else {
+        }
+
+        else {
             isRecruiting = true;
             recruitingBoxColor = context.getResources().getColor(R.color.main_color_4);
             return "모집중";

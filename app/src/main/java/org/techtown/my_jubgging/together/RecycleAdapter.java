@@ -1,17 +1,14 @@
 package org.techtown.my_jubgging.together;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.my_jubgging.R;
-import org.techtown.my_jubgging.ReadPostDetail;
 import org.techtown.my_jubgging.UserInfo;
 
 import java.text.SimpleDateFormat;

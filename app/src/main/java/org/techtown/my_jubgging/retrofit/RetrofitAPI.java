@@ -187,4 +187,10 @@ public interface RetrofitAPI {
     Call<Map<String, Long>> amendPost(
             @Query("boardId") long boardId,
             @Body Post post);
+
+    // 참여 취소
+    @DELETE("board/attend")
+    Call<Map<String, Long>> deleteParticipant(
+            @Query("boardId") long boardId,
+            @Query("userId") long userId);
 }

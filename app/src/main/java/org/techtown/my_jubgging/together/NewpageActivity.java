@@ -43,7 +43,7 @@ import retrofit2.Retrofit;
 public class NewpageActivity extends AppCompatActivity {
     UserInfo userInfo;
 
-    /* Layout Reference */
+    /* View Reference */
     ImageButton backBtn;
 
     TextView regionBtn[];
@@ -86,7 +86,6 @@ public class NewpageActivity extends AppCompatActivity {
 
     Post post;
 
-    /* */
     private RetrofitAPI retrofitApi;
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
@@ -137,6 +136,8 @@ public class NewpageActivity extends AppCompatActivity {
         context = getApplicationContext();
         userInfo = (UserInfo)getIntent().getSerializableExtra("userInfo");
 
+        retrofitApi = RetrofitClient.getApiService();
+
         post = new Post();
         regionBtn = new TextView[3];
 
@@ -147,12 +148,8 @@ public class NewpageActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.target_array, R.layout.spinner_item_list);
-
         adapter.setDropDownViewResource(R.layout.spinner_item);
         genderSpinner.setAdapter(adapter);
-
-        Retrofit retrofit = RetrofitClient.getInstance();
-        retrofitApi = retrofit.create(RetrofitAPI.class);
 
         getContent();
     }
@@ -324,8 +321,6 @@ public class NewpageActivity extends AppCompatActivity {
                 isTimeSet = true;
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
-
-        int textColor = ContextCompat.getColor(getApplicationContext(), R.color.text_color);
 
         timePickerDialog.show();
     }

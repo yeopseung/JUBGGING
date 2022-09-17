@@ -54,6 +54,8 @@ public class TogetherFragment extends Fragment {
     TextView regionTxt;
     ImageButton addNewPageBtn;
 
+    ActivityResultLauncher<Intent> mStartForResult;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,31 +72,39 @@ public class TogetherFragment extends Fragment {
 
         Retrofit retrofit = RetrofitClient.getInstance();
         retrofitApi = retrofit.create(RetrofitAPI.class);
+        setActivityResult();
 
-        //regionTxt.setText(userInfo.getDong());
-        //getPost(userInfo.getDong());
-        getPost("상도동");
-        regionTxt.setText("상도동");
+        // 유저의 설정된 동을 기반으로 게시물을 검색
+        if (userInfo.getDong() != null) {
+            regionTxt.setText(userInfo.getDong());
+            getPost(userInfo.getDong());
+        }
+        // 동이 올바르지 못한 경우 디폴트로 상도동 로드
+        else {
+            getPost("상도동");
+            regionTxt.setText("상도동");
+        }
 
         return rootView;
     }
 
-    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    Intent data = result.getData();
-                    int regionNum = data.getIntExtra("regionCnt", 0);
+    private void setActivityResult() {
+        mStartForResult = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        int regionNum = data.getIntExtra("regionCnt", 0);
 
-                    customToast(regionNum + " ");
-                    if (regionNum > 0) {
-                        String get = data.getStringExtra("region1");
-                        regionTxt.setText(get);
-                        getPost(get);
+                        if (regionNum > 0) {
+                            String get = data.getStringExtra("region1");
+                            regionTxt.setText(get);
+                            getPost(get);
+                        }
                     }
                 }
-            }
-    );
+        );
+    }
 
     private void setViewById(ViewGroup rootView) {
         profileImgBtn = rootView.findViewById(R.id.together_board_my_profile_button);

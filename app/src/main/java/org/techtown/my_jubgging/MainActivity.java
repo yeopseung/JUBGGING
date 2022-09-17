@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
 import com.google.android.gms.fitness.data.DataType;
@@ -49,7 +52,11 @@ import retrofit2.Retrofit;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final int RC_SIGN_IN = 10;
+    private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
     private static final String LOG_TAG = "MainActivity: ";
+    GoogleSignInClient mGoogleSingInClient;
+    GoogleSignInAccount account;
 
     private ISessionCallback iSessionCallback;
 
@@ -60,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        googleSingIn();
 
         Retrofit retrofit = RetrofitClient.getInstance();
         RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
@@ -164,14 +172,50 @@ public class MainActivity extends AppCompatActivity {
         //getAppKeyHash();
     }
 
+    /* Jaewoo added for Google Fit */
+    private void googleSingIn() {
+        // 필요한 권한들 정의
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .build();
+        mGoogleSingInClient = GoogleSignIn.getClient(this, gso);
+
+        account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account == null) {
+            Intent signInIntent = mGoogleSingInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+            fitnessConnect();
+        }
+    }
+
+    private void fitnessConnect() {
+        FitnessOptions fitnessOptions =
+                FitnessOptions.builder()
+                        .addDataType(DataType.TYPE_STEP_COUNT_CUMULATIVE)
+                        .addDataType(DataType.TYPE_STEP_COUNT_DELTA)
+                        .build();
+
+        if (!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
+            GoogleSignIn.requestPermissions(this,
+                    REQUEST_OAUTH_REQUEST_CODE,
+                    GoogleSignIn.getLastSignedInAccount(this),
+                    fitnessOptions);
+        } else {
+            subscribe();
+        }
+    }
+
+    public void subscribe() {
+        Fitness.getRecordingClient(this,
+                        GoogleSignIn.getLastSignedInAccount(this))
+                .subscribe(DataType.TYPE_STEP_COUNT_CUMULATIVE);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        /*
         if(resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_OAUTH_REQUEST_CODE)
                 subscribe();
         }
-         */
 
         if(Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data))
             super.onActivityResult(requestCode, resultCode, data);

@@ -24,12 +24,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.techtown.my_jubgging.JubggingActivity;
-import org.techtown.my_jubgging.MainMenu;
+import org.techtown.my_jubgging.jubgging.JubggingActivity;
 import org.techtown.my_jubgging.MyProfile;
-import org.techtown.my_jubgging.PloggingInfo;
 import org.techtown.my_jubgging.R;
-import org.techtown.my_jubgging.ReadPostDetail;
+import org.techtown.my_jubgging.together.ReadPostDetail;
 import org.techtown.my_jubgging.UserInfo;
 import org.techtown.my_jubgging.retrofit.RetrofitAPI;
 import org.techtown.my_jubgging.retrofit.RetrofitClient;
@@ -50,17 +48,11 @@ public class HomeFragment extends Fragment {
     private static final int REQUEST_OAUTH_REQUEST_CODE = 0x1001;
     private RetrofitAPI retrofitApi;
     UserInfo userInfo;
-
     Context context;
+
+    /* View Reference */
     ViewGroup rootView;
 
-    static private int goalWalkingNum = 10000;
-    long userId = 0L; //< FIXME
-    String targetDate;
-
-    int textColor;
-
-    /* */
     ImageButton profileImgBtn;
 
     TextView calorieTxt;
@@ -80,40 +72,44 @@ public class HomeFragment extends Fragment {
     LinearLayout reservedTogetherLayout;
     TextView startPloggingTxt;
 
-    /* */
+    /* Instance Value */
+    static private int goalWalkingNum = 10000;
+    long userId = 0L; //< FIXME
+    String targetDate;
+
+    int textColor;
+
     int year;
     int month;
     int date;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
-
         context = getActivity();
-
-        Retrofit retrofit = RetrofitClient.getInstance();
-        retrofitApi = retrofit.create(RetrofitAPI.class);
-
-        Intent data = getActivity().getIntent();
+        retrofitApi = RetrofitClient.getApiService();
 
         if (userInfo == null)
-            userInfo = (UserInfo)data.getSerializableExtra("userInfo");
+            userInfo = (UserInfo)getActivity().getIntent().getSerializableExtra("userInfo");
 
         userId = Long.parseLong(userInfo.userId);
-
         textColor = ContextCompat.getColor(context, R.color.text_color);
 
+        // View Reference Set and OnClick Set
         setViewById();
         setOnClick();
 
+        // profile Image Set
+        if (userInfo != null)
+            Glide.with(this).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
+
+        /* get and set Data */
         Calendar today = Calendar.getInstance();
         getPloggingInfo(today.get(Calendar.YEAR), today.get(Calendar.MONTH) + 1, today.get(Calendar.DATE));
         getReservedPloggingList();
 
         return rootView;
-        //
     }
 
     private void setViewById() {
@@ -156,15 +152,15 @@ public class HomeFragment extends Fragment {
         circleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 조회할 날짜 선택
                 showDate();
-                //savePloggingInfo();
-                //customToast("save clicked");
             }
         });
 
         startPloggingTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 줍깅 시작
                 Intent intent = new Intent(context, JubggingActivity.class);
                 intent.putExtra("userInfo",userInfo);
                 startActivity(intent);
@@ -174,6 +170,7 @@ public class HomeFragment extends Fragment {
         profileImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 프로필 조회
                 Intent intent = new Intent(context, MyProfile.class);
                 intent.putExtra("userInfo",userInfo);
                 startActivity(intent);
@@ -181,6 +178,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    // 가운데 있는 성취도 바 그리기, defalut : 1만보 목표
     private void drawPercentBar(int walkingNum) {
         int idx = (int)((double)walkingNum / (double)goalWalkingNum * (double)6);
 
@@ -190,15 +188,18 @@ public class HomeFragment extends Fragment {
         if (idx >= 6)
             idx = 6;
 
+        // 성취한 부분
         for (int i = 0; i < idx; ++i) {
             percentCircle[i].setImageResource(R.drawable.ic_baseline_circle_green_24);
             percentBar[i].setBackgroundColor(green);
         }
+        // 미성취 부분
         for (int i = idx; i < 6; ++i) {
             percentCircle[i].setImageResource(R.drawable.ic_baseline_circle_gray_24);
             percentBar[i].setBackgroundColor(gray);
         }
 
+        // 뛰는 이모지 위치 set
         LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
         params1.weight = (float)idx;
@@ -233,7 +234,7 @@ public class HomeFragment extends Fragment {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
 
-        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis()); // 오늘이전의 날짜만 선택 가능
         datePickerDialog.show();
 
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(textColor);
@@ -307,6 +308,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    // 참여 예정의 줍깅 항목의 레이아웃을 만들어 반환하는 함수
     LinearLayout makeNewLine(long boardId, String dateStr, String place, boolean isToday) {
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -414,39 +416,6 @@ public class HomeFragment extends Fragment {
         return linearLayout;
     }
 
-
-    private void savePloggingInfo() {
-        //< FIXME
-        int walkingNum = 123;
-        String walkingTime = "01:23:45";
-
-        PloggingInfo info = new PloggingInfo();
-        info.userId = userId;
-        info.walkingNum = walkingNum;
-        info.walkingTime = walkingTime;
-
-        Call<Map<String, Long>> call = retrofitApi.savePloggingInfo(info);
-
-        call.enqueue(new Callback<Map<String, Long>>() {
-            @Override
-            public void onResponse(Call<Map<String, Long>> call, Response<Map<String, Long>> response) {
-                if (!response.isSuccessful()) {
-                    customToast("Code : " + response.code() + response.message() + response.errorBody());
-                    return;
-                }
-
-                Map<String, Long> data = response.body();
-                customToast(data.get("userId").toString());
-            }
-
-            @Override
-            public void onFailure(Call<Map<String, Long>> call, Throwable t) {
-
-            }
-        });
-
-    }
-
     private void setValue(Map<String, Object> data) {
         Integer calorie = ((Double)data.get("calorie")).intValue();
         Integer walkingNum = ((Double)data.get("walkingNum")).intValue();
@@ -465,9 +434,6 @@ public class HomeFragment extends Fragment {
         kmTxt.setText(String.format("%.1f" , data.get("kilometer")));
 
         drawPercentBar(walkingNum);
-
-        if (userInfo != null)
-            Glide.with(this).load(userInfo.profileURL).apply(new RequestOptions().circleCrop()).into(profileImgBtn);
     }
 
     private void customToast(String text) {

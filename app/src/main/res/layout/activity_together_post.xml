@@ -81,8 +81,7 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:paddingVertical="5dp"
-                    android:paddingRight="10dp"
-                    android:src="@color/black" />
+                    android:paddingRight="10dp"/>
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -94,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="32dp"
 
-                        android:text="사용자 이름"
+                        android:text=""
                         android:textStyle="bold"
                         android:textColor="@color/text_color"
                         android:textSize="16dp"
@@ -107,7 +106,7 @@
                         android:layout_height="32dp"
                         android:paddingBottom="10dp"
 
-                        android:text="상도동"
+                        android:text=""
                         android:textColor="@color/text_color_light"
                         android:textSize="14dp"
 
@@ -120,7 +119,7 @@
                     android:layout_height="match_parent"
                     android:padding="10dp"
 
-                    android:text="작성 날짜 및 시간"
+                    android:text=""
                     android:textColor="@color/text_color_light"
                     android:textSize="14dp"
 
@@ -144,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:text="제목에 해당하는 부분입니다."
+                    android:text=""
                     android:textStyle="bold"
                     android:textColor="@color/text_color"
                     android:textSize="18dp"/>
@@ -171,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:padding="5dp"
 
-                        android:text="여자만"
+                        android:text=""
                         android:textStyle="bold"
                         android:textColor="@color/text_color_light"
                         android:textSize="14dp"
@@ -197,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:padding="5dp"
 
-                        android:text="장소를 나타내는 텍스트"
+                        android:text=""
                         android:textStyle="bold"
                         android:textColor="@color/text_color_light"
                         android:textSize="14dp"
@@ -223,7 +222,7 @@
                         android:layout_height="wrap_content"
                         android:padding="5dp"
 
-                        android:text="시간을 나타내는 텍스트"
+                        android:text=""
                         android:textStyle="bold"
                         android:textColor="@color/text_color_light"
                         android:textSize="14dp"
@@ -244,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="186dp"
 
-                android:text="content에 해당하는 부분입니다."
+                android:text=""
                 android:textStyle="bold"
                 android:textColor="@color/text_color"
                 android:textSize="16dp"/>
@@ -260,7 +259,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="참여 1/2"
+                android:text="참여"
                 android:textStyle="bold"
                 android:textColor="@color/text_color"
                 android:textSize="16dp"/>
@@ -280,7 +279,6 @@
                         android:layout_height="138px"
                         android:layout_marginRight="40px"
 
-                        android:background="@color/black"
                         android:layout_gravity="center_vertical"/>
 
                     <ImageView
@@ -288,7 +286,6 @@
                         android:layout_height="52dp"
                         android:layout_marginRight="15dp"
 
-                        android:background="@color/black"
                         android:layout_gravity="center_vertical"/>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -303,7 +300,8 @@
                 android:id="@+id/together_post_open_chat_layout"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="64dp">
+                android:layout_height="64dp"
+                android:visibility="invisible">
 
                 <TextView
                     android:layout_width="wrap_content"
