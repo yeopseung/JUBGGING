@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //해시키 값을 얻고 싶은 경우 주석을 풀어 사용
-        //getAppKeyHash();
+        getAppKeyHash();
     }
 
     /* Jaewoo added for Google Fit */
