@@ -50,7 +50,7 @@ public class AddressAPI extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl("http://13.209.92.89:8080/daum.html");
+        webView.loadUrl(RetrofitClient.BASE_URL+"/daum.html");
         //10.0.2.2:8080
 
     }
